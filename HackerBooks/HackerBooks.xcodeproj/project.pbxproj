@@ -14,6 +14,7 @@
 		C045F9721D29760A006D005B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C045F9701D29760A006D005B /* LaunchScreen.storyboard */; };
 		C045F97D1D29760B006D005B /* HackerBooksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F97C1D29760B006D005B /* HackerBooksTests.swift */; };
 		C045F9881D29760B006D005B /* HackerBooksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9871D29760B006D005B /* HackerBooksUITests.swift */; };
+		C045F9971D297FDB006D005B /* AGTLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9961D297FDB006D005B /* AGTLibrary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		C045F9831D29760B006D005B /* HackerBooksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerBooksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C045F9871D29760B006D005B /* HackerBooksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerBooksUITests.swift; sourceTree = "<group>"; };
 		C045F9891D29760B006D005B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C045F9961D297FDB006D005B /* AGTLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		C045F9661D29760A006D005B /* HackerBooks */ = {
 			isa = PBXGroup;
 			children = (
+				C045F9951D297FB5006D005B /* Models */,
 				C045F9671D29760A006D005B /* AppDelegate.swift */,
 				C045F9691D29760A006D005B /* ViewController.swift */,
 				C045F96B1D29760A006D005B /* Main.storyboard */,
@@ -123,6 +126,14 @@
 				C045F9891D29760B006D005B /* Info.plist */,
 			);
 			path = HackerBooksUITests;
+			sourceTree = "<group>";
+		};
+		C045F9951D297FB5006D005B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C045F9961D297FDB006D005B /* AGTLibrary.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C045F96A1D29760A006D005B /* ViewController.swift in Sources */,
+				C045F9971D297FDB006D005B /* AGTLibrary.swift in Sources */,
 				C045F9681D29760A006D005B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +499,7 @@
 				C045F98E1D29760B006D005B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C045F98F1D29760B006D005B /* Build configuration list for PBXNativeTarget "HackerBooksTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +508,7 @@
 				C045F9911D29760B006D005B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C045F9921D29760B006D005B /* Build configuration list for PBXNativeTarget "HackerBooksUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +517,7 @@
 				C045F9941D29760B006D005B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
