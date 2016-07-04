@@ -9,18 +9,58 @@
 import UIKit
 
 class AGTLibrary {
-
+    
+    // MARK: - Utility types
+    typealias BooksArray = [AGTBook]
+    typealias TagsSet = Set<String>
+    typealias BookIndexes = Set<Int>
+    typealias HackBookLibrary = [String: BookIndexes]
+    
     // MARK: - Properties
     
     // Books array
-    let books: [String]
+    var books: BooksArray = BooksArray()
     
     // Array of tags, alphabetic order. No tags repeated
-    let tags: [String]
+    var tags: TagsSet = TagsSet()
     
     
     // Library, useful as an index for accessing books by tag
-    let library: [String:Set<Int>]
+    var library: HackBookLibrary = HackBookLibrary()
+    
+    // Initialization
+    init (withBooks bs: BooksArray) {
+        
+        // Add books to structures
+        books = bs
+        var bookIndex = 0
+        
+        for book in books {
+            
+            // Add tags
+            for tag in book.tags{
+                
+                // Check new tags
+                if(!tags.contains(tag)){
+                    
+                    tags.insert(tag)
+                    
+                    // Add to library
+                    library[tag] = BookIndexes()
+                }
+                
+                // Add book to library
+                library[tag]?.insert(bookIndex)
+                
+                //guard
+                
+            }
+            
+            bookIndex++
+            
+        }
+        
+    }
     
     // Books number
     
@@ -45,4 +85,6 @@ class AGTLibrary {
     // Get book at index position in some tag
     // If index or tag don't exist, return nil
     //func bookAtIndex(index: Int) -> AGTBook?
+    
+    
 }

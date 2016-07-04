@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AGTBoook {
+class AGTBook {
     
     let title: String
     var authors: [String]

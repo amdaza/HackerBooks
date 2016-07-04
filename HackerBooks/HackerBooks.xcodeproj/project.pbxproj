@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0429D881D2ACC67002C384C /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0429D871D2ACC67002C384C /* JSONProcessing.swift */; };
+		C0429D8A1D2ACFEE002C384C /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0429D891D2ACFEE002C384C /* Errors.swift */; };
+		C0429D8D1D2ADCCD002C384C /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0429D8C1D2ADCCD002C384C /* Foundation.swift */; };
 		C045F9681D29760A006D005B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9671D29760A006D005B /* AppDelegate.swift */; };
 		C045F96A1D29760A006D005B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9691D29760A006D005B /* ViewController.swift */; };
 		C045F96D1D29760A006D005B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C045F96B1D29760A006D005B /* Main.storyboard */; };
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C0429D871D2ACC67002C384C /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
+		C0429D891D2ACFEE002C384C /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		C0429D8C1D2ADCCD002C384C /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		C045F9641D29760A006D005B /* HackerBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C045F9671D29760A006D005B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C045F9691D29760A006D005B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C0429D8B1D2ADCA3002C384C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0429D8C1D2ADCCD002C384C /* Foundation.swift */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C045F95B1D29760A006D005B = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +115,7 @@
 		C045F9661D29760A006D005B /* HackerBooks */ = {
 			isa = PBXGroup;
 			children = (
+				C0429D8B1D2ADCA3002C384C /* Frameworks */,
 				C045F9951D297FB5006D005B /* Models */,
 				C045F9671D29760A006D005B /* AppDelegate.swift */,
 				C045F9691D29760A006D005B /* ViewController.swift */,
@@ -135,6 +150,8 @@
 			children = (
 				C045F9961D297FDB006D005B /* AGTLibrary.swift */,
 				C045F9981D2983D8006D005B /* AGTBook.swift */,
+				C0429D871D2ACC67002C384C /* JSONProcessing.swift */,
+				C0429D891D2ACFEE002C384C /* Errors.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -277,6 +294,9 @@
 				C045F9971D297FDB006D005B /* AGTLibrary.swift in Sources */,
 				C045F9681D29760A006D005B /* AppDelegate.swift in Sources */,
 				C045F9991D2983D8006D005B /* AGTBook.swift in Sources */,
+				C0429D8A1D2ACFEE002C384C /* Errors.swift in Sources */,
+				C0429D881D2ACC67002C384C /* JSONProcessing.swift in Sources */,
+				C0429D8D1D2ADCCD002C384C /* Foundation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
