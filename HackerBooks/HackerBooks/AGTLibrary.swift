@@ -13,10 +13,14 @@ class AGTLibrary {
     // MARK: - Properties
     
     // Books array
-    var books: NSMutableArray = NSMutableArray()
+    let books: [String]
     
     // Array of tags, alphabetic order. No tags repeated
-    var tags: NSMutableArray = NSMutableArray()
+    let tags: [String]
+    
+    
+    // Library, useful as an index for accessing books by tag
+    let library: [String:Set<Int>]
     
     // Books number
     

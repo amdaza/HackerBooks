@@ -11,14 +11,14 @@ import UIKit
 class AGTBoook {
     
     let title: String
-    let authors: NSMutableArray
-    let tags: NSMutableArray
+    var authors: [String]
+    var tags: [String]
     let image_url: NSURL
     let pdf_url: NSURL
     
     // MARK: - Initialization
-    init(title: String, authors: NSMutableArray,
-        tags: NSMutableArray, image_url: NSURL,
+    init(title: String, authors: [String],
+        tags: [String], image_url: NSURL,
         pdf_url: NSURL) {
             
             self.title = title
