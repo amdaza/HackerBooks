@@ -73,14 +73,21 @@ class AGTLibrary {
     
     // Books in tag count
     // If not exists, return 0
-    //func bookCountForTag (tag: String?) -> Int
+    func bookCountForTag (tag: String?) -> Int {
+        guard let count = library[tag!]?.count else {
+            
+                return 0
+        }
+        return count
+    }
 
     
     // Array of books (AGTBooks) in tag
     // One book can be in one or more tags.
     // If tag hasn't books, return nil
-    //func booksForTag (tag: String?) -> [AGTBook]?
-
+ /*   func booksForTag (tag: String?) -> [AGTBook]? {
+    }
+*/
 
     // Get book at index position in some tag
     // If index or tag don't exist, return nil

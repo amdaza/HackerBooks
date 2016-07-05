@@ -19,6 +19,7 @@
 		C045F9881D29760B006D005B /* HackerBooksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9871D29760B006D005B /* HackerBooksUITests.swift */; };
 		C045F9971D297FDB006D005B /* AGTLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9961D297FDB006D005B /* AGTLibrary.swift */; };
 		C045F9991D2983D8006D005B /* AGTBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045F9981D2983D8006D005B /* AGTBook.swift */; };
+		C0DA1E7A1D2C14BD00E2B1C3 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		C045F9891D29760B006D005B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C045F9961D297FDB006D005B /* AGTLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibrary.swift; sourceTree = "<group>"; };
 		C045F9981D2983D8006D005B /* AGTBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTBook.swift; sourceTree = "<group>"; };
+		C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		C045F9661D29760A006D005B /* HackerBooks */ = {
 			isa = PBXGroup;
 			children = (
+				C0DA1E781D2C13CF00E2B1C3 /* Controllers */,
 				C0429D8B1D2ADCA3002C384C /* Frameworks */,
 				C045F9951D297FB5006D005B /* Models */,
 				C045F9671D29760A006D005B /* AppDelegate.swift */,
@@ -154,6 +157,14 @@
 				C0429D891D2ACFEE002C384C /* Errors.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		C0DA1E781D2C13CF00E2B1C3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,6 +307,7 @@
 				C045F9991D2983D8006D005B /* AGTBook.swift in Sources */,
 				C0429D8A1D2ACFEE002C384C /* Errors.swift in Sources */,
 				C0429D881D2ACC67002C384C /* JSONProcessing.swift in Sources */,
+				C0DA1E7A1D2C14BD00E2B1C3 /* LibraryTableViewController.swift in Sources */,
 				C0429D8D1D2ADCCD002C384C /* Foundation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
