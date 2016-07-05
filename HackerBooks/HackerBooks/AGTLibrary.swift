@@ -12,9 +12,8 @@ class AGTLibrary {
     
     // MARK: - Utility types
     typealias BooksArray = [AGTBook]
-    typealias TagsSet = Set<String>
-    typealias BookIndexes = Set<Int>
-    typealias HackBookLibrary = [String: BookIndexes]
+    typealias TagsArray = [String]
+    typealias HackBookLibrary = [String: [Int]]
     
     // MARK: - Properties
     
@@ -22,7 +21,7 @@ class AGTLibrary {
     var books: BooksArray = BooksArray()
     
     // Array of tags, alphabetic order. No tags repeated
-    var tags: TagsSet = TagsSet()
+    var tags: TagsArray = TagsArray()
     
     
     // Library, useful as an index for accessing books by tag
@@ -33,7 +32,11 @@ class AGTLibrary {
         
         // Add books to structures
         books = bs
+        
+        books = books.sort { $0 < $1 }
+        
         var bookIndex = 0
+        
         
         for book in books {
             
@@ -42,15 +45,15 @@ class AGTLibrary {
                 
                 // Check new tags
                 if(!tags.contains(tag)){
+                    // Add tag
+                    tags.append(tag)
                     
-                    tags.insert(tag)
-                    
-                    // Add to library
-                    library[tag] = BookIndexes()
+                    // Add empty array to tag in library
+                    library[tag] = [Int]()
                 }
                 
                 // Add book to library
-                library[tag]?.insert(bookIndex)
+                library[tag]?.append(bookIndex)
                 
                 //guard
                 
@@ -59,6 +62,7 @@ class AGTLibrary {
             bookIndex++
             
         }
+
         
     }
     
@@ -85,9 +89,27 @@ class AGTLibrary {
     // Array of books (AGTBooks) in tag
     // One book can be in one or more tags.
     // If tag hasn't books, return nil
- /*   func booksForTag (tag: String?) -> [AGTBook]? {
+    func booksForTag (tag: String?) -> [AGTBook] {
+        var result = [AGTBook]()
+        
+        guard let tagString = tag,
+            bookIndexes = library[tagString]
+           // result = Array(library[tagString]!)
+        else {
+            return result
+                
+        }
+        
+        //return Array<Int>(booksSet)
+        
+        for bookIndex in bookIndexes {
+            result.append(books[bookIndex])
+        }
+        
+        return result
+       
     }
-*/
+
 
     // Get book at index position in some tag
     // If index or tag don't exist, return nil

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AGTBook {
+class AGTBook : Comparable {
     
     let title: String
     var authors: [String]
@@ -27,4 +27,26 @@ class AGTBook {
             self.image_url = image_url
             self.pdf_url = pdf_url
     }
+    
+    //MARK: - Proxies
+    var proxyForComparison : String{
+        get {
+            return "\(title)\(image_url)\(pdf_url)"
+        }
+    }
+   
 }
+
+// Mark: - Equatable
+func ==(lhs: AGTBook, rhs: AGTBook) -> Bool {
+    guard (lhs !== rhs) else {
+        return true
+    }
+    return lhs.proxyForComparison == rhs.proxyForComparison
+}
+
+// Mark: - Comparable
+func <(lhs: AGTBook, rhs: AGTBook) -> Bool {
+    return lhs.title.lowercaseString < rhs.title.lowercaseString
+}
+
