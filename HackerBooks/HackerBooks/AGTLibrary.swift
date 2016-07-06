@@ -12,8 +12,8 @@ class AGTLibrary {
     
     // MARK: - Utility types
     typealias BooksArray = [AGTBook]
-    typealias TagsArray = [String]
-    typealias HackBookLibrary = [String: [Int]]
+    typealias TagsArray = [AGTTag]
+    typealias HackBookLibrary = [AGTTag: [Int]]
     
     // MARK: - Properties
     
@@ -42,18 +42,19 @@ class AGTLibrary {
             
             // Add tags
             for tag in book.tags{
+                let agtTag = AGTTag(tag: tag)
                 
                 // Check new tags
-                if(!tags.contains(tag)){
+                if(!tags.contains(agtTag)){
                     // Add tag
-                    tags.append(tag)
+                    tags.append(agtTag)
                     
                     // Add empty array to tag in library
-                    library[tag] = [Int]()
+                    library[agtTag] = [Int]()
                 }
                 
                 // Add book to library
-                library[tag]?.append(bookIndex)
+                library[agtTag]?.append(bookIndex)
                 
                 //guard
                 
@@ -77,7 +78,7 @@ class AGTLibrary {
     
     // Books in tag count
     // If not exists, return 0
-    func bookCountForTag (tag: String?) -> Int {
+    func bookCountForTag (tag: AGTTag?) -> Int {
         guard let count = library[tag!]?.count else {
             
                 return 0
@@ -89,7 +90,7 @@ class AGTLibrary {
     // Array of books (AGTBooks) in tag
     // One book can be in one or more tags.
     // If tag hasn't books, return nil
-    func booksForTag (tag: String?) -> [AGTBook] {
+    func booksForTag (tag: AGTTag?) -> [AGTBook] {
         var result = [AGTBook]()
         
         guard let tagString = tag,
