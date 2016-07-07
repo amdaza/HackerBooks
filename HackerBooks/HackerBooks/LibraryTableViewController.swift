@@ -46,4 +46,32 @@ class LibraryTableViewController: UITableViewController {
         return model.bookCountForTag(model.tags[section])
     }
 
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return model.tags[section].tag
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        // Cell type
+        let cellId = "LibraryCell"
+        
+        let book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
+        
+        // Create cell
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId)
+        
+        if cell == nil {
+            // Optional empty, create one
+            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
+        }
+        
+        // Syncronize book and cell
+        //cell?.imageView?.image = book.photo
+        cell?.textLabel?.text = book.title
+        //cell?.detailTextLabel?.text = book.authorsDescription
+    
+        return cell
+    }
+
 }

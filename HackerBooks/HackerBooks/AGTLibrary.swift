@@ -119,7 +119,15 @@ class AGTLibrary {
         return result
        
     }
-
+    
+    func book(atIndex index: Int, forTag agtTag: AGTTag) -> AGTBook {
+        
+        // Book at index position for tag
+        let bookIndexes = library[agtTag]!
+        let bookIndex = bookIndexes[index]
+        
+        return books[bookIndex]
+    }
 
     // Get book at index position in some tag
     // If index or tag don't exist, return nil
