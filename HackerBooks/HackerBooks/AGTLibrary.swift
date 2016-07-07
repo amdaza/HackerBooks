@@ -63,7 +63,9 @@ class AGTLibrary {
             bookIndex++
             
         }
-
+        
+        // Order tags
+        tags.sortInPlace({ $0 < $1 })
         
     }
     
