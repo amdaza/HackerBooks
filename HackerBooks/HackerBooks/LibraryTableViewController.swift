@@ -71,7 +71,7 @@ class LibraryTableViewController: UITableViewController {
         cell?.textLabel?.text = book.title
         //cell?.detailTextLabel?.text = book.authorsDescription
     
-        return cell
+        return cell!
     }
 
 }
