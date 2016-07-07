@@ -15,7 +15,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Create window
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        // Get json data
+        do {
+            let json = try loadFromLocalFile(fileName: "books_readable.json")
+            
+            var books = [AGTBook]()
+            for dict in json {
+                do {
+                    let book = try decode(agtBook: dict)
+                    books.append(book)
+                    
+                } catch {
+                    print("Error processing \(dict)")
+                }
+            }
+            
+            // Create model
+            let model = AGTLibrary(withBooks: books)
+            
+            // Create VC
+            let lVC = LibraryTableViewController(model: model)
+            
+            // Put in nav
+            let nav = UINavigationController(rootViewController: lVC)
+
+            // Assign nav as rootVC
+            window?.rootViewController = nav
+            
+            // Make visible & key to window
+            window?.makeKeyAndVisible()
+        
+        } catch {
+            fatalError("Error while loading json")
+        }
+        
+        
+        
+        
         return true
     }
 
