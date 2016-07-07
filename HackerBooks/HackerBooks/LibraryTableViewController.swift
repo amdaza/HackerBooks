@@ -26,6 +26,7 @@ class LibraryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "HackerBooks"
     }
     
     override func didReceiveMemoryWarning() {

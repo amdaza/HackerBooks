@@ -53,9 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("Error while loading json")
         }
         
-        
-        
-        
         return true
     }
 
