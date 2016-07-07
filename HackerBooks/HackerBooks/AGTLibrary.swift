@@ -76,6 +76,15 @@ class AGTLibrary {
         }
     }
     
+    // Books number
+    
+    var tagsCount: Int {
+        get {
+            let count: Int = self.tags.count
+            return count
+        }
+    }
+    
     // Books in tag count
     // If not exists, return 0
     func bookCountForTag (tag: AGTTag?) -> Int {

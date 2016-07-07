@@ -31,11 +31,19 @@ class LibraryTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-   /*
+    
+    // MARK - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        // Tags in library
+        return model.tagsCount
+    }
+   
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         // Books number in tag
-        return model.
+        return model.bookCountForTag(model.tags[section])
     }
-*/
+
 }
