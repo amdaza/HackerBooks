@@ -16,6 +16,13 @@ class AGTBook : Comparable {
     let image_url: NSURL
     let pdf_url: NSURL
     
+    // MARK: - Computed properties
+    var authorsDescription: String {
+        get {
+            return "Authors: " + authors.joinWithSeparator(", ")
+        }
+    }
+    
     // MARK: - Initialization
     init(title: String, authors: [String],
         tags: [String], image_url: NSURL,

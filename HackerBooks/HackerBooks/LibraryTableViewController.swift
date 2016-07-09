@@ -70,7 +70,7 @@ class LibraryTableViewController: UITableViewController {
         // Syncronize book and cell
         cell?.imageView?.image = syncDownload(book.image_url)
         cell?.textLabel?.text = book.title
-        //cell?.detailTextLabel?.text = book.authorsDescription
+        cell?.detailTextLabel?.text = book.authorsDescription
     
         return cell!
     }
