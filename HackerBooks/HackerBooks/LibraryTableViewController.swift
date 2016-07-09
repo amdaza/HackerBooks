@@ -68,12 +68,55 @@ class LibraryTableViewController: UITableViewController {
         }
         
         // Syncronize book and cell
-        //cell?.imageView?.image = book.photo
+        cell?.imageView?.image = syncDownload(book.image_url)
         cell?.textLabel?.text = book.title
         //cell?.detailTextLabel?.text = book.authorsDescription
     
         return cell!
     }
     
+    func syncDownload(imageUrl: NSURL) -> UIImage? {
+        if let data = NSData(contentsOfURL: imageUrl) {
+            return UIImage(data: data)
+        }
+        return nil
+        
+    }
+    
+    /*
+    func syncDownload(imageUrl: String) -> UIImage? {
+        guard let url = NSURL(string: imageUrl),
+            data = NSData(contentsOfURL: url)
+            else {
+                return nil
+        }
+        
+        return UIImage(data: data)
+    }
+*/
+    
+    /*
+    func asyncDownload(imageUrl: String) -> UIImage? {
+        //var image = nil
+        
+        let queue = dispatch_queue_create("downloads", nil)
+        
+        let url = NSURL(string: imageUrl)
+        if url != nil {
+            
+            dispatch_async(queue){
+                let data = NSData(contentsOfURL: url!)
+                let img = UIImage(data: data!)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    // self.imageView.image = image
+                    //image = img
+                }
+            }
+        }
+        
+        return nil
+    }
+*/
 
 }
