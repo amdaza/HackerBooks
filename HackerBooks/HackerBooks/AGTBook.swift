@@ -15,6 +15,7 @@ class AGTBook : Comparable {
     var tags: [String]
     let image_url: NSURL
     let pdf_url: NSURL
+    let favourite: Bool
     
     // MARK: - Computed properties
     var authorsDescription: String {
@@ -26,13 +27,14 @@ class AGTBook : Comparable {
     // MARK: - Initialization
     init(title: String, authors: [String],
         tags: [String], image_url: NSURL,
-        pdf_url: NSURL) {
+        pdf_url: NSURL, favourite: Bool) {
             
             self.title = title
             self.authors = authors
             self.tags = tags
             self.image_url = image_url
             self.pdf_url = pdf_url
+            self.favourite = favourite
     }
     
     //MARK: - Proxies

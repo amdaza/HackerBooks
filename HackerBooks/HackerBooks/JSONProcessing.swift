@@ -44,10 +44,11 @@ func decode(agtBook json: JSONDictionary) throws -> AGTBook {
     }
     let tags = tagsString.componentsSeparatedByString(", ")
 
-    
+
+    // CHANGE FAVOURITE
     if let title = json["title"] as? String {
         return AGTBook(title: title, authors: authors, tags: tags,
-            image_url: imageUrl, pdf_url: pdfUrl)
+            image_url: imageUrl, pdf_url: pdfUrl, favourite: false)
     } else {
         throw HackerBooksError.wrongJSONFormat
     }

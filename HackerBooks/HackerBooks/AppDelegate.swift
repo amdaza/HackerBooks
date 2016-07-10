@@ -44,10 +44,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let lVC = LibraryTableViewController(model: model)
             
             // Put in nav
-            let nav = UINavigationController(rootViewController: lVC)
+            let lNav = UINavigationController(rootViewController: lVC)
+            
+            // Create book VC
+            let bookVC = BookViewController(model: model.book(atIndex: 0, forTag: model.tags[0]))
+            
+            // Put in another navigation
+            let bookNav = UINavigationController(rootViewController: bookVC)
+            
+            // Create split view with two navs
+            let splitVC = UISplitViewController()
+            splitVC.viewControllers = [lNav, bookNav]
 
             // Assign nav as rootVC
-            window?.rootViewController = nav
+            window?.rootViewController = splitVC
             
             // Make visible & key to window
             window?.makeKeyAndVisible()
