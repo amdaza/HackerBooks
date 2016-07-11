@@ -12,24 +12,37 @@ class BookViewController: UIViewController {
     
     @IBOutlet weak var photoView: UIImageView!
     
+    @IBOutlet weak var tagTitleLabel: UILabel!
+    
+    @IBOutlet weak var tagList: UITextView!
+    
     @IBOutlet weak var favStateLabel: UILabel!
-    
-    @IBOutlet weak var tagsTable: UITableView!
    
-    
     @IBOutlet weak var favSwitch: UISwitch!
 
     
     let model: AGTBook
-    let tagTableController: TagTableViewController
     
     // MARK: - INIT
     
     init(model: AGTBook) {
         self.model = model
-        self.tagTableController = TagTableViewController(model: model)
         
         super.init(nibName: "BookViewController", bundle: nil)
+    }
+    
+    func syncModelWithView() {
+        photoView.image = model.syncDownload(model.image_url)
+        
+        title = model.title
+        
+        tagTitleLabel.text = "Tags"
+        tagList.textAlignment = .Center
+        tagList.text = model.tagsText
+        
+        favStateLabel.text = (model.favourite) ? "Favourite" : "Not favourite"
+        favSwitch.on = model.favourite
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +74,8 @@ class BookViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        syncModelWithView()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -74,6 +89,8 @@ class BookViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
     }
+    
+    
     
 
 }

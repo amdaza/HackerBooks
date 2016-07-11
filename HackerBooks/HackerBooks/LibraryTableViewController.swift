@@ -68,20 +68,14 @@ class LibraryTableViewController: UITableViewController {
         }
         
         // Syncronize book and cell
-        cell?.imageView?.image = syncDownload(book.image_url)
+        cell?.imageView?.image = book.syncDownload(book.image_url)
         cell?.textLabel?.text = book.title
         cell?.detailTextLabel?.text = book.authorsDescription
     
         return cell!
     }
     
-    func syncDownload(imageUrl: NSURL) -> UIImage? {
-        if let data = NSData(contentsOfURL: imageUrl) {
-            return UIImage(data: data)
-        }
-        return nil
-        
-    }
+    
     
     /*
     func syncDownload(imageUrl: String) -> UIImage? {

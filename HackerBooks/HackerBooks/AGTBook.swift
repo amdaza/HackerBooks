@@ -24,6 +24,12 @@ class AGTBook : Comparable {
         }
     }
     
+    var tagsText: String {
+        get {
+            return tags.joinWithSeparator("\n")
+        }
+    }
+    
     // MARK: - Initialization
     init(title: String, authors: [String],
         tags: [String], image_url: NSURL,
@@ -42,6 +48,14 @@ class AGTBook : Comparable {
         get {
             return "\(title)\(image_url)\(pdf_url)"
         }
+    }
+    
+    func syncDownload(imageUrl: NSURL) -> UIImage? {
+        if let data = NSData(contentsOfURL: imageUrl) {
+            return UIImage(data: data)
+        }
+        return nil
+        
     }
    
 }
