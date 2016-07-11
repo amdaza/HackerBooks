@@ -26,7 +26,8 @@ class AGTBook : Comparable {
     
     var tagsText: String {
         get {
-            return tags.joinWithSeparator("\n")
+            let capTags = tags.map({"\n -> " + $0.capitalizedString})
+            return capTags.joinWithSeparator("\n")
         }
     }
     

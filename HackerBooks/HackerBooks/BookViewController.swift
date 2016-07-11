@@ -35,9 +35,11 @@ class BookViewController: UIViewController {
         photoView.image = model.syncDownload(model.image_url)
         
         title = model.title
+        self.navigationController?.navigationBar.translucent = false
         
         tagTitleLabel.text = "Tags"
-        tagList.textAlignment = .Center
+        tagList.textAlignment = .Left
+        tagList.editable = false
         tagList.text = model.tagsText
         
         favStateLabel.text = (model.favourite) ? "Favourite" : "Not favourite"
@@ -74,6 +76,7 @@ class BookViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         
         syncModelWithView()
     }
