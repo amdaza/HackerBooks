@@ -52,7 +52,7 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         let nc = NSNotificationCenter.defaultCenter()
         
         // My version
-       // nc.addObserver(self, selector: "bookDidChange", name: BookDidChangeNotification, object: nil)
+        nc.addObserver(self, selector: "bookDidChange", name: BookDidChangeNotification, object: nil)
         
         // New version
         //nc.addObserver(self, selector: @selector(bookDidChange), name: BookDidChangeNotification, object: nil)

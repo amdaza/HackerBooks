@@ -8,10 +8,15 @@
 
 import UIKit
 
+let BookDidChangeNotification = "Selected book did change"
+let BookKey = "key"
+
 class LibraryTableViewController: UITableViewController {
 
     // MARK: - Properties
     let model: AGTLibrary
+    
+    var delegate: LibraryTableViewControllerDelegate?
     
     // MARK: - Initialization
     init(model: AGTLibrary) {
@@ -33,7 +38,32 @@ class LibraryTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK - Table view data source
+    // MARK: - Table view delegate
+    override func tableView(tableView: UITableView,
+        didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+            
+            print("Selected row")
+        
+            // Get book
+            let book = model.book(atIndex: indexPath.row,
+                forTag: model.tags[indexPath.section])
+            
+            print(book.title)
+            
+            
+            // Notify delegate
+            delegate?.libraryTableViewController(self, didSelectBook: book)
+            
+            // Send same info via notification
+            let nc = NSNotificationCenter.defaultCenter()
+            let notif = NSNotification(name: BookDidChangeNotification,
+                object: self, userInfo: [BookKey: book])
+            
+            nc.postNotification(notif)
+    
+    }
+    
+    // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
@@ -47,12 +77,14 @@ class LibraryTableViewController: UITableViewController {
         return model.bookCountForTag(model.tags[section])
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(tableView: UITableView,
+        titleForHeaderInSection section: Int) -> String? {
         
         return model.tags[section].tag
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView,
+        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // Cell type
         let cellId = "LibraryCell"
@@ -113,4 +145,10 @@ class LibraryTableViewController: UITableViewController {
     }
 */
 
+}
+
+protocol LibraryTableViewControllerDelegate {
+    
+    func libraryTableViewController(vc: LibraryTableViewController,
+        didSelectBook book: AGTBook)
 }

@@ -21,7 +21,7 @@ class BookViewController: UIViewController {
     @IBOutlet weak var favSwitch: UISwitch!
 
     
-    let model: AGTBook
+    var model: AGTBook
     
     // MARK: - INIT
     
@@ -99,7 +99,20 @@ class BookViewController: UIViewController {
         super.viewDidDisappear(animated)
     }
     
-    
-    
+}
 
+
+extension BookViewController: LibraryTableViewControllerDelegate {
+    func libraryTableViewController(vc: LibraryTableViewController,
+        didSelectBook book: AGTBook) {
+            
+            // Update model
+            model = book
+            
+            print("upsate model")
+            print(book)
+            
+            // Sync
+            syncModelWithView()
+    }
 }
