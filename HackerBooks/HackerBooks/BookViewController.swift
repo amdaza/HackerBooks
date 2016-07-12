@@ -110,7 +110,7 @@ extension BookViewController: LibraryTableViewControllerDelegate {
             model = book
             
             print("upsate model")
-            print(book)
+            print(book.title)
             
             // Sync
             syncModelWithView()

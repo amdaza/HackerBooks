@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let json = try loadFromLocalFile(fileName: "books_readable.json")
             
             var books = [AGTBook]()
+            
             for dict in json {
                 do {
                     let book = try decode(agtBook: dict)
@@ -58,6 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             // Assign nav as rootVC
             window?.rootViewController = splitVC
+            
+            // Make book vc delegate of library vc
+            lVC.delegate = bookVC
             
             // Make visible & key to window
             window?.makeKeyAndVisible()
