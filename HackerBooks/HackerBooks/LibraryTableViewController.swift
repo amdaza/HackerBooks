@@ -43,6 +43,7 @@ class LibraryTableViewController: UITableViewController {
         didDeselectRowAtIndexPath indexPath: NSIndexPath) {
             
             print("Selected row")
+            print(indexPath.row,indexPath.section)
         
             // Get book
             let book = model.book(atIndex: indexPath.row,

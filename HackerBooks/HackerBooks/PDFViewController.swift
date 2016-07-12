@@ -52,7 +52,7 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         let nc = NSNotificationCenter.defaultCenter()
         
         // My version
-        nc.addObserver(self, selector: "bookDidChange", name: BookDidChangeNotification, object: nil)
+        nc.addObserver(self, selector: "bookDidChange:", name: BookDidChangeNotification, object: nil)
         
         // New version
         //nc.addObserver(self, selector: @selector(bookDidChange), name: BookDidChangeNotification, object: nil)
@@ -83,7 +83,20 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    //func bookDidChange
+    @objc func bookDidChange(notification: NSNotification) {
+    
+        // Get user info
+        let info = notification.userInfo!
+        
+        // Get book
+        let book = info[BookKey] as? AGTBook
+        
+        // Reload model
+        model = book!
+        
+        // Sync
+        syncModelWithView()
+    }
     
     
 
