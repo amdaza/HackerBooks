@@ -35,11 +35,8 @@ class BookViewController: UIViewController {
         photoView.image = model.syncDownload(model.image_url)
         
         title = model.title
-        self.navigationController?.navigationBar.translucent = false
         
         tagTitleLabel.text = "Tags"
-        tagList.textAlignment = .Left
-        tagList.editable = false
         tagList.text = model.tagsText
         
         favStateLabel.text = (model.favourite) ? "Favourite" : "Not favourite"
@@ -53,7 +50,11 @@ class BookViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func displayReader(sender: AnyObject) {
-        //let
+        // Create pdf view controller
+        let pdfVC = PDFViewController(model: model)
+        
+        // Push to navigation controller
+        navigationController?.pushViewController(pdfVC, animated: true)
     }
     
     @IBAction func changeFavourite(sender: AnyObject) {
@@ -65,8 +66,6 @@ class BookViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +76,14 @@ class BookViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Quit translucent navigation bar (it hides content)
+        self.navigationController?.navigationBar.translucent = false
         
+        // Tag list styles
+        tagList.textAlignment = .Left
+        tagList.editable = false
+        
+        // Sync
         syncModelWithView()
     }
     
