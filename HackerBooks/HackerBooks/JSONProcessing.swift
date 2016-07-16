@@ -84,7 +84,7 @@ func loadFromLocalFile(fileName name: String, bundle: NSBundle = NSBundle.mainBu
 
 
 
-func getJSON(fileUrl url: String) throws -> JSONArray {
+func getJSON(remoteUrl url: String) throws -> JSONArray {
     if let jsonUrl = NSURL(string: url),
         
     // Get Documents url
@@ -99,28 +99,21 @@ func getJSON(fileUrl url: String) throws -> JSONArray {
         if NSFileManager().fileExistsAtPath(destination.path!) {
             // File exists at path
             
-            if let data = NSData(contentsOfURL: destination),
-                maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
-                array = maybeArray {
-                    
-                    return array
-                    
+            if let jsonArray = getJSONArray(fromData: data){
+                return jsonArray
             } else {
                 throw HackerBooksError.jsonParsingError
+
             }
             
         } else {
             // File doesn't exists. Download from url
+            
             if let data = NSData(contentsOfURL: jsonUrl) {
                 data.writeToURL(destination, atomically: true)
                 
-                if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
-                array = maybeArray {
-                    
-                    return array
-                } else {
-                    throw HackerBooksError.jsonParsingError
-                }
+                return try getJSONArray(fromData: data)
+                
             } else {
                 throw HackerBooksError.jsonDownloadingError
             }
@@ -133,4 +126,14 @@ func getJSON(fileUrl url: String) throws -> JSONArray {
     
 }
 
+func getJSONArray(fromData data: NSData) throws -> JSONArray {
+    if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+        array = maybeArray {
+            
+            return array
+            
+    } else {
+        throw HackerBooksError.jsonParsingError
+    }
+}
 

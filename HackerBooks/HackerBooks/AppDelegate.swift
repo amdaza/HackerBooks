@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //let json = try loadFromLocalFile(fileName: "books_readable.json")
             
             // New way from url
-            let json = try getJSON(fileUrl: "https://t.co/K9ziV0z3SJ")
+            let json = try getJSON(remoteUrl: "https://t.co/K9ziV0z3SJ")
             
             var books = [AGTBook]()
             
