@@ -23,6 +23,7 @@
 		C0B7F4601D3A90350006A793 /* book-default.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B7F45F1D3A90350006A793 /* book-default.png */; };
 		C0BF92B51D32AB40002AA6D1 /* BookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BF92B31D32AB40002AA6D1 /* BookViewController.swift */; };
 		C0BF92B61D32AB40002AA6D1 /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0BF92B41D32AB40002AA6D1 /* BookViewController.xib */; };
+		C0D1D6271D3AA071006DB62F /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1D6261D3AA071006DB62F /* AsyncImage.swift */; };
 		C0DA1E7A1D2C14BD00E2B1C3 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */; };
 		C0F0EEBA1D2DBEB000271514 /* AGTTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0EEB91D2DBEB000271514 /* AGTTag.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		C0B7F45F1D3A90350006A793 /* book-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book-default.png"; sourceTree = "<group>"; };
 		C0BF92B31D32AB40002AA6D1 /* BookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookViewController.swift; sourceTree = "<group>"; };
 		C0BF92B41D32AB40002AA6D1 /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
+		C0D1D6261D3AA071006DB62F /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
 		C0F0EEB91D2DBEB000271514 /* AGTTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTTag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 				C0429D871D2ACC67002C384C /* JSONProcessing.swift */,
 				C0429D891D2ACFEE002C384C /* Errors.swift */,
 				C0F0EEB91D2DBEB000271514 /* AGTTag.swift */,
+				C0D1D6261D3AA071006DB62F /* AsyncImage.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				C045F9681D29760A006D005B /* AppDelegate.swift in Sources */,
 				C045F9991D2983D8006D005B /* AGTBook.swift in Sources */,
 				C0429D8A1D2ACFEE002C384C /* Errors.swift in Sources */,
+				C0D1D6271D3AA071006DB62F /* AsyncImage.swift in Sources */,
 				C0B52A291D3566B4000E44F3 /* PDFViewController.swift in Sources */,
 				C0429D881D2ACC67002C384C /* JSONProcessing.swift in Sources */,
 				C0BF92B51D32AB40002AA6D1 /* BookViewController.swift in Sources */,

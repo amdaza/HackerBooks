@@ -15,7 +15,7 @@ typealias JSONDictionary = [String: JSONObject]
 typealias JSONArray = [JSONDictionary]
 
 // MARK: - Decodification
-func decode(agtBook json: JSONDictionary) throws -> AGTBook {
+func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws -> AGTBook {
     
     // Validate dictionary
     guard let imageString = json["image_url"] as? String,
@@ -43,12 +43,15 @@ func decode(agtBook json: JSONDictionary) throws -> AGTBook {
         throw HackerBooksError.wrongURLFormatForJSONResource
     }
     let tags = tagsString.componentsSeparatedByString(", ")
+    
 
+    let asyncImage = AsyncImage(remoteUrl: imageUrl, defaultImage: defImage)
 
     // CHANGE FAVOURITE
     if let title = json["title"] as? String {
         return AGTBook(title: title, authors: authors, tags: tags,
-            image_url: imageUrl, pdf_url: pdfUrl, favourite: false)
+            image_url: imageUrl, pdf_url: pdfUrl, favourite: false,
+            image: asyncImage)
     } else {
         throw HackerBooksError.wrongJSONFormat
     }
@@ -58,8 +61,14 @@ func decode(agtBook json: JSONDictionary) throws -> AGTBook {
 
 func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
     
-    if case .Some(let jsonDict) = json {
-        return try decode(agtBook: jsonDict)
+    if case .Some(let jsonDict) = json{
+        if let defaultImage = defaultImageSyncDownload(){
+            
+            return try decode(agtBook: jsonDict, defaultImage: defaultImage)
+        } else {
+            throw HackerBooksError.missingDefaultImage
+        }
+        
     } else {
         throw HackerBooksError.nilJSONObject
     }
@@ -125,8 +134,8 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
         throw HackerBooksError.resourcePointedByUrLNotReachable
     }
     
-    
 }
+
 
 func getJSONArray(fromData data: NSData) throws -> JSONArray {
     if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
@@ -138,4 +147,17 @@ func getJSONArray(fromData data: NSData) throws -> JSONArray {
         throw HackerBooksError.jsonParsingError
     }
 }
+
+
+func defaultImageSyncDownload() -> UIImage? {
+    let imageName = "book-default.png"
+    if let url = NSBundle.mainBundle().URLForResource(imageName),
+        let data = NSData(contentsOfURL: url),
+        let image = UIImage(data: data) {
+            
+            return image
+    }
+    return nil
+}
+
 

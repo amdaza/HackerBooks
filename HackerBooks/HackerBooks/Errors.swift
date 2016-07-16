@@ -16,4 +16,5 @@ enum HackerBooksError : ErrorType {
     case wrongJSONFormat
     case nilJSONObject
     case jsonDownloadingError
+    case missingDefaultImage
 }

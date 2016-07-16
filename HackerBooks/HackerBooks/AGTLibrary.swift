@@ -27,6 +27,8 @@ class AGTLibrary {
     // Library, useful as an index for accessing books by tag
     var library: HackBookLibrary = HackBookLibrary()
     
+    var defaultImage: UIImage?
+    
     // Initialization
     init (withBooks bs: BooksArray) {
         
