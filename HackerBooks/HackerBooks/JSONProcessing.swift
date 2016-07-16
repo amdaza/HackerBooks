@@ -85,17 +85,19 @@ func loadFromLocalFile(fileName name: String, bundle: NSBundle = NSBundle.mainBu
 
 
 func getJSON(fileUrl url: String) throws -> JSONArray {
-    if let jsonUrl = NSURL(string: url) {
+    if let jsonUrl = NSURL(string: url),
         
-        // Get Documents url
-        let documentsUrl: NSURL! = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first // First because it returns an array
-        
-        let destination: NSURL! = documentsUrl?.URLByAppendingPathComponent(jsonUrl.lastPathComponent!)
-        print(destination)
+    // Get Documents url
+    let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first, // First because it returns an array
+       
+    // Get json filename
+    let jsonFileName = jsonUrl.lastPathComponent {
+            
+        let destination = documentsUrl.URLByAppendingPathComponent(jsonFileName)
         
         // Check if file exists before downloading it
         if NSFileManager().fileExistsAtPath(destination.path!) {
-            print("file exists at path")
+            // File exists at path
             
             if let data = NSData(contentsOfURL: destination),
                 maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
@@ -125,7 +127,7 @@ func getJSON(fileUrl url: String) throws -> JSONArray {
 
         }
     } else {
-        throw HackerBooksError.wrongURLFormatForJSONResource
+        throw HackerBooksError.resourcePointedByUrLNotReachable
     }
     
     
