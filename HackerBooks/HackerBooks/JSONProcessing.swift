@@ -83,3 +83,52 @@ func loadFromLocalFile(fileName name: String, bundle: NSBundle = NSBundle.mainBu
 }
 
 
+
+func getJSON(fileUrl url: String) throws -> JSONArray {
+    if let jsonUrl = NSURL(string: url) {
+        
+        // Get Documents url
+        let documentsUrl: NSURL! = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first // First because it returns an array
+        
+        let destination: NSURL! = documentsUrl?.URLByAppendingPathComponent(jsonUrl.lastPathComponent!)
+        print(destination)
+        
+        // Check if file exists before downloading it
+        if NSFileManager().fileExistsAtPath(destination.path!) {
+            print("file exists at path")
+            
+            if let data = NSData(contentsOfURL: destination),
+                maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+                array = maybeArray {
+                    
+                    return array
+                    
+            } else {
+                throw HackerBooksError.jsonParsingError
+            }
+            
+        } else {
+            // File doesn't exists. Download from url
+            if let data = NSData(contentsOfURL: jsonUrl) {
+                data.writeToURL(destination, atomically: true)
+                
+                if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+                array = maybeArray {
+                    
+                    return array
+                } else {
+                    throw HackerBooksError.jsonParsingError
+                }
+            } else {
+                throw HackerBooksError.jsonDownloadingError
+            }
+
+        }
+    } else {
+        throw HackerBooksError.wrongURLFormatForJSONResource
+    }
+    
+    
+}
+
+

@@ -15,4 +15,5 @@ enum HackerBooksError : ErrorType {
     case jsonParsingError
     case wrongJSONFormat
     case nilJSONObject
+    case jsonDownloadingError
 }

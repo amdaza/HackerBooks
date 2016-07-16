@@ -24,7 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let firstTime = isAppAlreadyLaunchedOnce()
             print(firstTime)
             
-            let json = try loadFromLocalFile(fileName: "books_readable.json")
+            // Get JSON
+            
+            // Old way from resources
+            //let json = try loadFromLocalFile(fileName: "books_readable.json")
+            
+            // New way from url
+            let json = try getJSON(fileUrl: "https://t.co/K9ziV0z3SJ")
             
             var books = [AGTBook]()
             
@@ -108,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
+    
 
 
 }
