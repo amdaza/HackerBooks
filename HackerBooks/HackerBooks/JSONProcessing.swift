@@ -96,14 +96,16 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
         let destination = documentsUrl.URLByAppendingPathComponent(jsonFileName)
         
         // Check if file exists before downloading it
-        if NSFileManager().fileExistsAtPath(destination.path!) {
+        if destination.path != nil
+            && NSFileManager().fileExistsAtPath(destination.path!) {
             // File exists at path
             
-            if let jsonArray = getJSONArray(fromData: data){
-                return jsonArray
+            if let data = NSData(contentsOfURL: destination){
+                
+                return try getJSONArray(fromData: data)
+                
             } else {
                 throw HackerBooksError.jsonParsingError
-
             }
             
         } else {
