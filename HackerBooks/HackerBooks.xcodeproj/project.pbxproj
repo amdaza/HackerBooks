@@ -25,7 +25,6 @@
 		C0BF92B61D32AB40002AA6D1 /* BookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0BF92B41D32AB40002AA6D1 /* BookViewController.xib */; };
 		C0DA1E7A1D2C14BD00E2B1C3 /* LibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */; };
 		C0F0EEBA1D2DBEB000271514 /* AGTTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0EEB91D2DBEB000271514 /* AGTTag.swift */; };
-		C0F0EEBD1D2DC9E500271514 /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = C0F0EEBC1D2DC9E500271514 /* books_readable.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +69,6 @@
 		C0BF92B41D32AB40002AA6D1 /* BookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookViewController.xib; sourceTree = "<group>"; };
 		C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewController.swift; sourceTree = "<group>"; };
 		C0F0EEB91D2DBEB000271514 /* AGTTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTTag.swift; sourceTree = "<group>"; };
-		C0F0EEBC1D2DC9E500271514 /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				C0B7F45F1D3A90350006A793 /* book-default.png */,
-				C0F0EEBC1D2DC9E500271514 /* books_readable.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -301,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0B7F4601D3A90350006A793 /* book-default.png in Resources */,
-				C0F0EEBD1D2DC9E500271514 /* books_readable.json in Resources */,
 				C0B52A2A1D3566B4000E44F3 /* PDFViewController.xib in Resources */,
 				C045F9721D29760A006D005B /* LaunchScreen.storyboard in Resources */,
 				C0BF92B61D32AB40002AA6D1 /* BookViewController.xib in Resources */,
