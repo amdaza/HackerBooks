@@ -65,6 +65,7 @@ func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
         if let defaultImage = defaultImageSyncDownload(){
             
             return try decode(agtBook: jsonDict, defaultImage: defaultImage)
+            
         } else {
             throw HackerBooksError.missingDefaultImage
         }
