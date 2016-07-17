@@ -86,11 +86,16 @@ class LibraryTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            
+        // Get book
+        let book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
         
+        // Get image
+        book.image.getImage()
+        
+            
         // Cell type
         let cellId = "LibraryCell"
-        
-        let book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
         
         // Create cell
         var cell = tableView.dequeueReusableCellWithIdentifier(cellId)
@@ -108,44 +113,28 @@ class LibraryTableViewController: UITableViewController {
         return cell!
     }
     
-    
-    
-    /*
-    func syncDownload(imageUrl: String) -> UIImage? {
-        guard let url = NSURL(string: imageUrl),
-            data = NSData(contentsOfURL: url)
-            else {
-                return nil
-        }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        return UIImage(data: data)
+        // Subscribe to image updates
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        nc.addObserver(self, selector: "imageDidChange:", name: ImageDidChangeNotification, object: nil)
     }
-*/
     
-    /*
-    func asyncDownload(imageUrl: String) -> UIImage? {
-        //var image = nil
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        let queue = dispatch_queue_create("downloads", nil)
-        
-        let url = NSURL(string: imageUrl)
-        if url != nil {
-            
-            dispatch_async(queue){
-                let data = NSData(contentsOfURL: url!)
-                let img = UIImage(data: data!)
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    // self.imageView.image = image
-                    //image = img
-                }
-            }
-        }
-        
-        return nil
+        // Unsuscribe from all notifications
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self)
     }
-*/
+    
 
+    @objc func imageDidChange(notification: NSNotification) {
+        self.tableView.reloadData()
+    
+    }
 }
 
 protocol LibraryTableViewControllerDelegate {

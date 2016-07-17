@@ -106,6 +106,10 @@ class BookViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        
+        // Unsuscribe from all notifications
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self)
     }
     
     @objc func imageDidChange(notification: NSNotification) {
