@@ -138,6 +138,7 @@ class LibraryTableViewController: UITableViewController {
 
 
     @objc func libraryDidChange(notification: NSNotification) {
+        print("reloadData libraryDidChange")
         self.tableView.reloadData()
 
     }

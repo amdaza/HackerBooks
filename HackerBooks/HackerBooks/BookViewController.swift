@@ -60,25 +60,28 @@ class BookViewController: UIViewController {
     }
 
     @IBAction func changeFavourite(sender: AnyObject) {
-
-        
-        model.favourite = favSwitch.on
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        var favBooksIndexes = defaults.objectForKey(FavouriteKey) as? Set<Int> ?? Set<Int>()
+        var favBooksIndexes = defaults.objectForKey(FavouriteKey) as? [Int] ?? [Int]()
         
         if(favSwitch.on) {
             // Add to favourites
-            favBooksIndexes.insert(model.index)
+            favBooksIndexes.append(model.index)
+            print("inserted \(model.index)")
         } else {
             // Delete from favourites
-            favBooksIndexes.remove(model.index)
+            favBooksIndexes = favBooksIndexes.filter() {$0 != model.index}
+            print("deletd \(model.index)")
         }
+        
+        defaults.setObject(favBooksIndexes, forKey: FavouriteKey)
+        
         // Notify
         let nc = NSNotificationCenter.defaultCenter()
         let notif = NSNotification(name: FavouriteDidChangeNotification, object: self,
             userInfo: [FavouriteKey: model.index])
         
+        print(favBooksIndexes)
         nc.postNotification(notif)
 
     }

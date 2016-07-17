@@ -70,7 +70,7 @@ class AGTLibrary {
         
         // Favourites
         let defaults = NSUserDefaults.standardUserDefaults()
-        let favBooksIndexes = defaults.objectForKey(FavouriteKey) as? Set<Int> ?? Set<Int>()
+        let favBooksIndexes = defaults.objectForKey(FavouriteKey) as? [Int] ?? [Int]()
         let favTag = AGTTag(tag: "favourites")
         library[favTag] = [Int]()
         
@@ -82,6 +82,11 @@ class AGTLibrary {
             library[favTag]?.append(index)
             
         }
+        // Subscribe
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        // Subscribe to favourite updates
+        nc.addObserver(self, selector: "favouriteDidChange:", name: FavouriteDidChangeNotification, object: nil)
 
         // Order tags
         tags.sortInPlace({ $0 < $1 })
@@ -154,7 +159,22 @@ class AGTLibrary {
     // If index or tag don't exist, return nil
     //func bookAtIndex(index: Int) -> AGTBook?
 
+    @objc func favouriteDidChange(notification: NSNotification) {
+        
+        let info = notification.userInfo!
+        
+        let bookIndex = info[FavouriteKey] as! Int
+        let favTag = AGTTag(tag: "favourites")
 
+        // Set fav to model
+        books[bookIndex].favourite = true
+            
+        // Add to favourites tag
+        library[favTag]!.append(bookIndex)
+        
+        print("added fav to library \(bookIndex)")
+        print(library[favTag])
+    }
 
 
 }
