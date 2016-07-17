@@ -193,6 +193,9 @@ class AGTLibrary {
             
             if(library[favTag]?.count == 0){
                 tags.append(favTag)
+                
+                // Order tags
+                tags.sortInPlace({ $0 < $1 })
             }
             
             // Set fav to model
