@@ -58,42 +58,42 @@ class AGTLibrary {
                 library[agtTag]?.append(bookIndex)
 
             }
-            
+
             // Save index in book model (used in fav defaults)
             book.index = bookIndex
-            
+
             // Iterate index
             bookIndex++
 
         }
 
-        
+
         // Favourites
         let defaults = NSUserDefaults.standardUserDefaults()
-        
+
         let favTag = AGTTag(tag: "favourites")
         library[favTag] = [Int]()
-        
+
         if let favBooksIndexes = defaults.objectForKey(FavouriteKey) as? [Int]{
-            
+
             for index in favBooksIndexes {
                 // Set fav to model
                 books[index].favourite = true
-                
+
                 // Add to favourites tag
                 library[favTag]?.append(index)
-                
+
             }
-            
+
             tags.append(favTag)
-            
+
         } else {
             library[favTag] = [Int]()
         }
-        
+
         // Subscribe
         let nc = NSNotificationCenter.defaultCenter()
-        
+
         // Subscribe to favourite updates
         nc.addObserver(self, selector: "favouriteDidChange:", name: FavouriteDidChangeNotification, object: nil)
 
@@ -165,45 +165,45 @@ class AGTLibrary {
     }
 
     @objc func favouriteDidChange(notification: NSNotification) {
-        
+
         let info = notification.userInfo!
-        
+
         let bookIndex = info[FavouriteKey] as! Int
         let favTag = AGTTag(tag: "favourites")
-        
+
         if(library[favTag]!.contains(bookIndex)){
             // Delete
-            
+
             if(library[favTag]?.count == 1){
                 tags = tags.filter() { $0 != favTag }
             }
-            
+
             // Set not fav to model
             books[bookIndex].favourite = false
-            
+
             // Add to favourites tag
             library[favTag] = library[favTag]?.filter() { $0 != bookIndex }
-            
+
             print("deleted fav to library \(bookIndex)")
-            
-            
-            
+
+
+
         } else {
             // Insert
-            
+
             if(library[favTag]?.count == 0){
                 tags.append(favTag)
-                
+
                 // Order tags
                 tags.sortInPlace({ $0 < $1 })
             }
-            
+
             // Set fav to model
             books[bookIndex].favourite = true
-            
+
             // Add to favourites tag
             library[favTag]!.append(bookIndex)
-            
+
             print("added fav to library \(bookIndex)")
         }
 

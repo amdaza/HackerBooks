@@ -18,7 +18,7 @@ class LibraryTableViewController: UITableViewController {
     let model: AGTLibrary
 
     var delegate: LibraryTableViewControllerDelegate?
-    
+
     var orderIndex: Int = 0
 
     // MARK: - Initialization
@@ -35,15 +35,15 @@ class LibraryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.title = "HackerBooks"
-        
+
         // Trying UISegmentedControl
         //let frame = UIScreen.mainScreen().bounds
         let items = ["HackerBooks by Tags", "HackerBooks by Name"]
         let sc = UISegmentedControl(items: items)
-        
+
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents: .ValueChanged)
-        
+
         self.navigationItem.titleView = sc
     }
 
@@ -57,18 +57,18 @@ class LibraryTableViewController: UITableViewController {
 
             print("Selected row")
             print(indexPath.row,indexPath.section)
-            
+
             // Get book
             var book: AGTBook
-            
+
             switch orderIndex {
             case 0:
                 book = model.book(atIndex: indexPath.row,
                     forTag: model.tags[indexPath.section])
-                
+
             case 1:
                 book = model.books[indexPath.row]
-                
+
             default:
                 book = model.book(atIndex: indexPath.row,
                     forTag: model.tags[indexPath.section])
@@ -96,10 +96,10 @@ class LibraryTableViewController: UITableViewController {
             case 0:
                 // Tags in library
                 return model.tagsCount
-            
+
             case 1:
                 return 1
-            
+
             default:
                 // Tags in library
                 return model.tagsCount
@@ -111,10 +111,10 @@ class LibraryTableViewController: UITableViewController {
         case 0:
             // Books number in tag
             return model.bookCountForTag(model.tags[section])
-            
+
         case 1:
             return model.booksCount
-            
+
         default:
             // Books number in tag
             return model.bookCountForTag(model.tags[section])
@@ -127,10 +127,10 @@ class LibraryTableViewController: UITableViewController {
             switch orderIndex {
             case 0:
                 return model.tags[section].tag
-                
+
             case 1:
                 return "Books by name"
-                
+
             default:
                 return model.tags[section].tag
             }
@@ -141,18 +141,18 @@ class LibraryTableViewController: UITableViewController {
 
         // Get book
         var book: AGTBook
-            
+
         switch orderIndex {
         case 0:
             book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
-                
+
         case 1:
             book = model.books[indexPath.row]
-                
+
         default:
             book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
         }
-            
+
 
         // Get image
         book.image.getImage()
@@ -168,7 +168,7 @@ class LibraryTableViewController: UITableViewController {
             // Optional empty, create one
             cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
         }
-            
+
         // Fav cell
         if (book.favourite){
             cell?.backgroundColor = UIColor.orangeColor()
@@ -186,13 +186,13 @@ class LibraryTableViewController: UITableViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         // Subscribe
         let nc = NSNotificationCenter.defaultCenter()
-        
+
         // Subscribe to image updates
         nc.addObserver(self, selector: "libraryDidChange:", name: ImageDidChangeNotification, object: nil)
-        
+
         // Subscribe to favourite updates
         nc.addObserver(self, selector: "libraryDidChange:", name: FavouriteDidChangeNotification, object: nil)
 
@@ -212,7 +212,7 @@ class LibraryTableViewController: UITableViewController {
         self.tableView.reloadData()
 
     }
-    
+
     @objc func segmentedControlValueChanged(sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
         print("reloadData segmentedControlValueChanged")

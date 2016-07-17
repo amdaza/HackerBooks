@@ -33,13 +33,13 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         self.browser.delegate = self
 
         activityView.startAnimating()
-        
+
         if let pdfData = NSData(contentsOfURL: model.pdf_url){
-            
+
             browser.loadData(pdfData, MIMEType: "application/pdf",
                 textEncodingName: "UTF-8", baseURL: NSURL())
         }
-        
+
     }
 
 
