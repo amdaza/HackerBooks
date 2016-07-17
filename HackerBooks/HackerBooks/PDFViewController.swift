@@ -9,15 +9,15 @@
 import UIKit
 
 class PDFViewController: UIViewController, UIWebViewDelegate {
-    
+
     // MARK: - Properties
     var model: AGTBook
 
     @IBOutlet weak var browser: UIWebView!
-    
+
     @IBOutlet weak var activityView: UIActivityIndicatorView!
-    
-    
+
+
     // MARK: - Initialization
     init(model: AGTBook) {
         self.model = model
@@ -27,17 +27,17 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Sync
     func syncModelWithView() {
         self.browser.delegate = self
-        
+
         activityView.startAnimating()
-        
+
         browser.loadRequest(NSURLRequest(URL: model.pdf_url))
     }
-    
-    
+
+
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,59 +47,59 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         // Subscribe notification
         let nc = NSNotificationCenter.defaultCenter()
-        
+
         // My version
         nc.addObserver(self, selector: "bookDidChange:", name: BookDidChangeNotification, object: nil)
-        
+
         // New version
         //nc.addObserver(self, selector: @selector(bookDidChange), name: BookDidChangeNotification, object: nil)
-        
+
         syncModelWithView()
     }
-    
+
     func webViewDidFinishLoad(webView: UIWebView) {
         // Stop activity view
         activityView.stopAnimating()
-        
+
         // Hide it
         activityView.hidden = true
     }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         // Unsubscribe from all notifications
         let nc = NSNotificationCenter.defaultCenter()
         nc.removeObserver(self)
-        
+
     }
-    
+
     // MARK: - Memory
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @objc func bookDidChange(notification: NSNotification) {
-    
+
         // Get user info
         let info = notification.userInfo!
-        
+
         // Get book
         let book = info[BookKey] as? AGTBook
-        
+
         // Reload model
         model = book!
-        
+
         // Sync
         syncModelWithView()
     }
-    
-    
 
-  
+
+
+
 
 }

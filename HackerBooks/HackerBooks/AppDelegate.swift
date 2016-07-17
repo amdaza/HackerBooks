@@ -15,67 +15,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+
         // Create window
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
+
         // Get json data
         do {
             let firstTime = isAppAlreadyLaunchedOnce()
             print(firstTime)
-            
+
             // Get JSON
-            
+
             // Old way from resources
             //let json = try loadFromLocalFile(fileName: "books_readable.json")
-            
+
             // New way from url
             let json = try getJSON(remoteUrl: "https://t.co/K9ziV0z3SJ")
-            
+
             var books = [AGTBook]()
-            
+
             for dict in json {
                 do {
                     let book = try decode(agtBook: dict)
                     books.append(book)
-                    
+
                 } catch {
                     print("Error processing \(dict)")
                 }
             }
-            
+
             // Create model
             let model = AGTLibrary(withBooks: books)
-            
+
             // Create VC
             let lVC = LibraryTableViewController(model: model)
-            
+
             // Put in nav
             let lNav = UINavigationController(rootViewController: lVC)
-            
+
             // Create book VC
             let bookVC = BookViewController(model: model.book(atIndex: 0, forTag: model.tags[0]))
-            
+
             // Put in another navigation
             let bookNav = UINavigationController(rootViewController: bookVC)
-            
+
             // Create split view with two navs
             let splitVC = UISplitViewController()
             splitVC.viewControllers = [lNav, bookNav]
 
             // Assign nav as rootVC
             window?.rootViewController = splitVC
-            
+
             // Make book vc delegate of library vc
             lVC.delegate = bookVC
-            
+
             // Make visible & key to window
             window?.makeKeyAndVisible()
-        
+
         } catch {
             fatalError("Error while loading json")
         }
-        
+
         return true
     }
 
@@ -101,10 +101,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    
+
     func isAppAlreadyLaunchedOnce()->Bool{
         let defaults = NSUserDefaults.standardUserDefaults()
-        
+
         if let isAppAlreadyLaunchedOnce = defaults.stringForKey("isAppAlreadyLaunchedOnce"){
             print("App already launched : \(isAppAlreadyLaunchedOnce)")
             return true
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
-    
+
 
 
 }
