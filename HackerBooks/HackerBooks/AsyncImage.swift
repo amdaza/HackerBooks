@@ -46,41 +46,7 @@ class AsyncImage {
                 //throw HackerBooksError.resourcePointedByUrLNotReachable
             }
         }
-        
-        /*
-        let request = NSURLRequest(URL: url)
-        //let mainQueue = NSOperationQueue.mainQueue()
-        
-        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (dataRes, response, error) -> Void in
-            if (error == nil),
-            let data = dataRes,
-            let img = UIImage(data: data) {
-                self.image = img
-                self.loaded = true
-                
-                // Notify
-            } else {
-                //throw HackerBooksError.resourcePointedByUrLNotReachable
-            }
 
-        })
-        */
-        /*
-        NSURLConnection.sendAsynchronousRequest(request, queue: mainQueue,
-            completionHandler: { (response, dataRes, error) -> Void in
-                if (error == nil),
-                let data = dataRes,
-                let img = UIImage(data: data) {
-                    self.image = img
-                    self.loaded = true
-                    
-                   // Notify
-                } else {
-                    //throw HackerBooksError.resourcePointedByUrLNotReachable
-                }
-            
-            
-        })*/
         
     }
     
