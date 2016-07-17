@@ -10,6 +10,7 @@ import UIKit
 
 let BookDidChangeNotification = "Selected book did change"
 let BookKey = "bookKey"
+let FavouriteKey = "favKey"
 
 class LibraryTableViewController: UITableViewController {
 
@@ -116,10 +117,14 @@ class LibraryTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Subscribe to image updates
+        // Subscribe
         let nc = NSNotificationCenter.defaultCenter()
         
-        nc.addObserver(self, selector: "imageDidChange:", name: ImageDidChangeNotification, object: nil)
+        // Subscribe to image updates
+        nc.addObserver(self, selector: "libraryDidChange:", name: ImageDidChangeNotification, object: nil)
+        
+        // Subscribe to favourite updates
+        nc.addObserver(self, selector: "libraryDidChange:", name: FavouriteDidChangeNotification, object: nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -131,7 +136,7 @@ class LibraryTableViewController: UITableViewController {
     }
     
 
-    @objc func imageDidChange(notification: NSNotification) {
+    @objc func libraryDidChange(notification: NSNotification) {
         self.tableView.reloadData()
     
     }

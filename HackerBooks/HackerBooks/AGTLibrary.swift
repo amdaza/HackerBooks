@@ -59,9 +59,29 @@ class AGTLibrary {
                 
             }
             
+            // Save index in book model (used in fav defaults)
+            book.index = bookIndex
+            
+            // Iterate index
             bookIndex++
             
         }
+        
+        // Favourites
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let favBooksIndexes = defaults.objectForKey(FavouriteKey) as? Set<Int> ?? Set<Int>()
+        let favTag = AGTTag(tag: "favourites")
+        library[favTag] = [Int]()
+        
+        for index in favBooksIndexes {
+            // Set fav to model
+            books[index].favourite = true
+            
+            // Add to favourites tag
+            library[favTag]?.append(index)
+            
+        }
+        
         
         // Order tags
         tags.sortInPlace({ $0 < $1 })

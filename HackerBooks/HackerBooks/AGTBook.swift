@@ -15,8 +15,9 @@ class AGTBook : Comparable {
     var tags: [String]
     let image_url: NSURL
     let pdf_url: NSURL
-    let favourite: Bool
+    var favourite: Bool
     let image: AsyncImage
+    var index: Int
     
     // MARK: - Computed properties
     var authorsDescription: String {
@@ -45,6 +46,7 @@ class AGTBook : Comparable {
             self.pdf_url = pdf_url
             self.favourite = favourite
             self.image = image
+            self.index = 0
     }
     
     //MARK: - Proxies
