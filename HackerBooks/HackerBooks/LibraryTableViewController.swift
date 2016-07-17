@@ -18,6 +18,8 @@ class LibraryTableViewController: UITableViewController {
     let model: AGTLibrary
 
     var delegate: LibraryTableViewControllerDelegate?
+    
+    var orderIndex: Int = 0
 
     // MARK: - Initialization
     init(model: AGTLibrary) {
@@ -32,7 +34,17 @@ class LibraryTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "HackerBooks"
+        //self.title = "HackerBooks"
+        
+        // Trying UISegmentedControl
+        //let frame = UIScreen.mainScreen().bounds
+        let items = ["HackerBooks by Tags", "HackerBooks by Name"]
+        let sc = UISegmentedControl(items: items)
+        
+        sc.selectedSegmentIndex = 0
+        sc.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents: .ValueChanged)
+        
+        self.navigationItem.titleView = sc
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,10 +57,22 @@ class LibraryTableViewController: UITableViewController {
 
             print("Selected row")
             print(indexPath.row,indexPath.section)
-
+            
             // Get book
-            let book = model.book(atIndex: indexPath.row,
-                forTag: model.tags[indexPath.section])
+            var book: AGTBook
+            
+            switch orderIndex {
+            case 0:
+                book = model.book(atIndex: indexPath.row,
+                    forTag: model.tags[indexPath.section])
+                
+            case 1:
+                book = model.books[indexPath.row]
+                
+            default:
+                book = model.book(atIndex: indexPath.row,
+                    forTag: model.tags[indexPath.section])
+            }
 
             print(book.title)
 
@@ -68,28 +92,67 @@ class LibraryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-
-        // Tags in library
-        return model.tagsCount
+        switch orderIndex {
+            case 0:
+                // Tags in library
+                return model.tagsCount
+            
+            case 1:
+                return 1
+            
+            default:
+                // Tags in library
+                return model.tagsCount
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        // Books number in tag
-        return model.bookCountForTag(model.tags[section])
+        switch orderIndex {
+        case 0:
+            // Books number in tag
+            return model.bookCountForTag(model.tags[section])
+            
+        case 1:
+            return model.booksCount
+            
+        default:
+            // Books number in tag
+            return model.bookCountForTag(model.tags[section])
+        }
     }
 
     override func tableView(tableView: UITableView,
         titleForHeaderInSection section: Int) -> String? {
 
-        return model.tags[section].tag
+            switch orderIndex {
+            case 0:
+                return model.tags[section].tag
+                
+            case 1:
+                return "Books by name"
+                
+            default:
+                return model.tags[section].tag
+            }
     }
 
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         // Get book
-        let book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
+        var book: AGTBook
+            
+        switch orderIndex {
+        case 0:
+            book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
+                
+        case 1:
+            book = model.books[indexPath.row]
+                
+        default:
+            book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
+        }
+            
 
         // Get image
         book.image.getImage()
@@ -141,6 +204,12 @@ class LibraryTableViewController: UITableViewController {
         print("reloadData libraryDidChange")
         self.tableView.reloadData()
 
+    }
+    
+    @objc func segmentedControlValueChanged(sender: UISegmentedControl){
+        self.orderIndex = sender.selectedSegmentIndex
+        print("reloadData segmentedControlValueChanged")
+        self.tableView.reloadData()
     }
 }
 
