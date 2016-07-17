@@ -168,6 +168,13 @@ class LibraryTableViewController: UITableViewController {
             // Optional empty, create one
             cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
         }
+            
+        // Fav cell
+        if (book.favourite){
+            cell?.backgroundColor = UIColor.orangeColor()
+        } else {
+            cell?.backgroundColor = UIColor.clearColor()
+        }
 
         // Syncronize book and cell
         cell?.imageView?.image = book.image.image
