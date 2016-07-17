@@ -9,7 +9,7 @@
 import UIKit
 
 let BookDidChangeNotification = "Selected book did change"
-let BookKey = "key"
+let BookKey = "bookKey"
 
 class LibraryTableViewController: UITableViewController {
 

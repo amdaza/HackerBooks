@@ -38,8 +38,7 @@ class AGTLibrary {
         books = books.sort { $0 < $1 }
         
         var bookIndex = 0
-        
-        
+
         for book in books {
             
             // Add tags
@@ -57,8 +56,6 @@ class AGTLibrary {
                 
                 // Add book to library
                 library[agtTag]?.append(bookIndex)
-                
-                //guard
                 
             }
             

@@ -32,7 +32,7 @@ class BookViewController: UIViewController {
     }
     
     func syncModelWithView() {
-        photoView.image = model.syncDownload(model.image_url)
+        photoView.image = model.image.image
         
         title = model.title
         
@@ -83,6 +83,15 @@ class BookViewController: UIViewController {
         tagList.textAlignment = .Left
         tagList.editable = false
         
+        // Load image (if not loaded yet)
+        model.image.getImage()
+        
+        // Subscribe to notifications
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        nc.addObserver(self, selector: "imageDidChange:", name: ImageDidChangeNotification, object: nil)
+        
+        
         // Sync
         syncModelWithView()
     }
@@ -97,6 +106,16 @@ class BookViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+    }
+    
+    @objc func imageDidChange(notification: NSNotification) {
+        let info = notification.userInfo!
+        
+        let urlString = info[ImageKey] as! String
+        
+        if urlString == model.image_url.path {
+            photoView.image = model.image.image
+        }
     }
     
 }
