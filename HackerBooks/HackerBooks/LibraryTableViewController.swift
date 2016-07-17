@@ -55,9 +55,6 @@ class LibraryTableViewController: UITableViewController {
     override func tableView(tableView: UITableView,
         didDeselectRowAtIndexPath indexPath: NSIndexPath) {
 
-            print("Selected row")
-            print(indexPath.row,indexPath.section)
-
             // Get book
             var book: AGTBook
 
@@ -73,9 +70,6 @@ class LibraryTableViewController: UITableViewController {
                 book = model.book(atIndex: indexPath.row,
                     forTag: model.tags[indexPath.section])
             }
-
-            print(book.title)
-
 
             // Notify delegate
             delegate?.libraryTableViewController(self, didSelectBook: book)
@@ -208,14 +202,14 @@ class LibraryTableViewController: UITableViewController {
 
 
     @objc func libraryDidChange(notification: NSNotification) {
-        print("reloadData libraryDidChange")
+
         self.tableView.reloadData()
 
     }
 
     @objc func segmentedControlValueChanged(sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
-        print("reloadData segmentedControlValueChanged")
+
         self.tableView.reloadData()
     }
 }

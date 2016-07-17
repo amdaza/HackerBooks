@@ -184,10 +184,6 @@ class AGTLibrary {
             // Add to favourites tag
             library[favTag] = library[favTag]?.filter() { $0 != bookIndex }
 
-            print("deleted fav to library \(bookIndex)")
-
-
-
         } else {
             // Insert
 
@@ -203,13 +199,7 @@ class AGTLibrary {
 
             // Add to favourites tag
             library[favTag]!.append(bookIndex)
-
-            print("added fav to library \(bookIndex)")
         }
-
-        print("this is library[favTag]")
-        print(library[favTag])
     }
-
 
 }

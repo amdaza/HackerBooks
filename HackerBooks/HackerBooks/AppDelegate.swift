@@ -21,15 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Get json data
         do {
-            let firstTime = isAppAlreadyLaunchedOnce()
-            print(firstTime)
-
             // Get JSON
-
-            // Old way from resources
-            //let json = try loadFromLocalFile(fileName: "books_readable.json")
-
-            // New way from url
             let json = try getJSON(remoteUrl: "https://t.co/K9ziV0z3SJ")
 
             var books = [AGTBook]()
@@ -100,21 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
-    func isAppAlreadyLaunchedOnce()->Bool{
-        let defaults = NSUserDefaults.standardUserDefaults()
-
-        if let isAppAlreadyLaunchedOnce = defaults.stringForKey("isAppAlreadyLaunchedOnce"){
-            print("App already launched : \(isAppAlreadyLaunchedOnce)")
-            return true
-        }else{
-            defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
-            print("App launched first time")
-            return false
-        }
-    }
-
 
 
 }

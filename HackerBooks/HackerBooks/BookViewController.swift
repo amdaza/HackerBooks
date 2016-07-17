@@ -67,11 +67,10 @@ class BookViewController: UIViewController {
         if(favSwitch.on) {
             // Add to favourites
             favBooksIndexes.append(model.index)
-            print("inserted \(model.index)")
+
         } else {
             // Delete from favourites
             favBooksIndexes = favBooksIndexes.filter() {$0 != model.index}
-            print("deletd \(model.index)")
         }
 
         defaults.setObject(favBooksIndexes, forKey: FavouriteKey)
@@ -81,7 +80,6 @@ class BookViewController: UIViewController {
         let notif = NSNotification(name: FavouriteDidChangeNotification, object: self,
             userInfo: [FavouriteKey: model.index])
 
-        print(favBooksIndexes)
         nc.postNotification(notif)
 
     }
@@ -155,7 +153,6 @@ extension BookViewController: LibraryTableViewControllerDelegate {
             // Update model
             model = book
 
-            print("upsate model")
             print(book.title)
 
             // Sync
