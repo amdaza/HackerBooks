@@ -40,6 +40,10 @@ Aprovechando la notificación *BookDidChangeNotification* ya creada para el *Boo
 
 ## Comentarios
 
+### Errores
+
+Sucede algo extraño con la práctica que no he sabido solucionar. La primara vez que se selecciona un libro, no parece hacer nada. Al seleccionar un segundo, se lanza el evento del libro anterior. Después de perder tiempo con ello, decidí seguir avanzando con la funcionalidad.
+
 ### Versiones
 
 La práctica se ha realizado usando XCode 7.2.1. Como la versión de swift cambia, puede que haya algún código deprecado. Lo único que noté distinto durante las clases fue la sintaxis del selector al añadir observador, por ejemplo:
