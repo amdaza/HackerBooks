@@ -139,7 +139,9 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
 
 
 func getJSONArray(fromData data: NSData) throws -> JSONArray {
-    if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+    if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data,
+        options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+
         array = maybeArray {
 
             return array
