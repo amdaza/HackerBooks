@@ -53,7 +53,7 @@ class LibraryTableViewController: UITableViewController {
 
     // MARK: - Table view delegate
     override func tableView(tableView: UITableView,
-        didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
             // Get book
             var book: AGTBook
