@@ -35,7 +35,7 @@ class AGTLibrary {
         // Add books to structures
         books = bs
 
-        books = books.sort { $0 < $1 }
+        books = books.sorted { $0 < $1 }
 
         var bookIndex = 0
 
@@ -63,18 +63,18 @@ class AGTLibrary {
             book.index = bookIndex
 
             // Iterate index
-            bookIndex++
+            bookIndex += 1
 
         }
 
 
         // Favourites
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
 
         let favTag = AGTTag(tag: "favourites")
         library[favTag] = [Int]()
 
-        if let favBooksIndexes = defaults.objectForKey(FavouriteKey) as? [Int]{
+        if let favBooksIndexes = defaults.object(forKey: FavouriteKey) as? [Int]{
 
             for index in favBooksIndexes {
                 // Set fav to model
@@ -92,13 +92,13 @@ class AGTLibrary {
         }
 
         // Subscribe
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
 
         // Subscribe to favourite updates
-        nc.addObserver(self, selector: "favouriteDidChange:", name: FavouriteDidChangeNotification, object: nil)
+        nc.addObserver(self, selector: #selector(AGTLibrary.favouriteDidChange(_:)), name: NSNotification.Name(rawValue: FavouriteDidChangeNotification), object: nil)
 
         // Order tags
-        tags.sortInPlace({ $0 < $1 })
+        tags.sort(by: { $0 < $1 })
 
     }
 
@@ -122,7 +122,7 @@ class AGTLibrary {
 
     // Books in tag count
     // If not exists, return 0
-    func bookCountForTag (tag: AGTTag?) -> Int {
+    func bookCountForTag (_ tag: AGTTag?) -> Int {
         guard let count = library[tag!]?.count else {
 
                 return 0
@@ -134,11 +134,11 @@ class AGTLibrary {
     // Array of books (AGTBooks) in tag
     // One book can be in one or more tags.
     // If tag hasn't books, return nil
-    func booksForTag (tag: AGTTag?) -> [AGTBook] {
+    func booksForTag (_ tag: AGTTag?) -> [AGTBook] {
         var result = [AGTBook]()
 
         guard let tagString = tag,
-            bookIndexes = library[tagString]
+            let bookIndexes = library[tagString]
            // result = Array(library[tagString]!)
         else {
             return result
@@ -164,9 +164,9 @@ class AGTLibrary {
         return books[bookIndex]
     }
 
-    @objc func favouriteDidChange(notification: NSNotification) {
+    @objc func favouriteDidChange(_ notification: Notification) {
 
-        let info = notification.userInfo!
+        let info = (notification as NSNotification).userInfo!
 
         let bookIndex = info[FavouriteKey] as! Int
         let favTag = AGTTag(tag: "favourites")
@@ -191,7 +191,7 @@ class AGTLibrary {
                 tags.append(favTag)
 
                 // Order tags
-                tags.sortInPlace({ $0 < $1 })
+                tags.sort(by: { $0 < $1 })
             }
 
             // Set fav to model

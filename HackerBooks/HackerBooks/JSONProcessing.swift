@@ -19,12 +19,12 @@ func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws
 
     // Validate dictionary
     guard let imageString = json["image_url"] as? String,
-        imageUrl = NSURL(string: imageString) else {
+        let imageUrl = URL(string: imageString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
     guard let pdfString = json["pdf_url"] as? String,
-        pdfUrl = NSURL(string: pdfString) else {
+        let pdfUrl = URL(string: pdfString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
@@ -34,7 +34,7 @@ func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws
     else {
         throw HackerBooksError.wrongURLFormatForJSONResource
     }
-    let authors = authorsString.componentsSeparatedByString(", ")
+    let authors = authorsString.components(separatedBy: ", ")
 
 
     guard let tagsString = json["tags"] as? String
@@ -42,15 +42,15 @@ func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws
     else {
         throw HackerBooksError.wrongURLFormatForJSONResource
     }
-    let tags = tagsString.componentsSeparatedByString(", ")
+    let tags = tagsString.components(separatedBy: ", ")
 
 
-    let asyncImage = AsyncImage(remoteUrl: imageUrl, defaultImage: defImage)
+    let asyncImage = AsyncImage(remoteUrl: imageUrl as NSURL, defaultImage: defImage)
 
     // CHANGE FAVOURITE
     if let title = json["title"] as? String {
         return AGTBook(title: title, authors: authors, tags: tags,
-            image_url: imageUrl, pdf_url: pdfUrl, favourite: false,
+            image_url: imageUrl as NSURL, pdf_url: pdfUrl as NSURL, favourite: false,
             image: asyncImage)
     } else {
         throw HackerBooksError.wrongJSONFormat
@@ -61,7 +61,7 @@ func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws
 
 func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
 
-    if case .Some(let jsonDict) = json{
+    if case .some(let jsonDict) = json{
         if let defaultImage = defaultImageSyncDownload(){
 
             return try decode(agtBook: jsonDict, defaultImage: defaultImage)
@@ -78,12 +78,12 @@ func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
 
 
 // MARK: - Loading
-func loadFromLocalFile(fileName name: String, bundle: NSBundle = NSBundle.mainBundle()) throws -> JSONArray {
+func loadFromLocalFile(fileName name: String, bundle: Bundle = Bundle.main) throws -> JSONArray {
 
     if let url = bundle.URLForResource(name),
-        data = NSData(contentsOfURL: url),
-        maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
-        array = maybeArray {
+        let data = try? Data(contentsOf: url),
+        let maybeArray = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,
+        let array = maybeArray {
 
             return array
 
@@ -95,22 +95,22 @@ func loadFromLocalFile(fileName name: String, bundle: NSBundle = NSBundle.mainBu
 
 
 func getJSON(remoteUrl url: String) throws -> JSONArray {
-    if let jsonUrl = NSURL(string: url),
+    if let jsonUrl = URL(string: url),
 
     // Get Documents url
-    let documentsUrl = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first, // First because it returns an array
+    let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, // First because it returns an array
 
     // Get json filename
     let jsonFileName = jsonUrl.lastPathComponent {
 
-        let destination = documentsUrl.URLByAppendingPathComponent(jsonFileName)
+        let destination = documentsUrl.appendingPathComponent(jsonFileName)
 
         // Check if file exists before downloading it
         if destination.path != nil
-            && NSFileManager().fileExistsAtPath(destination.path!) {
+            && FileManager().fileExists(atPath: destination.path!) {
             // File exists at path
 
-            if let data = NSData(contentsOfURL: destination){
+            if let data = try? Data(contentsOf: destination){
 
                 return try getJSONArray(fromData: data)
 
@@ -121,8 +121,8 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
         } else {
             // File doesn't exists. Download from url
 
-            if let data = NSData(contentsOfURL: jsonUrl) {
-                data.writeToURL(destination, atomically: true)
+            if let data = try? Data(contentsOf: jsonUrl) {
+                try? data.write(to: destination, options: [.atomic])
 
                 return try getJSONArray(fromData: data)
 
@@ -138,11 +138,11 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
 }
 
 
-func getJSONArray(fromData data: NSData) throws -> JSONArray {
-    if let maybeArray = try? NSJSONSerialization.JSONObjectWithData(data,
-        options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+func getJSONArray(fromData data: Data) throws -> JSONArray {
+    if let maybeArray = try? JSONSerialization.jsonObject(with: data,
+        options: JSONSerialization.ReadingOptions.mutableContainers) as? JSONArray,
 
-        array = maybeArray {
+        let array = maybeArray {
 
             return array
 
@@ -154,8 +154,8 @@ func getJSONArray(fromData data: NSData) throws -> JSONArray {
 
 func defaultImageSyncDownload() -> UIImage? {
     let imageName = "book-default.png"
-    if let url = NSBundle.mainBundle().URLForResource(imageName),
-        let data = NSData(contentsOfURL: url),
+    if let url = Bundle.main.URLForResource(imageName),
+        let data = try? Data(contentsOf: url),
         let image = UIImage(data: data) {
 
             return image

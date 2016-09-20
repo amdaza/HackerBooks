@@ -13,8 +13,8 @@ class AGTBook : Comparable {
     let title: String
     var authors: [String]
     var tags: [String]
-    let image_url: NSURL
-    let pdf_url: NSURL
+    let image_url: URL
+    let pdf_url: URL
     var favourite: Bool
     let image: AsyncImage
     var index: Int
@@ -22,21 +22,21 @@ class AGTBook : Comparable {
     // MARK: - Computed properties
     var authorsDescription: String {
         get {
-            return "Authors: " + authors.joinWithSeparator(", ")
+            return "Authors: " + authors.joined(separator: ", ")
         }
     }
 
     var tagsText: String {
         get {
-            let capTags = tags.map({"\n -> " + $0.capitalizedString})
-            return capTags.joinWithSeparator("\n")
+            let capTags = tags.map({"\n -> " + $0.capitalized})
+            return capTags.joined(separator: "\n")
         }
     }
 
     // MARK: - Initialization
     init(title: String, authors: [String],
-        tags: [String], image_url: NSURL,
-        pdf_url: NSURL, favourite: Bool,
+        tags: [String], image_url: URL,
+        pdf_url: URL, favourite: Bool,
         image: AsyncImage) {
 
             self.title = title
@@ -56,8 +56,8 @@ class AGTBook : Comparable {
         }
     }
 
-    func syncDownload(imageUrl: NSURL) -> UIImage? {
-        if let data = NSData(contentsOfURL: imageUrl) {
+    func syncDownload(_ imageUrl: URL) -> UIImage? {
+        if let data = try? Data(contentsOf: imageUrl) {
             return UIImage(data: data)
         }
         return nil
@@ -77,6 +77,6 @@ func ==(lhs: AGTBook, rhs: AGTBook) -> Bool {
 
 // Mark: - Comparable
 func <(lhs: AGTBook, rhs: AGTBook) -> Bool {
-    return lhs.title.lowercaseString < rhs.title.lowercaseString
+    return lhs.title.lowercased() < rhs.title.lowercased()
 }
 

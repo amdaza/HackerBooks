@@ -42,7 +42,7 @@ class LibraryTableViewController: UITableViewController {
         let sc = UISegmentedControl(items: items)
 
         sc.selectedSegmentIndex = 0
-        sc.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents: .ValueChanged)
+        sc.addTarget(self, action: #selector(LibraryTableViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
 
         self.navigationItem.titleView = sc
     }
@@ -52,40 +52,40 @@ class LibraryTableViewController: UITableViewController {
     }
 
     // MARK: - Table view delegate
-    override func tableView(tableView: UITableView,
-        didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath) {
 
             // Get book
             var book: AGTBook
 
             switch orderIndex {
             case 0:
-                book = model.book(atIndex: indexPath.row,
-                    forTag: model.tags[indexPath.section])
+                book = model.book(atIndex: (indexPath as NSIndexPath).row,
+                    forTag: model.tags[(indexPath as NSIndexPath).section])
 
             case 1:
-                book = model.books[indexPath.row]
+                book = model.books[(indexPath as NSIndexPath).row]
 
             default:
-                book = model.book(atIndex: indexPath.row,
-                    forTag: model.tags[indexPath.section])
+                book = model.book(atIndex: (indexPath as NSIndexPath).row,
+                    forTag: model.tags[(indexPath as NSIndexPath).section])
             }
 
             // Notify delegate
             delegate?.libraryTableViewController(self, didSelectBook: book)
 
             // Send same info via notification
-            let nc = NSNotificationCenter.defaultCenter()
-            let notif = NSNotification(name: BookDidChangeNotification,
+            let nc = NotificationCenter.default
+            let notif = Notification(name: Name(rawValue: BookDidChangeNotification),
                 object: self, userInfo: [BookKey: book])
 
-            nc.postNotification(notif)
+            nc.post(notif)
 
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         switch orderIndex {
             case 0:
                 // Tags in library
@@ -100,7 +100,7 @@ class LibraryTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch orderIndex {
         case 0:
             // Books number in tag
@@ -115,7 +115,7 @@ class LibraryTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView,
+    override func tableView(_ tableView: UITableView,
         titleForHeaderInSection section: Int) -> String? {
 
             switch orderIndex {
@@ -130,21 +130,21 @@ class LibraryTableViewController: UITableViewController {
             }
     }
 
-    override func tableView(tableView: UITableView,
-        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         // Get book
         var book: AGTBook
 
         switch orderIndex {
         case 0:
-            book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
+            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
 
         case 1:
-            book = model.books[indexPath.row]
+            book = model.books[(indexPath as NSIndexPath).row]
 
         default:
-            book = model.book(atIndex: indexPath.row, forTag: model.tags[indexPath.section])
+            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
         }
 
 
@@ -156,18 +156,18 @@ class LibraryTableViewController: UITableViewController {
         let cellId = "LibraryCell"
 
         // Create cell
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
 
         if cell == nil {
             // Optional empty, create one
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
         }
 
         // Fav cell
         if (book.favourite){
-            cell?.backgroundColor = UIColor.orangeColor()
+            cell?.backgroundColor = UIColor.orange
         } else {
-            cell?.backgroundColor = UIColor.clearColor()
+            cell?.backgroundColor = UIColor.clear
         }
 
         // Syncronize book and cell
@@ -178,36 +178,36 @@ class LibraryTableViewController: UITableViewController {
         return cell!
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         // Subscribe
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
 
         // Subscribe to image updates
-        nc.addObserver(self, selector: "libraryDidChange:", name: ImageDidChangeNotification, object: nil)
+        nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: ImageDidChangeNotification), object: nil)
 
         // Subscribe to favourite updates
-        nc.addObserver(self, selector: "libraryDidChange:", name: FavouriteDidChangeNotification, object: nil)
+        nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: FavouriteDidChangeNotification), object: nil)
 
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         // Unsuscribe from all notifications
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         nc.removeObserver(self)
     }
 
 
-    @objc func libraryDidChange(notification: NSNotification) {
+    @objc func libraryDidChange(_ notification: Notification) {
 
         self.tableView.reloadData()
 
     }
 
-    @objc func segmentedControlValueChanged(sender: UISegmentedControl){
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
 
         self.tableView.reloadData()
@@ -216,6 +216,6 @@ class LibraryTableViewController: UITableViewController {
 
 protocol LibraryTableViewControllerDelegate {
 
-    func libraryTableViewController(vc: LibraryTableViewController,
+    func libraryTableViewController(_ vc: LibraryTableViewController,
         didSelectBook book: AGTBook)
 }

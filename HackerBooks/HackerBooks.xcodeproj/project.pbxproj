@@ -262,15 +262,18 @@
 					C045F9631D29760A006D005B = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = RHR353KV4W;
+						LastSwiftMigration = 0800;
 					};
 					C045F9771D29760B006D005B = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = RHR353KV4W;
+						LastSwiftMigration = 0800;
 						TestTargetID = C045F9631D29760A006D005B;
 					};
 					C045F9821D29760B006D005B = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = RHR353KV4W;
+						LastSwiftMigration = 0800;
 						TestTargetID = C045F9631D29760A006D005B;
 					};
 				};
@@ -486,6 +489,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepcodingalumni.HackerBooks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -497,6 +501,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepcodingalumni.HackerBooks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -508,6 +513,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepcodingalumni.HackerBooksTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HackerBooks.app/HackerBooks";
 			};
 			name = Debug;
@@ -520,6 +526,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepcodingalumni.HackerBooksTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HackerBooks.app/HackerBooks";
 			};
 			name = Release;
@@ -531,6 +538,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepcodingalumni.HackerBooksUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = HackerBooks;
 				USES_XCTRUNNER = YES;
 			};
@@ -543,6 +551,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepcodingalumni.HackerBooksUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = HackerBooks;
 				USES_XCTRUNNER = YES;
 			};

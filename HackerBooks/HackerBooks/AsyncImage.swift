@@ -14,10 +14,10 @@ let ImageKey = "imageKey"
 class AsyncImage {
 
     var image: UIImage?
-    let url: NSURL
+    let url: URL
     var loaded: Bool
 
-    init(remoteUrl url: NSURL, defaultImage image: UIImage){
+    init(remoteUrl url: URL, defaultImage image: UIImage){
         self.url = url
         self.image = image
         self.loaded = false
@@ -25,22 +25,22 @@ class AsyncImage {
 
     func downloadImage() {
 
-        let queue = dispatch_queue_create("downloadImages", nil)
+        let queue = DispatchQueue(label: "downloadImages", attributes: [])
 
-        dispatch_async(queue) {
-            if let data = NSData(contentsOfURL: self.url),
+        queue.async {
+            if let data = try? Data(contentsOf: self.url),
                 let img = UIImage(data: data){
 
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.image = img
                     self.loaded = true
 
                     // Notify
-                    let nc = NSNotificationCenter.defaultCenter()
-                    let notif = NSNotification(name: ImageDidChangeNotification, object: self,
+                    let nc = NotificationCenter.default
+                    let notif = Notification(name: Name(rawValue: ImageDidChangeNotification), object: self,
                         userInfo: [ImageKey: self.url.path!])
 
-                    nc.postNotification(notif)
+                    nc.post(notif)
                 }
             } else {
                 //throw HackerBooksError.resourcePointedByUrLNotReachable
@@ -52,21 +52,21 @@ class AsyncImage {
         if (!loaded) {
 
             // Get cache url
-            if let cacheUrl = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory,
-                inDomains: .UserDomainMask).first, // First because it returns an array
+            if let cacheUrl = FileManager.default.urls(for: .cachesDirectory,
+                in: .userDomainMask).first, // First because it returns an array
 
             // Get image filename
             let imageFileName = url.lastPathComponent {
 
-                let destination = cacheUrl.URLByAppendingPathComponent(imageFileName)
+                let destination = cacheUrl.appendingPathComponent(imageFileName)
 
                 // Check if image exists before downloading it
                 if destination.path != nil &&
-                    NSFileManager().fileExistsAtPath(destination.path!) {
+                    FileManager().fileExists(atPath: destination.path!) {
 
                     // File exists at path
 
-                    if let data = NSData(contentsOfURL: destination) {
+                    if let data = try? Data(contentsOf: destination) {
                         self.image = UIImage(data: data)
                     }
                 } else {

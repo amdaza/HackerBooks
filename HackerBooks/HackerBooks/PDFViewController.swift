@@ -34,10 +34,10 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
 
         activityView.startAnimating()
 
-        if let pdfData = NSData(contentsOfURL: model.pdf_url){
+        if let pdfData = try? Data(contentsOf: model.pdf_url as URL){
 
-            browser.loadData(pdfData, MIMEType: "application/pdf",
-                textEncodingName: "UTF-8", baseURL: NSURL())
+            browser.load(pdfData, mimeType: "application/pdf",
+                textEncodingName: "UTF-8", baseURL: URL())
         }
 
     }
@@ -50,14 +50,14 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         // Do any additional setup after loading the view.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         // Subscribe notification
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
 
         // My version
-        nc.addObserver(self, selector: "bookDidChange:", name: BookDidChangeNotification, object: nil)
+        nc.addObserver(self, selector: #selector(PDFViewController.bookDidChange(_:)), name: NSNotification.Name(rawValue: BookDidChangeNotification), object: nil)
 
         // New version
         //nc.addObserver(self, selector: @selector(bookDidChange), name: BookDidChangeNotification, object: nil)
@@ -65,19 +65,19 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         syncModelWithView()
     }
 
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         // Stop activity view
         activityView.stopAnimating()
 
         // Hide it
-        activityView.hidden = true
+        activityView.isHidden = true
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         // Unsubscribe from all notifications
-        let nc = NSNotificationCenter.defaultCenter()
+        let nc = NotificationCenter.default
         nc.removeObserver(self)
 
     }
@@ -88,10 +88,10 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    @objc func bookDidChange(notification: NSNotification) {
+    @objc func bookDidChange(_ notification: Notification) {
 
         // Get user info
-        let info = notification.userInfo!
+        let info = (notification as NSNotification).userInfo!
 
         // Get book
         let book = info[BookKey] as? AGTBook
