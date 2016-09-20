@@ -76,7 +76,7 @@ class LibraryTableViewController: UITableViewController {
 
             // Send same info via notification
             let nc = NotificationCenter.default
-            let notif = Notification(name: Name(rawValue: BookDidChangeNotification),
+            let notif = Notification(name: Notification.Name(rawValue: BookDidChangeNotification),
                 object: self, userInfo: [BookKey: book])
 
             nc.post(notif)

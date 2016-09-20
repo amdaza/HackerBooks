@@ -37,7 +37,7 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         if let pdfData = try? Data(contentsOf: model.pdf_url as URL){
 
             browser.load(pdfData, mimeType: "application/pdf",
-                textEncodingName: "UTF-8", baseURL: URL())
+                         textEncodingName: "UTF-8", baseURL: URL(string: "https://google.com")! )
         }
 
     }

@@ -37,8 +37,8 @@ class AsyncImage {
 
                     // Notify
                     let nc = NotificationCenter.default
-                    let notif = Notification(name: Name(rawValue: ImageDidChangeNotification), object: self,
-                        userInfo: [ImageKey: self.url.path!])
+                    let notif = Notification(name: Notification.Name(rawValue: ImageDidChangeNotification), object: self,
+                        userInfo: [ImageKey: self.url.path])
 
                     nc.post(notif)
                 }
@@ -53,16 +53,16 @@ class AsyncImage {
 
             // Get cache url
             if let cacheUrl = FileManager.default.urls(for: .cachesDirectory,
-                in: .userDomainMask).first, // First because it returns an array
+                                                       in: .userDomainMask).first{ // First because it returns an array
 
             // Get image filename
-            let imageFileName = url.lastPathComponent {
+            let imageFileName = url.lastPathComponent //{
 
                 let destination = cacheUrl.appendingPathComponent(imageFileName)
 
                 // Check if image exists before downloading it
                 if destination.path != nil &&
-                    FileManager().fileExists(atPath: destination.path!) {
+                    FileManager().fileExists(atPath: destination.path) {
 
                     // File exists at path
 

@@ -19,7 +19,7 @@ func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws
 
     // Validate dictionary
     guard let imageString = json["image_url"] as? String,
-        let imageUrl = URL(string: imageString) else {
+        let imageUrl : URL = URL(string: imageString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
@@ -45,12 +45,12 @@ func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws
     let tags = tagsString.components(separatedBy: ", ")
 
 
-    let asyncImage = AsyncImage(remoteUrl: imageUrl as NSURL, defaultImage: defImage)
+    let asyncImage = AsyncImage(remoteUrl: imageUrl, defaultImage: defImage)
 
     // CHANGE FAVOURITE
     if let title = json["title"] as? String {
         return AGTBook(title: title, authors: authors, tags: tags,
-            image_url: imageUrl as NSURL, pdf_url: pdfUrl as NSURL, favourite: false,
+            image_url: imageUrl, pdf_url: pdfUrl, favourite: false,
             image: asyncImage)
     } else {
         throw HackerBooksError.wrongJSONFormat
@@ -98,16 +98,16 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
     if let jsonUrl = URL(string: url),
 
     // Get Documents url
-    let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first, // First because it returns an array
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first{ // First because it returns an array
 
     // Get json filename
-    let jsonFileName = jsonUrl.lastPathComponent {
+    let jsonFileName = jsonUrl.lastPathComponent //{
 
         let destination = documentsUrl.appendingPathComponent(jsonFileName)
 
         // Check if file exists before downloading it
         if destination.path != nil
-            && FileManager().fileExists(atPath: destination.path!) {
+            && FileManager().fileExists(atPath: destination.path) {
             // File exists at path
 
             if let data = try? Data(contentsOf: destination){
