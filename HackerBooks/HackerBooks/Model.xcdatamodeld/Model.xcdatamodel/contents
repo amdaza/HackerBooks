@@ -9,19 +9,25 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="authors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Author" inverseName="books" inverseEntity="Author" syncable="YES"/>
         <relationship name="bookTags" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookTag" inverseName="book" inverseEntity="BookTag" syncable="YES"/>
+        <relationship name="pdf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pdf" inverseName="book" inverseEntity="Pdf" syncable="YES"/>
     </entity>
     <entity name="BookTag" syncable="YES">
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="bookTags" inverseEntity="Book" syncable="YES"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="bookTags" inverseEntity="Tag" syncable="YES"/>
+    </entity>
+    <entity name="Pdf" syncable="YES">
+        <attribute name="pdfData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="pdf" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Tag" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Author" positionX="-54" positionY="9" width="128" height="75"/>
         <element name="BookTag" positionX="-36" positionY="36" width="128" height="75"/>
         <element name="Tag" positionX="-27" positionY="54" width="128" height="75"/>
+        <element name="Pdf" positionX="-9" positionY="81" width="128" height="75"/>
     </elements>
 </model>
