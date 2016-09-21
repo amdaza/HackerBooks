@@ -61,8 +61,7 @@ class AsyncImage {
                 let destination = cacheUrl.appendingPathComponent(imageFileName)
 
                 // Check if image exists before downloading it
-                if destination.path != nil &&
-                    FileManager().fileExists(atPath: destination.path) {
+                if FileManager().fileExists(atPath: destination.path) {
 
                     // File exists at path
 
