@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11224.2" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Author" representedClassName=".Author" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="authors" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Book" representedClassName=".Book" syncable="YES">
-        <attribute name="favourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favourite" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="authors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Author" inverseName="books" inverseEntity="Author" syncable="YES"/>
-        <relationship name="bookTags" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BookTag" inverseName="book" inverseEntity="BookTag" syncable="YES"/>
+        <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="book" inverseEntity="BookTag" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="book" inverseEntity="Note" syncable="YES"/>
         <relationship name="pdf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pdf" inverseName="book" inverseEntity="Pdf" syncable="YES"/>
     </entity>
-    <entity name="BookTag" syncable="YES">
+    <entity name="BookTag" representedClassName=".BookTag" syncable="YES">
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="bookTags" inverseEntity="Book" syncable="YES"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="bookTags" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName=".Location" syncable="YES">
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="location" inverseEntity="Note" syncable="YES"/>
     </entity>
-    <entity name="Note" syncable="YES">
-        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="modificationDate" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Note" representedClassName=".Note" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="text" attributeType="String" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="notes" inverseEntity="Book" syncable="YES"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="notes" inverseEntity="Location" syncable="YES"/>
         <relationship name="photo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photo" inverseName="notes" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <entity name="Pdf" syncable="YES">
         <attribute name="pdfData" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteUrl" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="pdf" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName=".Photo" syncable="YES">
+        <attribute name="localUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photoData" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteUrl" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="photo" inverseEntity="Note" syncable="YES"/>
     </entity>
-    <entity name="Tag" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="Tag" representedClassName=".Tag" syncable="YES">
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
     <elements>
@@ -50,7 +51,7 @@
         <element name="Location" positionX="0" positionY="90" width="128" height="90"/>
         <element name="Note" positionX="18" positionY="108" width="128" height="135"/>
         <element name="Pdf" positionX="-9" positionY="81" width="128" height="90"/>
-        <element name="Photo" positionX="-27" positionY="72" width="128" height="90"/>
+        <element name="Photo" positionX="-27" positionY="72" width="128" height="105"/>
         <element name="Tag" positionX="-27" positionY="54" width="128" height="75"/>
     </elements>
 </model>
