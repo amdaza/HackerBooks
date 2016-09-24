@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C2319041D96F0AD0002A3D3 /* AsyncData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2319031D96F0AD0002A3D3 /* AsyncData.swift */; };
+		1C2319061D9725940002A3D3 /* CoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2319051D9725940002A3D3 /* CoreDataTableViewController.swift */; };
 		1C443C1B1D92EAE400A7D293 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C443C191D92EAE400A7D293 /* Model.xcdatamodeld */; };
 		1CA8FF6B1D947EB500982B3A /* BookTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8FF5B1D947EB500982B3A /* BookTag+CoreDataClass.swift */; };
 		1CA8FF6C1D947EB500982B3A /* BookTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8FF5C1D947EB500982B3A /* BookTag+CoreDataProperties.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		1C2319031D96F0AD0002A3D3 /* AsyncData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncData.swift; sourceTree = "<group>"; };
+		1C2319051D9725940002A3D3 /* CoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewController.swift; sourceTree = "<group>"; };
 		1C443C1A1D92EAE400A7D293 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1CA8FF5B1D947EB500982B3A /* BookTag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookTag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1CA8FF5C1D947EB500982B3A /* BookTag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				C0BF92B41D32AB40002AA6D1 /* BookViewController.xib */,
 				C0B52A271D3566B4000E44F3 /* PDFViewController.swift */,
 				C0B52A281D3566B4000E44F3 /* PDFViewController.xib */,
+				1C2319051D9725940002A3D3 /* CoreDataTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				C045F9971D297FDB006D005B /* AGTLibrary.swift in Sources */,
 				1CA8FF701D947EB500982B3A /* Pdf+CoreDataProperties.swift in Sources */,
 				1CA8FF6F1D947EB500982B3A /* Pdf+CoreDataClass.swift in Sources */,
+				1C2319061D9725940002A3D3 /* CoreDataTableViewController.swift in Sources */,
 				1CA8FF791D947EB500982B3A /* Author+CoreDataClass.swift in Sources */,
 				C0F0EEBA1D2DBEB000271514 /* AGTTag.swift in Sources */,
 				C045F9681D29760A006D005B /* AppDelegate.swift in Sources */,
