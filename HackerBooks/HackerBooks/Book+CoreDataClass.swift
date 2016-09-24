@@ -11,7 +11,7 @@ import CoreData
 
 
 @objc
-public class Book: NSManagedObject {
+public class Book: NSManagedObject, Comparable {
     
     static let entityName = "Book"
     
@@ -28,9 +28,30 @@ public class Book: NSManagedObject {
     }
     
     // TODO: Create one with authors and bookTags
+    
+    // MARK: - Proxies
+    var proxyForComparison : String{
+        get {
+            return "\(title)"
+        }
+    }
 }
 
-//MARK: - KVO
+
+// MARK: - Equatable
+public func ==(lhs: Book, rhs: Book) -> Bool {
+    guard (lhs !== rhs) else {
+        return true
+    }
+    return lhs.proxyForComparison == rhs.proxyForComparison
+}
+
+// MARK: - Comparable
+public func <(lhs: Book, rhs: Book) -> Bool {
+    return lhs.title!.lowercased() < rhs.title!.lowercased()
+}
+
+// MARK: - KVO
 extension Book {
     @nonobjc static let observableKeys = ["name", "notes"]
     
@@ -58,7 +79,7 @@ extension Book {
     }
 }
 
-//MARK: - Lifecycle
+// MARK: - Lifecycle
 extension Book {
     
     // Called only once

@@ -106,8 +106,8 @@ func getJSON(remoteUrl url: String) throws -> JSONArray {
         let destination = documentsUrl.appendingPathComponent(jsonFileName)
 
         // Check if file exists before downloading it
-        if destination.path != nil
-            && FileManager().fileExists(atPath: destination.path) {
+        if /*destination.path != nil
+            &&*/ FileManager().fileExists(atPath: destination.path) {
             // File exists at path
 
             if let data = try? Data(contentsOf: destination){
