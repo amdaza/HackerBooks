@@ -13,7 +13,7 @@ let ImageKey = "imageKey"
 
 class AsyncImage {
 
-    var image: UIImage?
+    var image: UIImage
     let url: URL
     var loaded: Bool
 
@@ -65,8 +65,9 @@ class AsyncImage {
 
                     // File exists at path
 
-                    if let data = try? Data(contentsOf: destination) {
-                        self.image = UIImage(data: data)
+                    if let data = try? Data(contentsOf: destination),
+                        let img = UIImage(data: data){
+                        self.image = img
                     }
                 } else {
                     // File doesn't exists. Download

@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-let DataDidChangeNotification = "Book data did change"
+let DataDidChangeNotification = "Async data did change"
 let DataKey = "dataKey"
 
 class AsyncData {
     
-    var data: Data?
+    var data: Data
     let url: URL
     var loaded: Bool
     
