@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  HackerBooks
 //
-//  Created by Home on 22/9/16.
+//  Created by Home on 24/9/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
 
@@ -19,6 +19,7 @@ extension Photo {
     @NSManaged public var photoData: NSData?
     @NSManaged public var remoteUrl: String?
     @NSManaged public var notes: NSSet?
+    @NSManaged public var books: NSSet?
 
 }
 
@@ -36,5 +37,22 @@ extension Photo {
 
     @objc(removeNotes:)
     @NSManaged public func removeFromNotes(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for books
+extension Photo {
+
+    @objc(addBooksObject:)
+    @NSManaged public func addToBooks(_ value: Book)
+
+    @objc(removeBooksObject:)
+    @NSManaged public func removeFromBooks(_ value: Book)
+
+    @objc(addBooks:)
+    @NSManaged public func addToBooks(_ values: NSSet)
+
+    @objc(removeBooks:)
+    @NSManaged public func removeFromBooks(_ values: NSSet)
 
 }

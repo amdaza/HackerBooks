@@ -233,9 +233,9 @@
 			isa = PBXGroup;
 			children = (
 				C0DA1E791D2C14BD00E2B1C3 /* LibraryTableViewController.swift */,
+				C0B52A271D3566B4000E44F3 /* PDFViewController.swift */,
 				C0BF92B31D32AB40002AA6D1 /* BookViewController.swift */,
 				C0BF92B41D32AB40002AA6D1 /* BookViewController.xib */,
-				C0B52A271D3566B4000E44F3 /* PDFViewController.swift */,
 				C0B52A281D3566B4000E44F3 /* PDFViewController.xib */,
 				1C2319051D9725940002A3D3 /* CoreDataTableViewController.swift */,
 			);

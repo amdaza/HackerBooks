@@ -2,7 +2,7 @@
 //  Book+CoreDataProperties.swift
 //  HackerBooks
 //
-//  Created by Home on 22/9/16.
+//  Created by Home on 24/9/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
 
@@ -21,6 +21,7 @@ extension Book {
     @NSManaged public var bookTags: NSSet?
     @NSManaged public var notes: NSSet?
     @NSManaged public var pdf: Pdf?
+    @NSManaged public var image: Photo?
 
 }
 

@@ -9,6 +9,7 @@
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="authors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Author" inverseName="books" inverseEntity="Author" syncable="YES"/>
         <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="book" inverseEntity="BookTag" syncable="YES"/>
+        <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photo" inverseName="books" inverseEntity="Photo" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="book" inverseEntity="Note" syncable="YES"/>
         <relationship name="pdf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pdf" inverseName="book" inverseEntity="Pdf" syncable="YES"/>
     </entity>
@@ -38,6 +39,7 @@
         <attribute name="localUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photoData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="remoteUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="image" inverseEntity="Book" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="photo" inverseEntity="Note" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES">
@@ -46,12 +48,12 @@
     </entity>
     <elements>
         <element name="Author" positionX="-54" positionY="9" width="128" height="75"/>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="BookTag" positionX="-36" positionY="36" width="128" height="75"/>
         <element name="Location" positionX="0" positionY="90" width="128" height="90"/>
         <element name="Note" positionX="18" positionY="108" width="128" height="135"/>
         <element name="Pdf" positionX="-9" positionY="81" width="128" height="90"/>
-        <element name="Photo" positionX="-27" positionY="72" width="128" height="105"/>
+        <element name="Photo" positionX="-27" positionY="72" width="128" height="120"/>
         <element name="Tag" positionX="-27" positionY="54" width="128" height="75"/>
     </elements>
 </model>
