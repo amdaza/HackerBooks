@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C2319041D96F0AD0002A3D3 /* AsyncData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2319031D96F0AD0002A3D3 /* AsyncData.swift */; };
 		1C443C1B1D92EAE400A7D293 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C443C191D92EAE400A7D293 /* Model.xcdatamodeld */; };
 		1CA8FF6B1D947EB500982B3A /* BookTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8FF5B1D947EB500982B3A /* BookTag+CoreDataClass.swift */; };
 		1CA8FF6C1D947EB500982B3A /* BookTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8FF5C1D947EB500982B3A /* BookTag+CoreDataProperties.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C2319031D96F0AD0002A3D3 /* AsyncData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncData.swift; sourceTree = "<group>"; };
 		1C443C1A1D92EAE400A7D293 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1CA8FF5B1D947EB500982B3A /* BookTag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookTag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1CA8FF5C1D947EB500982B3A /* BookTag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				C0429D891D2ACFEE002C384C /* Errors.swift */,
 				C0F0EEB91D2DBEB000271514 /* AGTTag.swift */,
 				C0D1D6261D3AA071006DB62F /* AsyncImage.swift */,
+				1C2319031D96F0AD0002A3D3 /* AsyncData.swift */,
 				1C443C191D92EAE400A7D293 /* Model.xcdatamodeld */,
 			);
 			name = Models;
@@ -388,6 +391,7 @@
 				1CA8FF781D947EB500982B3A /* Tag+CoreDataProperties.swift in Sources */,
 				1CA8FF771D947EB500982B3A /* Tag+CoreDataClass.swift in Sources */,
 				1CA8FF6E1D947EB500982B3A /* Location+CoreDataProperties.swift in Sources */,
+				1C2319041D96F0AD0002A3D3 /* AsyncData.swift in Sources */,
 				C045F9971D297FDB006D005B /* AGTLibrary.swift in Sources */,
 				1CA8FF701D947EB500982B3A /* Pdf+CoreDataProperties.swift in Sources */,
 				1CA8FF6F1D947EB500982B3A /* Pdf+CoreDataClass.swift in Sources */,
