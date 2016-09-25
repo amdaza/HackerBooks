@@ -111,7 +111,7 @@ extension CoreDataStack  {
 extension CoreDataStack{
     typealias Batch=(_ workerContext: NSManagedObjectContext) -> ()
     
-    func performBackgroundBatchOperation(_ batch: /*@escaping*/ Batch){
+    func performBackgroundBatchOperation(_ batch: @escaping Batch){
         
         backgroundContext.perform(){
             batch(self.backgroundContext)
