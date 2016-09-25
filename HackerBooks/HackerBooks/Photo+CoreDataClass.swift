@@ -55,4 +55,43 @@ public class Photo: NSManagedObject {
         self.init(entity: ent, insertInto: context)
         addToNotes(note)
     }
+    
+    func downloadImage() {
+        
+        let queue = DispatchQueue(label: "downloadData", attributes: [])
+        
+        queue.async {
+            if let url = URL(string: self.remoteUrl!),
+                let data = try? Data(contentsOf: url),
+                let img = UIImage(data: data){
+                
+                DispatchQueue.main.async {
+                    self.image = img
+                    self.loaded = true
+                   /*
+                    // Notify
+                    let nc = NotificationCenter.default
+                    let notif = Notification(name: Notification.Name(rawValue: ImageDidChangeNotification), object: self,
+                                             userInfo: [ImageKey: self.remoteUrl.path])
+                    
+                    nc.post(notif)
+                    */
+                }
+            } else {
+                //throw HackerBooksError.resourcePointedByUrLNotReachable
+    
+            }
+        }
+    }
+    
+    func getImage() {
+        if (!loaded) {
+            
+            // File doesn't exists. Download
+            downloadImage()
+            
+            
+        }
+    }
+
 }
