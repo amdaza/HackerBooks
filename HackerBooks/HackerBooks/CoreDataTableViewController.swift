@@ -25,7 +25,7 @@ class CoreDataTableViewController: UITableViewController {
     init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>,
         style : UITableViewStyle = .plain){
         
-        // Will not execute didSet, afraid of nil
+        // Will not execute didSet, "afraid" of nil
         //fetchedResultsController = fc
             super.init(style: style)
             
@@ -48,18 +48,6 @@ class CoreDataTableViewController: UITableViewController {
     //MARK: - View lifecycle
     override func viewDidLoad(){
         super.viewDidLoad()
-        
-        title = "Everpobre"
-        
-        /*
-        // TEMP FIX
-        
-        // Whenever the frc changes, we execute the search and
-        // reload the table
-        fetchedResultsController?.delegate = self
-        executeSearch()
-        tableView.reloadData()
- */
     }
 }
 
