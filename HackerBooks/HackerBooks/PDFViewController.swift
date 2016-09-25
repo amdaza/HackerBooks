@@ -11,7 +11,7 @@ import UIKit
 class PDFViewController: UIViewController, UIWebViewDelegate {
 
     // MARK: - Properties
-    var model: AGTBook
+    var model: Book
 
     @IBOutlet weak var browser: UIWebView!
 
@@ -19,7 +19,7 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
 
 
     // MARK: - Initialization
-    init(model: AGTBook) {
+    init(model: Book) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
