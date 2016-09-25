@@ -2,7 +2,7 @@
 //  Tag+CoreDataProperties.swift
 //  HackerBooks
 //
-//  Created by Home on 22/9/16.
+//  Created by Home on 25/9/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
 
@@ -16,6 +16,7 @@ extension Tag {
     }
 
     @NSManaged public var name: String?
+    @NSManaged public var isFavourite: Bool
     @NSManaged public var bookTags: NSSet?
 
 }
