@@ -28,11 +28,61 @@ class LibraryTableViewController: CoreDataTableViewController {
         super.init(nibName: nil, bundle: nil)
     }
 */
+    
     /*
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 */
+    
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // Get book
+        let book = fetchedResultsController?.object(at: indexPath) as! Book
+        /*
+        switch orderIndex {
+        case 0:
+            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
+            
+        case 1:
+            book = model.books[(indexPath as NSIndexPath).row]
+            
+        default:
+            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
+        }
+        */
+        
+        // Get image
+        book.image?.getImage()
+        
+        
+        // Cell type
+        let cellId = "LibraryCell"
+        
+        // Create cell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
+        
+        if cell == nil {
+            // Optional empty, create one
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
+        }
+        
+        // Fav cell
+        if (book.favourite){
+            cell?.backgroundColor = UIColor.orange
+        } else {
+            cell?.backgroundColor = UIColor.clear
+        }
+        
+        // Syncronize book and cell
+        cell?.imageView?.image = book.image?.image
+        cell?.textLabel?.text = book.title
+        cell?.detailTextLabel?.text = book.authorsDescription
+        
+        return cell!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,8 +108,9 @@ class LibraryTableViewController: CoreDataTableViewController {
         didSelectRowAt indexPath: IndexPath) {
 
             // Get book
-            var book: AGTBook
+            let book = fetchedResultsController?.object(at: indexPath) as! Book
 
+        /*
             switch orderIndex {
             case 0:
                 book = model.book(atIndex: (indexPath as NSIndexPath).row,
@@ -72,21 +123,26 @@ class LibraryTableViewController: CoreDataTableViewController {
                 book = model.book(atIndex: (indexPath as NSIndexPath).row,
                     forTag: model.tags[(indexPath as NSIndexPath).section])
             }
-
+*/
             // Notify delegate
-            delegate?.libraryTableViewController(self, didSelectBook: book)
-
+           // delegate?.libraryTableViewController(self, didSelectBook: book)
+/*
             // Send same info via notification
             let nc = NotificationCenter.default
             let notif = Notification(name: Notification.Name(rawValue: BookDidChangeNotification),
                 object: self, userInfo: [BookKey: book])
 
             nc.post(notif)
+ 
+ */
+        let bookVC = BookViewController(model: book)
+        
+        navigationController?.pushViewController(bookVC, animated: true)
 
     }
 
     // MARK: - Table view data source
-
+/*
     override func numberOfSections(in tableView: UITableView) -> Int {
         switch orderIndex {
             case 0:
@@ -131,58 +187,11 @@ class LibraryTableViewController: CoreDataTableViewController {
                 return model.tags[section].tag
             }
     }
-
-    override func tableView(_ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        // Get book
-        var book: AGTBook
-
-        switch orderIndex {
-        case 0:
-            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
-
-        case 1:
-            book = model.books[(indexPath as NSIndexPath).row]
-
-        default:
-            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
-        }
-
-
-        // Get image
-        book.image.getImage()
-
-
-        // Cell type
-        let cellId = "LibraryCell"
-
-        // Create cell
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
-
-        if cell == nil {
-            // Optional empty, create one
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        }
-
-        // Fav cell
-        if (book.favourite){
-            cell?.backgroundColor = UIColor.orange
-        } else {
-            cell?.backgroundColor = UIColor.clear
-        }
-
-        // Syncronize book and cell
-        cell?.imageView?.image = book.image.image
-        cell?.textLabel?.text = book.title
-        cell?.detailTextLabel?.text = book.authorsDescription
-
-        return cell!
-    }
+*/
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+/*
         // Subscribe
         let nc = NotificationCenter.default
 
@@ -191,7 +200,7 @@ class LibraryTableViewController: CoreDataTableViewController {
 
         // Subscribe to favourite updates
         nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: FavouriteDidChangeNotification), object: nil)
-
+*/
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -202,18 +211,19 @@ class LibraryTableViewController: CoreDataTableViewController {
         nc.removeObserver(self)
     }
 
-
+/*
     @objc func libraryDidChange(_ notification: Notification) {
 
         self.tableView.reloadData()
 
     }
-
+*/
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
 
         self.tableView.reloadData()
     }
+ 
 }
 
 protocol LibraryTableViewControllerDelegate {
