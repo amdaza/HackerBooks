@@ -44,7 +44,6 @@
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="photo" inverseEntity="Note" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES">
-        <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="bookTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookTag" inverseName="tag" inverseEntity="BookTag" syncable="YES"/>
     </entity>
@@ -56,6 +55,6 @@
         <element name="Note" positionX="18" positionY="108" width="128" height="135"/>
         <element name="Pdf" positionX="-9" positionY="81" width="128" height="90"/>
         <element name="Photo" positionX="-27" positionY="72" width="128" height="135"/>
-        <element name="Tag" positionX="-27" positionY="54" width="128" height="90"/>
+        <element name="Tag" positionX="-27" positionY="54" width="128" height="75"/>
     </elements>
 </model>

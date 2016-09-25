@@ -16,7 +16,6 @@ extension Tag {
     }
 
     @NSManaged public var name: String?
-    @NSManaged public var isFavourite: Bool
     @NSManaged public var bookTags: NSSet?
 
 }
