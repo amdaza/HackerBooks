@@ -1,6 +1,6 @@
-## Respuestas a las preguntas
+# Respuestas a las preguntas
 
-### Procesado JSON
+## Procesado JSON
 * Ten en cuenta que el método *NSJSONSerialization* devuelve un parámetro *AnyObject* que puede contener tanto un *Array* de *Dictionary* como un *Dictionary*. Mira en la ayuda el método *isKindOfClass:* y cómo usarlo para saber qué te ha devuelto exactamente. ¿En qué otros modos podemos trabajar? ¿is, as?
 
 Dicho método serviría para comprobar si un objeto es casteable a una clase en concreto. En la práctica he utilizado la misma forma que usamos en las clases:
