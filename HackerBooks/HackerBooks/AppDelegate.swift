@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let model = CoreDataStack(modelName: "Model")!
 
 
     func application(_ application: UIApplication,
@@ -38,10 +41,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
             // Create model
-            let model = AGTLibrary(withBooks: books)
+            //let model = AGTLibrary(withBooks: books)
+            
+            // Create fetchRequest
+            let fr = NSFetchRequest<Book>(entityName: Book.entityName)
+            fr.fetchBatchSize = 50 // de 50 en 50
+            
+            fr.sortDescriptors = [NSSortDescriptor(key: "title",
+                                                   ascending: false)]
+            
+            // Create fetchedResultsCtrl
+            let fc = NSFetchedResultsController(fetchRequest: fr,
+                                                managedObjectContext: model.context,
+                                                sectionNameKeyPath: nil,
+                                                cacheName: nil)
+
 
             // Create VC
-            let lVC = LibraryTableViewController(model: model)
+            let lVC = LibraryTableViewController(fetchedResultsController: fc as! NSFetchedResultsController<NSFetchRequestResult>,
+                                                 style: .plain)
 
             // Put in nav
             let lNav = UINavigationController(rootViewController: lVC)
