@@ -11,5 +11,7 @@ import CoreData
 
 
 public class Author: NSManagedObject {
+    
+    static let entityName = "Author"
 
 }

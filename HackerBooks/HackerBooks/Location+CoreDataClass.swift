@@ -11,5 +11,7 @@ import CoreData
 
 
 public class Location: NSManagedObject {
+    
+    static let entityName = "Location"
 
 }

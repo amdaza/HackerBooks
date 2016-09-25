@@ -11,5 +11,7 @@ import CoreData
 
 
 public class BookTag: NSManagedObject {
+    
+    static let entityName = "Location"
 
 }

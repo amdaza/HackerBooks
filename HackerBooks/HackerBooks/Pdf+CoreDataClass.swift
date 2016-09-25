@@ -11,5 +11,7 @@ import CoreData
 
 
 public class Pdf: NSManagedObject {
+    
+    static let entityName = "Pdf"
 
 }
