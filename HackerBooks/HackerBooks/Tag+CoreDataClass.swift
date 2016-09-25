@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-public class Tag: NSManagedObject {
+public class Tag: NSManagedObject, Comparable {
 
     //MARK: - Proxies
     var proxyForComparison : String{

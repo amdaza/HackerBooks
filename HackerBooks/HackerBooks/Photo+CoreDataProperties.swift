@@ -2,12 +2,13 @@
 //  Photo+CoreDataProperties.swift
 //  HackerBooks
 //
-//  Created by Home on 24/9/16.
+//  Created by Home on 25/9/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
 
 import Foundation
 import CoreData
+import 
 
 extension Photo {
 
@@ -18,25 +19,9 @@ extension Photo {
     @NSManaged public var localUrl: String?
     @NSManaged public var photoData: NSData?
     @NSManaged public var remoteUrl: String?
-    @NSManaged public var notes: NSSet?
+    @NSManaged public var loaded: Bool
     @NSManaged public var books: NSSet?
-
-}
-
-// MARK: Generated accessors for notes
-extension Photo {
-
-    @objc(addNotesObject:)
-    @NSManaged public func addToNotes(_ value: Note)
-
-    @objc(removeNotesObject:)
-    @NSManaged public func removeFromNotes(_ value: Note)
-
-    @objc(addNotes:)
-    @NSManaged public func addToNotes(_ values: NSSet)
-
-    @objc(removeNotes:)
-    @NSManaged public func removeFromNotes(_ values: NSSet)
+    @NSManaged public var notes: NSSet?
 
 }
 
@@ -54,5 +39,22 @@ extension Photo {
 
     @objc(removeBooks:)
     @NSManaged public func removeFromBooks(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for notes
+extension Photo {
+
+    @objc(addNotesObject:)
+    @NSManaged public func addToNotes(_ value: Note)
+
+    @objc(removeNotesObject:)
+    @NSManaged public func removeFromNotes(_ value: Note)
+
+    @objc(addNotes:)
+    @NSManaged public func addToNotes(_ values: NSSet)
+
+    @objc(removeNotes:)
+    @NSManaged public func removeFromNotes(_ values: NSSet)
 
 }

@@ -36,6 +36,7 @@
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="pdf" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName=".Photo" syncable="YES">
+        <attribute name="loaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="localUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photoData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="remoteUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -54,7 +55,7 @@
         <element name="Location" positionX="0" positionY="90" width="128" height="90"/>
         <element name="Note" positionX="18" positionY="108" width="128" height="135"/>
         <element name="Pdf" positionX="-9" positionY="81" width="128" height="90"/>
-        <element name="Photo" positionX="-27" positionY="72" width="128" height="120"/>
+        <element name="Photo" positionX="-27" positionY="72" width="128" height="135"/>
         <element name="Tag" positionX="-27" positionY="54" width="128" height="90"/>
     </elements>
 </model>
