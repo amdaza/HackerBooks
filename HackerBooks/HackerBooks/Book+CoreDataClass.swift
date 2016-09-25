@@ -15,6 +15,45 @@ public class Book: NSManagedObject, Comparable {
     
     static let entityName = "Book"
     
+    
+    // MARK: - Computed properties
+    var authorsDescription: String {
+        get {
+            var authorsDesc = "";
+            
+            if (authors != nil && (authors?.count)! > 0) {
+                
+                let authorsArray = Array(authors!) as! [String]
+                    
+                authorsDesc = "Authors: " + authorsArray.joined(separator: ", ")
+                
+            }
+            return authorsDesc
+ 
+        }
+    }
+    
+    var tagsText: String {
+        get {
+            var tagsTxt = "";
+            
+            if (bookTags != nil && (bookTags?.count)! > 0) {
+                //let bookTagsArray = Array(bookTags!) as! [BookTag]
+                
+                //let tagsArray =
+                
+                //let capTags = tags.map({"\n -> " + $0.capitalized})
+                //tagsTxt capTags.joined(separator: "\n")
+                
+                for bookTag in bookTags! {
+                    let bt = bookTag as! BookTag
+                    tagsTxt += "\n -> " + (bt.tag?.name!.capitalized)! + "\n"
+                }
+            }
+            return tagsTxt
+        }
+    }
+    
     convenience init(title: String, inContext context: NSManagedObjectContext) {
         
         // We need Notebook entity
