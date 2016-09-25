@@ -11,7 +11,10 @@ import CoreData
 
 
 public class Tag: NSManagedObject, Comparable {
-
+    
+    static let entityName = "Tag"
+    static let favouriteName = "favourites"
+    
     //MARK: - Proxies
     var proxyForComparison : String{
         get {
@@ -21,7 +24,7 @@ public class Tag: NSManagedObject, Comparable {
     
     var proxyForSorting: String {
         get {
-            let fav = (name == "favourites") ? "A" : "Z"
+            let fav = (name == Tag.favouriteName) ? "A" : "Z"
             
             return "\(fav)\(name)"
         }
