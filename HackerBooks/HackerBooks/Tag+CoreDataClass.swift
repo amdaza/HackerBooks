@@ -15,6 +15,17 @@ public class Tag: NSManagedObject, Comparable {
     static let entityName = "Tag"
     static let favouriteName = "favourites"
     
+    convenience init(name: String, inContext context: NSManagedObjectContext) {
+        // Get entity description
+        let ent = NSEntityDescription.entity(forEntityName: Tag.entityName,
+                                             in: context)!
+        
+        // Call super
+        self.init(entity: ent, insertInto: context)
+        
+        self.name = name
+    }
+    
     //MARK: - Proxies
     var proxyForComparison : String{
         get {
