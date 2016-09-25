@@ -38,17 +38,15 @@ public class Book: NSManagedObject, Comparable {
             var tagsTxt = "";
             
             if (bookTags != nil && (bookTags?.count)! > 0) {
-                //let bookTagsArray = Array(bookTags!) as! [BookTag]
-                
-                //let tagsArray =
-                
-                //let capTags = tags.map({"\n -> " + $0.capitalized})
-                //tagsTxt capTags.joined(separator: "\n")
                 
                 for bookTag in bookTags! {
                     let bt = bookTag as! BookTag
                     tagsTxt += "\n -> " + (bt.tag?.name!.capitalized)! + "\n"
                 }
+                
+                // Remove last "\n"
+                let index = tagsTxt.index(tagsTxt.endIndex, offsetBy: -2)
+                tagsTxt = tagsTxt.substring(to: index)
             }
             return tagsTxt
         }
