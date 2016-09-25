@@ -12,29 +12,31 @@ let BookDidChangeNotification = "Selected book did change"
 let BookKey = "bookKey"
 let FavouriteKey = "favKey"
 
-class LibraryTableViewController: UITableViewController {
+class LibraryTableViewController: CoreDataTableViewController {
 
     // MARK: - Properties
-    let model: AGTLibrary
+    //let model: AGTLibrary
 
-    var delegate: LibraryTableViewControllerDelegate?
+   // var delegate: LibraryTableViewControllerDelegate?
 
     var orderIndex: Int = 0
-
+/*
     // MARK: - Initialization
     init(model: AGTLibrary) {
         self.model = model
 
         super.init(nibName: nil, bundle: nil)
     }
-
+*/
+    /*
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+*/
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.title = "HackerBooks"
+        
+        self.title = "HackerBooks"
 
         // Trying UISegmentedControl
         //let frame = UIScreen.mainScreen().bounds
