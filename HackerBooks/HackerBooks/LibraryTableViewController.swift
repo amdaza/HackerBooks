@@ -219,5 +219,5 @@ class LibraryTableViewController: CoreDataTableViewController {
 protocol LibraryTableViewControllerDelegate {
 
     func libraryTableViewController(_ vc: LibraryTableViewController,
-        didSelectBook book: AGTBook)
+        didSelectBook book: Book)
 }

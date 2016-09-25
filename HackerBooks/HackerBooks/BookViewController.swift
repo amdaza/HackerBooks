@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 let FavouriteDidChangeNotification = "Favourite book did change"
 
@@ -23,18 +24,21 @@ class BookViewController: UIViewController {
     @IBOutlet weak var favSwitch: UISwitch!
 
 
-    var model: AGTBook
+    var model: Book
+    
+    let cds = CoreDataStack(modelName: "Model")!
 
     // MARK: - INIT
 
-    init(model: AGTBook) {
+    init(model: Book) {
         self.model = model
 
         super.init(nibName: "BookViewController", bundle: nil)
     }
 
+    
     func syncModelWithView() {
-        photoView.image = model.image.image
+        photoView.image = model.image?.image
 
         title = model.title
 
@@ -45,6 +49,7 @@ class BookViewController: UIViewController {
         favSwitch.isOn = model.favourite
 
     }
+ 
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -61,27 +66,26 @@ class BookViewController: UIViewController {
 
     @IBAction func changeFavourite(_ sender: AnyObject) {
 
-        let defaults = UserDefaults.standard
-        var favBooksIndexes = defaults.object(forKey: FavouriteKey) as? [Int] ?? [Int]()
-
         if(favSwitch.isOn) {
+            
             // Add to favourites
-            favBooksIndexes.append(model.index)
-
+            self.addTag(tagName: Tag.favouriteName)
+            model.favourite = true
+            
         } else {
             // Delete from favourites
-            favBooksIndexes = favBooksIndexes.filter() {$0 != model.index}
+            self.deleteTag(tagName: Tag.favouriteName)
+            model.favourite = false
         }
 
-        defaults.set(favBooksIndexes, forKey: FavouriteKey)
-
+/*
         // Notify
         let nc = NotificationCenter.default
         let notif = Notification(name: Notification.Name(rawValue: FavouriteDidChangeNotification), object: self,
             userInfo: [FavouriteKey: model.index])
 
         nc.post(notif)
-
+*/
     }
 
 
@@ -105,7 +109,7 @@ class BookViewController: UIViewController {
         tagList.isEditable = false
 
         // Load image (if not loaded yet)
-        model.image.getImage()
+        model.image?.getImage()
 
         // Subscribe to notifications
         let nc = NotificationCenter.default
@@ -138,17 +142,92 @@ class BookViewController: UIViewController {
 
         let urlString = info[ImageKey] as! String
 
-        if urlString == model.image_url.path {
-            photoView.image = model.image.image
+        if urlString == model.image?.remoteUrl {
+            photoView.image = model.image?.image
         }
     }
-
+    
+    func addTag(tagName: String) {
+        
+        let tag : Tag
+        let bookTag : BookTag
+        
+        // Check if Tag already exists
+        let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
+        req.predicate = NSPredicate(format: "name == %@", tagName)
+        let result = try! cds.context.fetch(req)
+        
+        if result.count > 0 {
+            // Get Tag
+            tag = result.first!
+        } else {
+            // Create Tag
+            tag = Tag(name: Tag.favouriteName, inContext: cds.context)
+        }
+        
+        // Check if BookTag already exists
+        let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
+        
+        let tagPredicate = NSPredicate(format: "tag = %@", tag)
+        let bookPredicate = NSPredicate(format: "book = %@", self.model)
+        let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
+            [tagPredicate, bookPredicate])
+        req2.predicate = andPredicate
+        
+        let result2 = try! cds.context.fetch(req2)
+        
+        if result2.count > 0 {
+            // Get bookTag
+            bookTag = result2.first!
+        } else {
+            // Create bookTag
+            bookTag = BookTag(book: self.model, tag: tag, inContext: cds.context)
+        }
+        
+        // Add bookTag to Book ????
+        model.addToBookTags(bookTag)
+    }
+    
+    func deleteTag(tagName: String) {
+        
+        // Check if Tag already exists
+        let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
+        req.predicate = NSPredicate(format: "name == %@", tagName)
+        let result = try! cds.context.fetch(req)
+        
+        if result.count > 0 {
+        
+            let tag = result.first! 
+            let bookTag : BookTag
+        
+            // Check if BookTag already exists
+            let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
+        
+            let tagPredicate = NSPredicate(format: "tag = %@", tag)
+            let bookPredicate = NSPredicate(format: "book = %@", self.model)
+            let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
+            [tagPredicate, bookPredicate])
+            req2.predicate = andPredicate
+        
+            let result2 = try! cds.context.fetch(req2)
+        
+            if result2.count > 0 {
+                // Get bookTag
+                bookTag = result2.first!
+                
+                // Delete bookTag from Book
+                model.removeFromBookTags(bookTag)
+                
+                cds.context.delete(bookTag)
+            }
+        }
+    }
 }
 
 
 extension BookViewController: LibraryTableViewControllerDelegate {
     func libraryTableViewController(_ vc: LibraryTableViewController,
-        didSelectBook book: AGTBook) {
+        didSelectBook book: Book) {
 
             // Update model
             model = book
