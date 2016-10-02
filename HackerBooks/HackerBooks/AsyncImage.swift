@@ -53,7 +53,7 @@ class AsyncImage {
 
             // Get cache url
             if let cacheUrl = FileManager.default.urls(for: .cachesDirectory,
-                                                       in: .userDomainMask).first{ // First because it returns an array
+                        in: .userDomainMask).first{ // First because it returns an array
 
             // Get image filename
             let imageFileName = url.lastPathComponent //{

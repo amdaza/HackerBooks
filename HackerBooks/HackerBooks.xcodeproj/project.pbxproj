@@ -10,6 +10,8 @@
 		1C2319041D96F0AD0002A3D3 /* AsyncData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2319031D96F0AD0002A3D3 /* AsyncData.swift */; };
 		1C2319061D9725940002A3D3 /* CoreDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2319051D9725940002A3D3 /* CoreDataTableViewController.swift */; };
 		1C2319091D9732F30002A3D3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2319081D9732F30002A3D3 /* CoreDataStack.swift */; };
+		1C2915551DA17CBA0003F5E6 /* V1JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2915541DA17CBA0003F5E6 /* V1JSONProcessing.swift */; };
+		1C2915571DA17EB00003F5E6 /* defaultPdf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2915561DA17EB00003F5E6 /* defaultPdf.pdf */; };
 		1C443C1B1D92EAE400A7D293 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C443C191D92EAE400A7D293 /* Model.xcdatamodeld */; };
 		1CA8FF6B1D947EB500982B3A /* BookTag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8FF5B1D947EB500982B3A /* BookTag+CoreDataClass.swift */; };
 		1CA8FF6C1D947EB500982B3A /* BookTag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8FF5C1D947EB500982B3A /* BookTag+CoreDataProperties.swift */; };
@@ -69,6 +71,8 @@
 		1C2319031D96F0AD0002A3D3 /* AsyncData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncData.swift; sourceTree = "<group>"; };
 		1C2319051D9725940002A3D3 /* CoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewController.swift; sourceTree = "<group>"; };
 		1C2319081D9732F30002A3D3 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1C2915541DA17CBA0003F5E6 /* V1JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V1JSONProcessing.swift; sourceTree = "<group>"; };
+		1C2915561DA17EB00003F5E6 /* defaultPdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = defaultPdf.pdf; sourceTree = "<group>"; };
 		1C443C1A1D92EAE400A7D293 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1CA8FF5B1D947EB500982B3A /* BookTag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookTag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1CA8FF5C1D947EB500982B3A /* BookTag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BookTag+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 				1C2319081D9732F30002A3D3 /* CoreDataStack.swift */,
 				C045F9981D2983D8006D005B /* AGTBook.swift */,
 				C0429D871D2ACC67002C384C /* JSONProcessing.swift */,
+				1C2915541DA17CBA0003F5E6 /* V1JSONProcessing.swift */,
 				C0429D891D2ACFEE002C384C /* Errors.swift */,
 				C0F0EEB91D2DBEB000271514 /* AGTTag.swift */,
 				C0D1D6261D3AA071006DB62F /* AsyncImage.swift */,
@@ -256,6 +261,7 @@
 		C0F0EEBB1D2DC91600271514 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1C2915561DA17EB00003F5E6 /* defaultPdf.pdf */,
 				C0B7F45F1D3A90350006A793 /* book-default.png */,
 			);
 			name = Resources;
@@ -374,6 +380,7 @@
 				C0B7F4601D3A90350006A793 /* book-default.png in Resources */,
 				C0B52A2A1D3566B4000E44F3 /* PDFViewController.xib in Resources */,
 				C045F9721D29760A006D005B /* LaunchScreen.storyboard in Resources */,
+				1C2915571DA17EB00003F5E6 /* defaultPdf.pdf in Resources */,
 				C0BF92B61D32AB40002AA6D1 /* BookViewController.xib in Resources */,
 				C045F96F1D29760A006D005B /* Assets.xcassets in Resources */,
 				C045F96D1D29760A006D005B /* Main.storyboard in Resources */,
@@ -416,6 +423,7 @@
 				C045F9681D29760A006D005B /* AppDelegate.swift in Sources */,
 				1CA8FF6D1D947EB500982B3A /* Location+CoreDataClass.swift in Sources */,
 				C045F9991D2983D8006D005B /* AGTBook.swift in Sources */,
+				1C2915551DA17CBA0003F5E6 /* V1JSONProcessing.swift in Sources */,
 				1CA8FF741D947EB500982B3A /* Photo+CoreDataProperties.swift in Sources */,
 				C0429D8A1D2ACFEE002C384C /* Errors.swift in Sources */,
 				C0D1D6271D3AA071006DB62F /* AsyncImage.swift in Sources */,

@@ -65,9 +65,8 @@ public class Book: NSManagedObject, Comparable {
     }
     
     convenience init(title: String,
-                     authors: [String], tags: [String],
                      imageUrl: String, pdfUrl: String,
-                     image: NSData,
+                     image: NSData, pdf: NSData,
                      favourite: Bool,
                      inContext context: NSManagedObjectContext) {
         

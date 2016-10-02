@@ -3,13 +3,11 @@
 //  HackerBooks
 //
 //  Created by Alicia Daza on 04/07/16.
-//  Updated to V2 by Alicia Daza on 02/10/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
-
+/*
 import Foundation
 import UIKit
-import CoreData
 
 // MARK: - Aliases
 typealias JSONObject = AnyObject
@@ -17,61 +15,56 @@ typealias JSONDictionary = [String: JSONObject]
 typealias JSONArray = [JSONDictionary]
 
 // MARK: - Decodification
-func decode(jsonDict: JSONDictionary,
-            defaultImage defImage: NSData,
-            defaultPdf defPdf: NSData,
-            context: NSManagedObjectContext) throws -> Book {
+func decode(agtBook json: JSONDictionary, defaultImage defImage: UIImage) throws -> AGTBook {
 
     // Validate dictionary
-    guard let imageString = jsonDict["image_url"] as? String,
+    guard let imageString = json["image_url"] as? String,
         let imageUrl : URL = URL(string: imageString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
-    guard let pdfString = jsonDict["pdf_url"] as? String,
+    guard let pdfString = json["pdf_url"] as? String,
         let pdfUrl = URL(string: pdfString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
 
-    //let asyncImage = AsyncImage(remoteUrl: imageUrl, defaultImage: defImage)
+    guard let authorsString = json["authors"] as? String
 
-    
-    if let title = jsonDict["title"] as? String {
-        return Book(title: title,
-            imageUrl: imageString, pdfUrl: pdfString,
-            image: defImage, pdf: defPdf,
-            favourite: false,
-            inContext: context)
+    else {
+        throw HackerBooksError.wrongURLFormatForJSONResource
+    }
+    let authors = authorsString.components(separatedBy: ", ")
+
+
+    guard let tagsString = json["tags"] as? String
+
+    else {
+        throw HackerBooksError.wrongURLFormatForJSONResource
+    }
+    let tags = tagsString.components(separatedBy: ", ")
+
+
+    let asyncImage = AsyncImage(remoteUrl: imageUrl, defaultImage: defImage)
+
+    // CHANGE FAVOURITE
+    if let title = json["title"] as? String {
+        return AGTBook(title: title, authors: authors, tags: tags,
+            image_url: imageUrl, pdf_url: pdfUrl, favourite: false,
+            image: asyncImage)
     } else {
         throw HackerBooksError.wrongJSONFormat
     }
-    
-    
-    guard let authorsString = jsonDict["authors"] as? String
-        
-        else {
-            throw HackerBooksError.wrongURLFormatForJSONResource
-    }
-    let authors = authorsString.components(separatedBy: ", ")
-    
-    
-    guard let tagsString = jsonDict["tags"] as? String
-        
-        else {
-            throw HackerBooksError.wrongURLFormatForJSONResource
-    }
-    let tags = tagsString.components(separatedBy: ", ")
 
 }
 
 
-func decode(jsonDict: JSONDictionary?) throws -> Book {
+func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
 
-    if case .some(let jsonDict) = jsonDict{
+    if case .some(let jsonDict) = json{
         if let defaultImage = defaultImageSyncDownload(){
 
-            return try decode(jsonDict: jsonDict, defaultImage: defaultImage)
+            return try decode(agtBook: jsonDict, defaultImage: defaultImage)
 
         } else {
             throw HackerBooksError.missingDefaultImage
@@ -169,14 +162,5 @@ func defaultImageSyncDownload() -> UIImage? {
     }
     return nil
 }
-
-func defaultPdfSyncDownload() -> Data? {
-    let pdfName = "defaultPdf.pdf"
-    if let url = Bundle.main.URLForResource(pdfName),
-        let data = try? Data(contentsOf: url){
-        
-        return data
-    }
-    return nil
-}
+*/
 
