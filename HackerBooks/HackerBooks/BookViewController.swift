@@ -69,12 +69,14 @@ class BookViewController: UIViewController {
         if(favSwitch.isOn) {
             
             // Add to favourites
-            self.addTag(tagName: Tag.favouriteName)
+            model.addTag(tagName: Tag.favouriteName,
+                         inContext: cds.context)
             model.favourite = true
             
         } else {
             // Delete from favourites
-            self.deleteTag(tagName: Tag.favouriteName)
+            model.deleteTag(tagName: Tag.favouriteName,
+                            inContext: cds.context)
             model.favourite = false
         }
 
@@ -147,40 +149,6 @@ class BookViewController: UIViewController {
         }
     }
     
-    func deleteTag(tagName: String) {
-        
-        // Check if Tag already exists
-        let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
-        req.predicate = NSPredicate(format: "name == %@", tagName)
-        let result = try! cds.context.fetch(req)
-        
-        if result.count > 0 {
-        
-            let tag = result.first! 
-            let bookTag : BookTag
-        
-            // Check if BookTag already exists
-            let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
-        
-            let tagPredicate = NSPredicate(format: "tag = %@", tag)
-            let bookPredicate = NSPredicate(format: "book = %@", self.model)
-            let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
-            [tagPredicate, bookPredicate])
-            req2.predicate = andPredicate
-        
-            let result2 = try! cds.context.fetch(req2)
-        
-            if result2.count > 0 {
-                // Get bookTag
-                bookTag = result2.first!
-                
-                // Delete bookTag from Book
-                model.removeFromBookTags(bookTag)
-                
-                cds.context.delete(bookTag)
-            }
-        }
-    }
 }
 
 

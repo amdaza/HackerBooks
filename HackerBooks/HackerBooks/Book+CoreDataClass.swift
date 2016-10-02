@@ -106,8 +106,43 @@ public class Book: NSManagedObject, Comparable {
         // Add bookTag to Book ???
         self.addToBookTags(bookTag)
     }
+    
+    func deleteTag(tagName: String,
+                   inContext context: NSManagedObjectContext) {
+        
+        // Check if Tag already exists
+        let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
+        req.predicate = NSPredicate(format: "name == %@", tagName)
+        let result = try! context.fetch(req)
+        
+        if result.count > 0 {
+            
+            let tag = result.first!
+            let bookTag : BookTag
+            
+            // Check if BookTag already exists
+            let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
+            
+            let tagPredicate = NSPredicate(format: "tag = %@", tag)
+            let bookPredicate = NSPredicate(format: "book = %@", self)
+            let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
+                [tagPredicate, bookPredicate])
+            req2.predicate = andPredicate
+            
+            let result2 = try! context.fetch(req2)
+            
+            if result2.count > 0 {
+                // Get bookTag
+                bookTag = result2.first!
+                
+                // Delete bookTag from Book
+                self.removeFromBookTags(bookTag)
+                
+                context.delete(bookTag)
+            }
         }
     }
+
 }
 
 
