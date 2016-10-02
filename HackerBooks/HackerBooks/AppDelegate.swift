@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let dataAlreadyLoaded = "dataAlreadyLoaded"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -25,18 +27,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Get json data
         do {
-            // Get JSON
-            let json = try getJSON(remoteUrl: "https://t.co/K9ziV0z3SJ")
+            
+            if !isDataLoaded(){
+                
+                
+                // Get JSON
+                let json = try getJSON(remoteUrl: "https://t.co/K9ziV0z3SJ")
 
 
-            for dict in json {
-                do {
-                    try decode(jsonDict: dict,
+                for dict in json {
+                    do {
+                        try decode(jsonDict: dict,
                                           context: model.context)
                     
+                        do {
+                            try model.context.save()
+                            
+                            // Set loaded in user defaults
+                            let defaults = UserDefaults.standard
+                            defaults.set(true, forKey: dataAlreadyLoaded)
+                            
+                        } catch {
+                            print("Error saving model")
+                        }
 
-                } catch {
-                    print("Error processing \(dict)")
+                    } catch {
+                        print("Error processing \(dict)")
+                    }
                 }
             }
 
@@ -115,6 +132,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func isDataLoaded()->Bool{
+        let defaults = UserDefaults.standard
+        
+        return defaults.bool(forKey: dataAlreadyLoaded)
+        
+    }
 
 }
 
