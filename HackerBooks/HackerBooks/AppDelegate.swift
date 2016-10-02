@@ -39,21 +39,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     do {
                         try decode(jsonDict: dict,
                                           context: model.context)
-                    
-                        do {
-                            try model.context.save()
-                            
-                            // Set loaded in user defaults
-                            let defaults = UserDefaults.standard
-                            defaults.set(true, forKey: dataAlreadyLoaded)
-                            
-                        } catch {
-                            print("Error saving model")
-                        }
 
                     } catch {
                         print("Error processing \(dict)")
                     }
+                }
+                
+                do {
+                    try model.context.save()
+                    
+                    // Set loaded in user defaults
+                    let defaults = UserDefaults.standard
+                    defaults.set(Bool(true), forKey: dataAlreadyLoaded)
+                    
+                } catch {
+                    print("Error saving model")
                 }
             }
 
@@ -135,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func isDataLoaded()->Bool{
         let defaults = UserDefaults.standard
         
-        if let res = defaults.object(forKey: FavouriteKey) as? Bool{
+        if let res = defaults.object(forKey: dataAlreadyLoaded) as? Bool{
         
             return res
         
