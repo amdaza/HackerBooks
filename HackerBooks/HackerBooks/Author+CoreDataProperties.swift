@@ -2,7 +2,7 @@
 //  Author+CoreDataProperties.swift
 //  HackerBooks
 //
-//  Created by Home on 22/9/16.
+//  Created by Home on 2/10/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
 

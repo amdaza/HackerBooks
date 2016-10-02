@@ -41,10 +41,10 @@ func decode(jsonDict: JSONDictionary,
     
     if let title = jsonDict["title"] as? String {
         book = Book(title: title,
-            imageUrl: imageString, pdfUrl: pdfString,
-            image: defImage, pdf: defPdf,
-            favourite: false,
-            inContext: context)
+             image: defImage, pdf: defPdf,
+             imageUrl: imageString, pdfUrl: pdfString,
+             favourite: false,
+             inContext: context)
         
     } else {
         throw HackerBooksError.wrongJSONFormat

@@ -74,7 +74,7 @@ public class Tag: NSManagedObject, Comparable {
             
         } else {
             // Create Tag
-            return Tag(name: Tag.favouriteName, inContext: context)
+            return Tag(name: tagName, inContext: context)
         }
     }
     

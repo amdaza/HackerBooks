@@ -68,11 +68,12 @@ public class Book: NSManagedObject, Comparable {
         self.init(entity: entity, insertInto: context)
 
         self.title = title
+        self.favourite = false
     }
     
     convenience init(title: String,
-                     imageUrl: String, pdfUrl: String,
                      image: NSData, pdf: NSData,
+                     imageUrl: String, pdfUrl: String,
                      favourite: Bool,
                      inContext context: NSManagedObjectContext) {
         
@@ -84,6 +85,13 @@ public class Book: NSManagedObject, Comparable {
         self.init(entity: entity, insertInto: context)
         
         self.title = title
+        self.image = Photo.getOrInsert(book: self,
+                                       remoteUrl: imageUrl,
+                                       inContext: context)
+        self.pdf = Pdf.getOrInsert(book: self,
+                                   remoteUrl: pdfUrl,
+                                   inContext: context)
+        self.favourite = favourite
     }
     
     
