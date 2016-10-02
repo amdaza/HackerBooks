@@ -28,12 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Get JSON
             let json = try getJSON(remoteUrl: "https://t.co/K9ziV0z3SJ")
 
-            var books = [AGTBook]()
 
             for dict in json {
                 do {
-                    let book = try decode(agtBook: dict)
-                    books.append(book)
+                    try decode(jsonDict: dict,
+                                          context: model.context)
+                    
 
                 } catch {
                     print("Error processing \(dict)")

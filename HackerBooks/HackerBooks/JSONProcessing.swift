@@ -20,7 +20,9 @@ typealias JSONArray = [JSONDictionary]
 func decode(jsonDict: JSONDictionary,
             defaultImage defImage: NSData,
             defaultPdf defPdf: NSData,
-            context: NSManagedObjectContext) throws -> Book {
+            context: NSManagedObjectContext) throws {
+    
+    let book: Book
 
     // Validate dictionary
     guard let imageString = jsonDict["image_url"] as? String,
@@ -38,11 +40,12 @@ func decode(jsonDict: JSONDictionary,
 
     
     if let title = jsonDict["title"] as? String {
-        return Book(title: title,
+        book = Book(title: title,
             imageUrl: imageString, pdfUrl: pdfString,
             image: defImage, pdf: defPdf,
             favourite: false,
             inContext: context)
+        
     } else {
         throw HackerBooksError.wrongJSONFormat
     }
@@ -55,6 +58,12 @@ func decode(jsonDict: JSONDictionary,
     }
     let authors = authorsString.components(separatedBy: ", ")
     
+    for authorName in authors {
+        let author = Author.getOrInsert(withName: authorName,
+                                        inContext: context)
+        book.addToAuthors(author)
+    }
+    
     
     guard let tagsString = jsonDict["tags"] as? String
         
@@ -62,16 +71,25 @@ func decode(jsonDict: JSONDictionary,
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
     let tags = tagsString.components(separatedBy: ", ")
-
+    
+    for tagName in tags {
+        
+        book.addTag(tagName: tagName, inContext: context)
+    }
 }
 
 
-func decode(jsonDict: JSONDictionary?) throws -> Book {
+func decode(jsonDict: JSONDictionary?,
+            context: NSManagedObjectContext) throws {
 
     if case .some(let jsonDict) = jsonDict{
-        if let defaultImage = defaultImageSyncDownload(){
+        if let defaultImage = defaultImageSyncDownload(),
+            let defaultPdf = defaultPdfSyncDownload(){
 
-            return try decode(jsonDict: jsonDict, defaultImage: defaultImage)
+            try decode(jsonDict: jsonDict,
+                              defaultImage: defaultImage as NSData,
+                              defaultPdf: defaultPdf as NSData,
+                              context: context)
 
         } else {
             throw HackerBooksError.missingDefaultImage
@@ -159,13 +177,13 @@ func getJSONArray(fromData data: Data) throws -> JSONArray {
 }
 
 
-func defaultImageSyncDownload() -> UIImage? {
+func defaultImageSyncDownload() -> Data? {
     let imageName = "book-default.png"
     if let url = Bundle.main.URLForResource(imageName),
         let data = try? Data(contentsOf: url),
-        let image = UIImage(data: data) {
+        let _ = UIImage(data: data) {
 
-            return image
+            return data
     }
     return nil
 }
