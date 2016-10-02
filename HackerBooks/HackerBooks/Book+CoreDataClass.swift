@@ -22,10 +22,16 @@ public class Book: NSManagedObject, Comparable {
             var authorsDesc = "";
             
             if (authors != nil && (authors?.count)! > 0) {
+                let authorsSet = authors as! Set<Author>
                 
-                let authorsArray = Array(authors!) as! [String]
-                    
-                authorsDesc = "Authors: " + authorsArray.joined(separator: ", ")
+                var authorsNameArray: [String] = []
+                
+                for author in authorsSet {
+                    let auth = author
+                    authorsNameArray.append(auth.name!)
+                }
+                
+                authorsDesc = "Authors: " + authorsNameArray.joined(separator: ", ")
                 
             }
             return authorsDesc
@@ -87,7 +93,7 @@ public class Book: NSManagedObject, Comparable {
     // MARK: - Proxies
     var proxyForComparison : String{
         get {
-            return "\(title)\(authorsDescription)\(tagsText)"
+            return "\(title)"
         }
     }
     
