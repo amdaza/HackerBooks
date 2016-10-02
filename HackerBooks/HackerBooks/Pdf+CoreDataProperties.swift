@@ -17,6 +17,7 @@ extension Pdf {
 
     @NSManaged public var pdfData: NSData?
     @NSManaged public var remoteUrl: String?
+    @NSManaged public var loaded: Bool
     @NSManaged public var book: Book?
 
 }

@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  HackerBooks
 //
-//  Created by Home on 25/9/16.
+//  Created by Home on 2/10/16.
 //  Copyright © 2016 Alicia Daza. All rights reserved.
 //
 
@@ -15,10 +15,9 @@ extension Photo {
         return NSFetchRequest<Photo>(entityName: "Photo");
     }
 
-    @NSManaged public var localUrl: String?
+    @NSManaged public var loaded: Bool
     @NSManaged public var photoData: NSData?
     @NSManaged public var remoteUrl: String?
-    @NSManaged public var loaded: Bool
     @NSManaged public var books: NSSet?
     @NSManaged public var notes: NSSet?
 
