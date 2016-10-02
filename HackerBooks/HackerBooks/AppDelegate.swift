@@ -135,7 +135,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func isDataLoaded()->Bool{
         let defaults = UserDefaults.standard
         
-        return defaults.bool(forKey: dataAlreadyLoaded)
+        if let res = defaults.object(forKey: FavouriteKey) as? Bool{
+        
+            return res
+        
+        } else {
+            return false
+        }
         
     }
 
