@@ -65,7 +65,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let lNav = UINavigationController(rootViewController: lVC)
 
             // Create book VC
-            let bookVC = BookViewController(model: model.book(atIndex: 0, forTag: model.tags[0]))
+            //let bookVC = BookViewController(model: model.book(atIndex: 0, forTag: model.tags[0]))
+            let indx = IndexPath(row: 0, section: 0)
+            
+            let bookVC = BookViewController(model: fc.object(at: indx))
 
             // Put in another navigation
             let bookNav = UINavigationController(rootViewController: bookVC)
