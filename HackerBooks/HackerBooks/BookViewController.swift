@@ -147,47 +147,6 @@ class BookViewController: UIViewController {
         }
     }
     
-    func addTag(tagName: String) {
-        
-        let tag : Tag
-        let bookTag : BookTag
-        
-        // Check if Tag already exists
-        let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
-        req.predicate = NSPredicate(format: "name == %@", tagName)
-        let result = try! cds.context.fetch(req)
-        
-        if result.count > 0 {
-            // Get Tag
-            tag = result.first!
-        } else {
-            // Create Tag
-            tag = Tag(name: Tag.favouriteName, inContext: cds.context)
-        }
-        
-        // Check if BookTag already exists
-        let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
-        
-        let tagPredicate = NSPredicate(format: "tag = %@", tag)
-        let bookPredicate = NSPredicate(format: "book = %@", self.model)
-        let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
-            [tagPredicate, bookPredicate])
-        req2.predicate = andPredicate
-        
-        let result2 = try! cds.context.fetch(req2)
-        
-        if result2.count > 0 {
-            // Get bookTag
-            bookTag = result2.first!
-        } else {
-            // Create bookTag
-            bookTag = BookTag(book: self.model, tag: tag, inContext: cds.context)
-        }
-        
-        // Add bookTag to Book ????
-        model.addToBookTags(bookTag)
-    }
-    
     func deleteTag(tagName: String) {
         
         // Check if Tag already exists

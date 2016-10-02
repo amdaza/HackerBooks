@@ -91,6 +91,21 @@ public class Book: NSManagedObject, Comparable {
             return "\(title)\(authorsDescription)\(tagsText)"
         }
     }
+    
+    
+    func addTag(tagName: String,
+                inContext context: NSManagedObjectContext) {
+        
+        let tag = Tag.upsert(withName: tagName,
+                             inContext: context)
+        
+        let bookTag = BookTag.upsert(withTag: tag,
+                                     withBook: self,
+                                     inContext: context)
+        
+        // Add bookTag to Book ???
+        self.addToBookTags(bookTag)
+    }
         }
     }
 }

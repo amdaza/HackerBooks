@@ -40,6 +40,28 @@ public class Tag: NSManagedObject, Comparable {
             return "\(fav)\(name)"
         }
     }
+    
+    // MARK: - Upsert -> update or insert
+    // Update if exist, insert if it doesn't
+    // Return created or updated tag
+    public static func upsert(withName tagName: String,
+                inContext context: NSManagedObjectContext) -> Tag {
+        
+        // Check if Tag already exists
+        let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
+        req.predicate = NSPredicate(format: "name == %@", tagName)
+        let result = try! context.fetch(req)
+        
+        if result.count > 0 {
+            // Get Tag
+            return result.first!
+        } else {
+            // Create Tag
+            return Tag(name: Tag.favouriteName, inContext: context)
+        }
+
+    }
+    
 }
 
 // MARK: - Equatable
