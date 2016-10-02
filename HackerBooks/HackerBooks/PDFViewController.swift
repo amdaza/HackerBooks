@@ -34,7 +34,8 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
 
         activityView.startAnimating()
 
-        if let pdfData = try? Data(contentsOf: model.pdf_url as URL){
+        //????
+        if let pdfData = try? Data(contentsOf: model.pdf?.remoteUrl as URL){
 
             browser.load(pdfData, mimeType: "application/pdf",
                          textEncodingName: "UTF-8", baseURL: URL(string: "https://google.com")! )

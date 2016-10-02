@@ -80,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Assign nav as rootVC
             window?.rootViewController = splitVC
 
-            // Make book vc delegate of library vc
-            lVC.delegate = bookVC
+            // Make book vc delegate of library vc ???
+            //lVC.delegate = bookVC
 
             // Make visible & key to window
             window?.makeKeyAndVisible()
