@@ -26,12 +26,12 @@ func decode(jsonDict: JSONDictionary,
 
     // Validate dictionary
     guard let imageString = jsonDict["image_url"] as? String,
-        let imageUrl : URL = URL(string: imageString) else {
+        let _ : URL = URL(string: imageString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
     guard let pdfString = jsonDict["pdf_url"] as? String,
-        let pdfUrl = URL(string: pdfString) else {
+        let _ = URL(string: pdfString) else {
             throw HackerBooksError.wrongURLFormatForJSONResource
     }
 
