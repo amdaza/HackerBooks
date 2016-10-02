@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-let dataAlreadyLoaded = "dataAlreadyLoaded"
+let dataAlreadyLoaded = "dataIsAlreadyLoaded2"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,16 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
                 
-                do {
-                    try model.context.save()
+                model.save()
                     
-                    // Set loaded in user defaults
-                    let defaults = UserDefaults.standard
-                    defaults.set(Bool(true), forKey: dataAlreadyLoaded)
-                    
-                } catch {
-                    print("Error saving model")
-                }
+                // Set loaded in user defaults
+                let defaults = UserDefaults.standard
+                defaults.set(Bool(true), forKey: dataAlreadyLoaded)
+                
             }
 
             // Create model
@@ -83,9 +79,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             // Create book VC
             //let bookVC = BookViewController(model: model.book(atIndex: 0, forTag: model.tags[0]))
-            let indx = IndexPath(row: 0, section: 0)
             
-            let bookVC = BookViewController(model: fc.object(at: indx))
+            let indx = IndexPath(row: 0, section: 0)
+
+            let aux = fc.object(at: indx)
+            let bookVC = BookViewController(model: aux)
 
             // Put in another navigation
             let bookNav = UINavigationController(rootViewController: bookVC)
