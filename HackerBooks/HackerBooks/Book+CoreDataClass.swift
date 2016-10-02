@@ -64,7 +64,26 @@ public class Book: NSManagedObject, Comparable {
         self.title = title
     }
     
-    // TODO: Create one with authors and bookTags
+    convenience init(title: String,
+                     authors: [String], tags: [String],
+                     imageUrl: String, pdfUrl: String,
+                     image: NSData,
+                     favourite: Bool,
+                     inContext context: NSManagedObjectContext) {
+        
+        // We need Notebook entity
+        let entity = NSEntityDescription.entity(forEntityName: Book.entityName,
+                                                in: context)!
+        
+        // Super call
+        self.init(entity: entity, insertInto: context)
+        
+        self.title = title
+    }
+    
+    
+    
+
     
     // MARK: - Proxies
     var proxyForComparison : String{
