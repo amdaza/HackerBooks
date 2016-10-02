@@ -54,5 +54,31 @@ public class BookTag: NSManagedObject {
         }
         
     }
+    
+    // MARK: - Get if exists
+    // Return BookTag, nil if doesn't exists
+    public static func getIfExists(withTag tag: Tag,
+                              withBook book: Book,
+                              inContext context: NSManagedObjectContext) -> BookTag? {
+        
+        // Check if BookTag already exists
+        let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
+        
+        let tagPredicate = NSPredicate(format: "tag = %@", tag)
+        let bookPredicate = NSPredicate(format: "book = %@", book)
+        let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
+            [tagPredicate, bookPredicate])
+        req2.predicate = andPredicate
+        
+        if let result2 = try? context.fetch(req2),
+            result2.count > 0 {
+            // Get bookTag
+            return result2.first!
+        } else {
+            // Create bookTag
+            return nil
+        }
+        
+    }
 
 }
