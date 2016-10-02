@@ -61,10 +61,10 @@ public class Tag: NSManagedObject, Comparable {
         }
     }
     
-    // Upsert -> update or insert
-    // Update if exist, insert if it doesn't
+    // Get or insert
+    // Get if exist, insert if it doesn't
     // Return created or updated tag
-    public static func upsert(withName tagName: String,
+    public static func getOrInsert(withName tagName: String,
                               inContext context: NSManagedObjectContext) -> Tag {
         
         if let tag = Tag.getIfExists(tagName: tagName,

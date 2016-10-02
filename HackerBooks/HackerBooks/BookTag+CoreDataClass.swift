@@ -57,10 +57,10 @@ public class BookTag: NSManagedObject {
         
     }
     
-    // Upsert -> update or insert
-    // Update if exist, insert if it doesn't
+    // Get or insert
+    // Get if exist, insert if it doesn't
     // Return created or updated BookTag
-    public static func upsert(withTag tag: Tag,
+    public static func getOrInsert(withTag tag: Tag,
                               withBook book: Book,
                               inContext context: NSManagedObjectContext) -> BookTag {
         

@@ -66,10 +66,10 @@ public class Pdf: NSManagedObject {
         }
     }
     
-    // Upsert -> update or insert
-    // Update if exist, insert if it doesn't
+    // Get or insert
+    // Get if exist, insert if it doesn't
     // Return created or updated Pdf
-    public static func upsert(book: Book,
+    public static func getOrInsert(book: Book,
                               remoteUrl: String,
                               inContext context: NSManagedObjectContext) -> Pdf {
         
