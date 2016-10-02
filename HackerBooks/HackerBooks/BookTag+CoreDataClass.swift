@@ -27,39 +27,14 @@ public class BookTag: NSManagedObject {
         self.tag = tag
     }
     
-    // MARK: - Upsert -> update or insert
-    // Update if exist, insert if it doesn't
-    // Return created or updated BookTag
-    public static func upsert(withTag tag: Tag,
-                              withBook book: Book,
-                              inContext context: NSManagedObjectContext) -> BookTag {
-        
-        // Check if BookTag already exists
-        let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
-        
-        let tagPredicate = NSPredicate(format: "tag = %@", tag)
-        let bookPredicate = NSPredicate(format: "book = %@", book)
-        let andPredicate = NSCompoundPredicate(andPredicateWithSubpredicates:
-            [tagPredicate, bookPredicate])
-        req2.predicate = andPredicate
-        
-        let result2 = try! context.fetch(req2)
-        
-        if result2.count > 0 {
-            // Get bookTag
-            return result2.first!
-        } else {
-            // Create bookTag
-            return BookTag(book: book, tag: tag, inContext: context)
-        }
-        
-    }
     
-    // MARK: - Get if exists
+    
+    // MARK: Static get & update functions
+    
     // Return BookTag, nil if doesn't exists
     public static func getIfExists(withTag tag: Tag,
-                              withBook book: Book,
-                              inContext context: NSManagedObjectContext) -> BookTag? {
+                                   withBook book: Book,
+                                   inContext context: NSManagedObjectContext) -> BookTag? {
         
         // Check if BookTag already exists
         let req2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
@@ -80,5 +55,40 @@ public class BookTag: NSManagedObject {
         }
         
     }
+    
+    // Upsert -> update or insert
+    // Update if exist, insert if it doesn't
+    // Return created or updated BookTag
+    public static func upsert(withTag tag: Tag,
+                              withBook book: Book,
+                              inContext context: NSManagedObjectContext) -> BookTag {
+        
+        if let bookTag = BookTag.getIfExists(withTag: tag,
+                                             withBook: book,
+                                             inContext: context) {
+            // Get bookTag
+            return bookTag
+        } else {
+            // Create bookTag
+            return BookTag(book: book, tag: tag, inContext: context)
+        }
+        
+    }
+    
+    // Check if BookTag exists
+    public static func exists(withTag tag: Tag,
+                              withBook book: Book,
+                              inContext context: NSManagedObjectContext) -> Bool {
+        
+        if (BookTag.getIfExists(withTag: tag,
+                                withBook: book,
+                                inContext: context) != nil) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
 
 }
