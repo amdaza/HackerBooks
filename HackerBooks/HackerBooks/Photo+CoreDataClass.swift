@@ -46,6 +46,7 @@ public class Photo: NSManagedObject {
         
         // Transform UIImage into data and set it
         self.image = image
+        self.loaded = false
         
     }
     
@@ -53,7 +54,8 @@ public class Photo: NSManagedObject {
         let ent = NSEntityDescription.entity(forEntityName: Photo.entityName, in: context)!
         
         self.init(entity: ent, insertInto: context)
-        addToNotes(note)
+        self.addToNotes(note)
+        self.loaded = false
     }
     
     func downloadImage() {
