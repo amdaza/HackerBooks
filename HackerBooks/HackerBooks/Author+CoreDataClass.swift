@@ -63,15 +63,16 @@ public class Author: NSManagedObject {
     public static func getOrInsert(withName name: String,
                                    inContext context: NSManagedObjectContext) -> Author {
         
-        if let author = Author.getIfExists(name: name,
-                                     inContext: context) {
-            // Get Author
-            return author
-            
-        } else {
-            // Create Author
+        guard let author = Author.getIfExists(name: name,
+                                     inContext: context) else {
+           
+            // Create new Author
             return Author(name: name, inContext: context)
+        
         }
+        
+        // Already exists, return
+        return author
     }
     
     // Check if Author exists

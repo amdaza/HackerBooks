@@ -67,15 +67,14 @@ public class Tag: NSManagedObject, Comparable {
     public static func getOrInsert(withName tagName: String,
                               inContext context: NSManagedObjectContext) -> Tag {
         
-        if let tag = Tag.getIfExists(tagName: tagName,
-                                     inContext: context) {
-            // Get Tag
-            return tag
-            
-        } else {
-            // Create Tag
+        guard let tag = Tag.getIfExists(tagName: tagName,
+                                        inContext: context) else {
+            // Create new Tag
             return Tag(name: tagName, inContext: context)
         }
+        
+        // Already exists, return
+        return tag
     }
     
     // Check if Tag exists

@@ -121,17 +121,17 @@ public class Photo: NSManagedObject {
                                    remoteUrl: String,
                                    inContext context: NSManagedObjectContext) -> Photo {
         
-        if let photo = Photo.getIfExists(remoteUrl: remoteUrl,
-                                     inContext: context) {
-            // Get Photo
-            return photo
-            
-        } else {
+        guard let photo = Photo.getIfExists(remoteUrl: remoteUrl,
+                                     inContext: context) else {
+
             // Create Photo
             return Photo(book: book,
                        remoteUrl: remoteUrl,
                        inContext: context)
         }
+        
+        // Already exists, return
+        return photo
     }
     
     // MARK: - Get Async Data

@@ -64,15 +64,16 @@ public class BookTag: NSManagedObject {
                               withBook book: Book,
                               inContext context: NSManagedObjectContext) -> BookTag {
         
-        if let bookTag = BookTag.getIfExists(withTag: tag,
+        guard let bookTag = BookTag.getIfExists(withTag: tag,
                                              withBook: book,
-                                             inContext: context) {
-            // Get bookTag
-            return bookTag
-        } else {
-            // Create bookTag
+                                             inContext: context) else {
+            
+            // Create new bookTag
             return BookTag(book: book, tag: tag, inContext: context)
         }
+        
+        // Already exists, return
+        return bookTag
         
     }
     

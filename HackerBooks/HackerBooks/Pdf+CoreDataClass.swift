@@ -73,17 +73,17 @@ public class Pdf: NSManagedObject {
                               remoteUrl: String,
                               inContext context: NSManagedObjectContext) -> Pdf {
         
-        if let pdf = Pdf.getIfExists(remoteUrl: remoteUrl,
-                                     inContext: context) {
-            // Get Pdf
-            return pdf
-            
-        } else {
-            // Create Pdf
+        guard let pdf = Pdf.getIfExists(remoteUrl: remoteUrl,
+                                     inContext: context) else {
+ 
+            // Create new Pdf
             return Pdf(book: book,
                        remoteUrl: remoteUrl,
                        inContext: context)
         }
+        
+        // Already exists, return
+        return pdf
     }
 
     
