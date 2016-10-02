@@ -42,8 +42,9 @@ public class Tag: NSManagedObject, Comparable {
     }
     
     
+    // MARK: Static get & update functions
     
-    // MARK: Get Tag if exists
+    // Get Tag if exists, nil if it doesn't
     public static func getIfExists(tagName: String,
                               inContext context: NSManagedObjectContext) -> Tag? {
         
@@ -59,7 +60,7 @@ public class Tag: NSManagedObject, Comparable {
         }
     }
     
-    // MARK: - Upsert -> update or insert
+    // Upsert -> update or insert
     // Update if exist, insert if it doesn't
     // Return created or updated tag
     public static func upsert(withName tagName: String,
@@ -76,7 +77,7 @@ public class Tag: NSManagedObject, Comparable {
         }
     }
     
-    // MARK: Tag exists
+    // Check if Tag exists
     public static func exists(tagName: String,
                               inContext context: NSManagedObjectContext) -> Bool {
         
