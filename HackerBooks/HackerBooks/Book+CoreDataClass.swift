@@ -69,7 +69,9 @@ public class Book: NSManagedObject, Comparable {
     // MARK: - Proxies
     var proxyForComparison : String{
         get {
-            return "\(title)"
+            return "\(title)\(authorsDescription)\(tagsText)"
+        }
+    }
         }
     }
 }
