@@ -96,10 +96,10 @@ public class Book: NSManagedObject, Comparable {
     func addTag(tagName: String,
                 inContext context: NSManagedObjectContext) {
         
-        let tag = Tag.upsert(withName: tagName,
+        let tag = Tag.getOrInsert(withName: tagName,
                              inContext: context)
         
-        let bookTag = BookTag.upsert(withTag: tag,
+        let bookTag = BookTag.getOrInsert(withTag: tag,
                                      withBook: self,
                                      inContext: context)
         
@@ -121,6 +121,26 @@ public class Book: NSManagedObject, Comparable {
                 
                 context.delete(bookTag)
             }
+        }
+    }
+    
+    func addAuthor(authorName: String,
+                inContext context: NSManagedObjectContext) {
+        
+        let author = Author.getOrInsert(withName: authorName,
+                             inContext: context)
+
+        self.addToAuthors(author)
+    }
+    
+    func deleteAuthor(authorName: String,
+                   inContext context: NSManagedObjectContext) {
+        
+        if let author = Author.getIfExists(name: authorName,
+                                       inContext: context){
+            
+            // Delete author from book
+            self.removeFromAuthors(author)
         }
     }
 
