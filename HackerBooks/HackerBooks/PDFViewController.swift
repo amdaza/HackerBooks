@@ -34,8 +34,10 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
 
         activityView.startAnimating()
 
-        //????
-        if let pdfData = try? Data(contentsOf: model.pdf?.remoteUrl as URL){
+        // For now, get Data as before
+        if let urlString = model.pdf?.remoteUrl,
+            let url = URL(string: urlString),
+            let pdfData = try? Data(contentsOf: url){
 
             browser.load(pdfData, mimeType: "application/pdf",
                          textEncodingName: "UTF-8", baseURL: URL(string: "https://google.com")! )
@@ -95,7 +97,7 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         let info = (notification as NSNotification).userInfo!
 
         // Get book
-        let book = info[BookKey] as? AGTBook
+        let book = info[BookKey] as? Book
 
         // Reload model
         model = book!
