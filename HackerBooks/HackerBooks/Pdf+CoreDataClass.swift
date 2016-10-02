@@ -53,7 +53,7 @@ public class Pdf: NSManagedObject {
     public static func getIfExists(remoteUrl: String,
                                    inContext context: NSManagedObjectContext) -> Pdf? {
         
-        // Check if Tag already exists
+        // Check if Pdf already exists
         let req = NSFetchRequest<Pdf>(entityName: Pdf.entityName)
         req.predicate = NSPredicate(format: "remoteUrl == %@", remoteUrl)
         

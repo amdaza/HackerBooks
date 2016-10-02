@@ -15,6 +15,8 @@ public class Photo: NSManagedObject {
     
     static let entityName = "Photo"
     
+    
+    // MARK: - Computed properties
     var image : UIImage? {
         get {
             guard let data = photoData else {
@@ -32,6 +34,7 @@ public class Photo: NSManagedObject {
         }
     }
     
+    // MARK: - Convenience inits for Notes
     convenience init(note: Note,
                      image: UIImage,
                      inContext context: NSManagedObjectContext) {
@@ -57,6 +60,81 @@ public class Photo: NSManagedObject {
         self.addToNotes(note)
         self.loaded = false
     }
+    
+    // MARK: - Convenience inits for books
+    convenience init(book: Book,
+                     remoteUrl: String,
+                     inContext context: NSManagedObjectContext) {
+        // Get entity description
+        let ent = NSEntityDescription.entity(forEntityName: Photo.entityName,
+                                             in: context)!
+        
+        // Call super
+        self.init(entity: ent, insertInto: context)
+        
+        self.addToBooks(book)
+        self.remoteUrl = remoteUrl
+        self.loaded = false
+    }
+    
+    convenience init(book: Book,
+                     remoteUrl: String,
+                     image: UIImage,
+                     inContext context: NSManagedObjectContext) {
+        
+        let ent = NSEntityDescription.entity(forEntityName: Photo.entityName,
+                                             in: context)!
+        
+        self.init(entity: ent, insertInto: context)
+        
+        // Add Pdf
+        self.addToBooks(book)
+        self.remoteUrl = remoteUrl
+        self.image = image
+        self.loaded = false
+        
+    }
+    
+    // MARK: Static get & update functions for Book
+    
+    // Get Photo if exists, nil if it doesn't
+    public static func getIfExists(remoteUrl: String,
+                                   inContext context: NSManagedObjectContext) -> Photo? {
+        
+        // Check if Pdf already exists
+        let req = NSFetchRequest<Photo>(entityName: Photo.entityName)
+        req.predicate = NSPredicate(format: "remoteUrl == %@", remoteUrl)
+        
+        if let result = try? context.fetch(req),
+            result.count > 0 {
+            
+            return result.first!
+        } else {
+            return nil
+        }
+    }
+    
+    // Get or insert
+    // Get if exist, insert if it doesn't
+    // Return created or updated Photo
+    public static func getOrInsert(book: Book,
+                                   remoteUrl: String,
+                                   inContext context: NSManagedObjectContext) -> Photo {
+        
+        if let photo = Photo.getIfExists(remoteUrl: remoteUrl,
+                                     inContext: context) {
+            // Get Photo
+            return photo
+            
+        } else {
+            // Create Photo
+            return Photo(book: book,
+                       remoteUrl: remoteUrl,
+                       inContext: context)
+        }
+    }
+    
+    // MARK: - Get Async Data
     
     func downloadImage() {
         
