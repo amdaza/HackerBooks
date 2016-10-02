@@ -47,6 +47,7 @@ public class BookTag: NSManagedObject {
         
         if let result2 = try? context.fetch(req2),
             result2.count > 0 {
+            
             // Get bookTag
             return result2.first!
         } else {

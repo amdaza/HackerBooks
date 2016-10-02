@@ -51,9 +51,10 @@ public class Tag: NSManagedObject, Comparable {
         // Check if Tag already exists
         let req = NSFetchRequest<Tag>(entityName: Tag.entityName)
         req.predicate = NSPredicate(format: "name == %@", tagName)
-        let result = try! context.fetch(req)
         
-        if result.count > 0 {
+        if let result = try? context.fetch(req),
+            result.count > 0 {
+            
             return result.first!
         } else {
             return nil
