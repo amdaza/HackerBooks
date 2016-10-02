@@ -100,6 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             // Make visible & key to window
             window?.makeKeyAndVisible()
+            
+            model.autoSave(5)
 
         } catch {
             fatalError("Error while loading json")
