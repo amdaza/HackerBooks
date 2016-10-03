@@ -134,6 +134,28 @@ public class Photo: NSManagedObject {
         return photo
     }
     
+    // Get or insert with image
+    // Get if exist, insert if it doesn't
+    // Return created or updated Photo
+    public static func getOrInsert(book: Book,
+                                   remoteUrl: String,
+                                   image: UIImage,
+                                   inContext context: NSManagedObjectContext) -> Photo {
+        
+        guard let photo = Photo.getIfExists(remoteUrl: remoteUrl,
+                                            inContext: context) else {
+                                                
+                                                // Create Photo
+                                                return Photo(book: book,
+                                                             remoteUrl: remoteUrl,
+                                                             image: image,
+                                                             inContext: context)
+        }
+        
+        // Already exists, return
+        return photo
+    }
+    
     // MARK: - Get Async Data
     
     func downloadImage() {

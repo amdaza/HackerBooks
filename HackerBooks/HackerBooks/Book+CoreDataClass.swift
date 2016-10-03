@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 
 @objc
@@ -72,7 +73,7 @@ public class Book: NSManagedObject, Comparable {
     }
     
     convenience init(title: String,
-                     image: NSData, pdf: NSData,
+                     image: UIImage, pdf: NSData,
                      imageUrl: String, pdfUrl: String,
                      favourite: Bool,
                      inContext context: NSManagedObjectContext) {
@@ -87,9 +88,11 @@ public class Book: NSManagedObject, Comparable {
         self.title = title
         self.image = Photo.getOrInsert(book: self,
                                        remoteUrl: imageUrl,
+                                       image: image,
                                        inContext: context)
         self.pdf = Pdf.getOrInsert(book: self,
                                    remoteUrl: pdfUrl,
+                                   pdfData: pdf,
                                    inContext: context)
         self.favourite = favourite
     }

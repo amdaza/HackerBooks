@@ -85,6 +85,29 @@ public class Pdf: NSManagedObject {
         // Already exists, return
         return pdf
     }
+    
+    // Get or insert with pdf
+    // Get if exist, insert if it doesn't
+    // Return created or updated Pdf
+    public static func getOrInsert(book: Book,
+                                   remoteUrl: String,
+                                   pdfData: NSData,
+                                   inContext context: NSManagedObjectContext) -> Pdf {
+        
+        guard let pdf = Pdf.getIfExists(remoteUrl: remoteUrl,
+                                        inContext: context) else {
+                                            
+                                            // Create new Pdf
+                                            return Pdf(book: book,
+                                                       remoteUrl: remoteUrl,
+                                                       pdfData: pdfData,
+                                                       inContext: context)
+        }
+        
+        // Already exists, return
+        return pdf
+    }
+
 
     
     // MARK: - Get Async Data

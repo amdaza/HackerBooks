@@ -18,7 +18,7 @@ typealias JSONArray = [JSONDictionary]
 
 // MARK: - Decodification
 func decode(jsonDict: JSONDictionary,
-            defaultImage defImage: NSData,
+            defaultImage defImage: UIImage,
             defaultPdf defPdf: NSData,
             context: NSManagedObjectContext) throws {
     
@@ -87,7 +87,7 @@ func decode(jsonDict: JSONDictionary?,
             let defaultPdf = defaultPdfSyncDownload(){
 
             try decode(jsonDict: jsonDict,
-                              defaultImage: defaultImage as NSData,
+                              defaultImage: defaultImage,
                               defaultPdf: defaultPdf as NSData,
                               context: context)
 
@@ -177,13 +177,13 @@ func getJSONArray(fromData data: Data) throws -> JSONArray {
 }
 
 
-func defaultImageSyncDownload() -> Data? {
+func defaultImageSyncDownload() -> UIImage? {
     let imageName = "book-default.png"
     if let url = Bundle.main.URLForResource(imageName),
         let data = try? Data(contentsOf: url),
-        let _ = UIImage(data: data) {
-
-            return data
+        let image = UIImage(data: data) {
+        
+        return image
     }
     return nil
 }
