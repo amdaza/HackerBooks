@@ -74,7 +74,7 @@ func decode(jsonDict: JSONDictionary,
     
     for tagName in tags {
         
-        book.addTag(tagName: tagName, inContext: context)
+        book.addTag(tagName: tagName)
     }
 }
 

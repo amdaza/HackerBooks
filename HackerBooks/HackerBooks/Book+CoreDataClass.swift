@@ -106,22 +106,28 @@ public class Book: NSManagedObject, Comparable {
     }
     
     
-    func addTag(tagName: String,
-                inContext context: NSManagedObjectContext) {
+    func addTag(tagName: String) {
+        
+        guard let context = self.managedObjectContext else {
+            return
+        }
         
         let tag = Tag.getOrInsert(withName: tagName,
                              inContext: context)
         
-        let bookTag = BookTag.getOrInsert(withTag: tag,
+        let _ = BookTag.getOrInsert(withTag: tag,
                                      withBook: self,
                                      inContext: context)
         
         // Add bookTag to Book ???
-        self.addToBookTags(bookTag)
+        //self.addToBookTags(bookTag)
     }
     
-    func deleteTag(tagName: String,
-                   inContext context: NSManagedObjectContext) {
+    func deleteTag(tagName: String) {
+        
+        guard let context = self.managedObjectContext else {
+            return
+        }
 
         if let tag = Tag.getIfExists(tagName: tagName,
                                      inContext: context){

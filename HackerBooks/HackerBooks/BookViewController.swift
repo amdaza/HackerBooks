@@ -25,8 +25,6 @@ class BookViewController: UIViewController {
 
 
     var model: Book
-    
-    let cds = CoreDataStack(modelName: "Model")!
 
     // MARK: - INIT
 
@@ -69,14 +67,12 @@ class BookViewController: UIViewController {
         if(favSwitch.isOn) {
             
             // Add to favourites
-            model.addTag(tagName: Tag.favouriteName,
-                         inContext: cds.context)
+            model.addTag(tagName: Tag.favouriteName)
             model.favourite = true
             
         } else {
             // Delete from favourites
-            model.deleteTag(tagName: Tag.favouriteName,
-                            inContext: cds.context)
+            model.deleteTag(tagName: Tag.favouriteName)
             model.favourite = false
         }
 
