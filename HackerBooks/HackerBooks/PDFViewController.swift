@@ -31,18 +31,32 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
     // MARK: - Sync
     func syncModelWithView() {
         self.browser.delegate = self
-
+        
         activityView.startAnimating()
+        
+        // Get data by default
+        if let pdf = model.pdf {
+            let savedData = pdf.pdfData as Data!
 
-        // For now, get Data as before
-        if let urlString = model.pdf?.remoteUrl,
-            let url = URL(string: urlString),
-            let pdfData = try? Data(contentsOf: url){
+            browser.load(savedData!, mimeType: "application/pdf",
+                     textEncodingName: "UTF-8", baseURL: URL(string: "https://google.com")! )
+        
 
-            browser.load(pdfData, mimeType: "application/pdf",
-                         textEncodingName: "UTF-8", baseURL: URL(string: "https://google.com")! )
+            // Load real data if not loaded
+            if (!pdf.loaded){
+                if let urlString = model.pdf?.remoteUrl,
+                    let url = URL(string: urlString),
+                    let pdfData = try? Data(contentsOf: url){
+                
+                    browser.load(pdfData, mimeType: "application/pdf",
+                             textEncodingName: "UTF-8", baseURL: URL(string: "https://google.com")! )
+                    
+                    pdf.pdfData = pdfData as NSData
+                    pdf.loaded = true
+                }
+            }
+
         }
-
     }
 
 
