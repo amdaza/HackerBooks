@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //let model = AGTLibrary(withBooks: books)
             
             // Create fetchRequest
+          /*
             let fr = NSFetchRequest<Book>(entityName: Book.entityName)
             fr.fetchBatchSize = 50 // de 50 en 50
             
@@ -64,14 +65,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                    ascending: false)]
             
             // Create fetchedResultsCtrl
-            let fc = NSFetchedResultsController(fetchRequest: fr,
+            let frc = NSFetchedResultsController(fetchRequest: fr,
                                                 managedObjectContext: model.context,
                                                 sectionNameKeyPath: nil,
                                                 cacheName: nil)
-
+            */
+            ////
+            
+            let fr2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
+            let primarySortDescriptor = NSSortDescriptor(key: "tag", ascending: true)
+            // let secondarySortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+            //fr.sortDescriptors = [primarySortDescriptor, secondarySortDescriptor]
+            fr2.sortDescriptors = [primarySortDescriptor]
+            
+            let frc2 = NSFetchedResultsController(
+                fetchRequest: fr2,
+                managedObjectContext: model.context,
+                sectionNameKeyPath: nil,
+                cacheName: nil)
+ 
+      
 
             // Create VC
-            let lVC = LibraryTableViewController(fetchedResultsController: fc as! NSFetchedResultsController<NSFetchRequestResult>,
+            let lVC = LibraryTableViewController(fetchedResultsController: frc2 as! NSFetchedResultsController<NSFetchRequestResult>,
                                                  style: .plain)
 
             // Put in nav
@@ -82,8 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let indx = IndexPath(row: 0, section: 0)
 
-            let aux = fc.object(at: indx)
-            let bookVC = BookViewController(model: aux)
+            let aux = frc2.object(at: indx) 
+            let book = aux.book!
+            let bookVC = BookViewController(model: book)
 
             // Put in another navigation
             let bookNav = UINavigationController(rootViewController: bookVC)
@@ -144,6 +161,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
     }
+    
+   
+
 
 }
 

@@ -55,7 +55,6 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
                     pdf.loaded = true
                 }
             }
-
         }
     }
 

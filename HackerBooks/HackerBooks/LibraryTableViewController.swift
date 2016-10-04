@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 let BookDidChangeNotification = "Selected book did change"
 let BookKey = "bookKey"
@@ -15,43 +16,30 @@ let FavouriteKey = "favKey"
 class LibraryTableViewController: CoreDataTableViewController {
 
     // MARK: - Properties
-    //let model: AGTLibrary
 
    // var delegate: LibraryTableViewControllerDelegate?
 
     var orderIndex: Int = 0
-/*
-    // MARK: - Initialization
-    init(model: AGTLibrary) {
-        self.model = model
-
-        super.init(nibName: nil, bundle: nil)
-    }
-*/
-    
-    /*
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-*/
-    
+  
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Get book
-        let book = fetchedResultsController?.object(at: indexPath) as! Book
-        /*
+        let book : Book
+        
         switch orderIndex {
         case 0:
-            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
+            let bookTag = fetchedResultsController?.object(at: indexPath) as! BookTag
+            book = bookTag.book!
             
         case 1:
-            book = model.books[(indexPath as NSIndexPath).row]
+            book = fetchedResultsController?.object(at: indexPath) as! Book
             
         default:
-            book = model.book(atIndex: (indexPath as NSIndexPath).row, forTag: model.tags[(indexPath as NSIndexPath).section])
+            let bookTag = fetchedResultsController?.object(at: indexPath) as! BookTag
+            book = bookTag.book!
         }
-        */
+        
         
         // Get image
         book.image?.getImage()
@@ -95,6 +83,7 @@ class LibraryTableViewController: CoreDataTableViewController {
 
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(LibraryTableViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
+        
 
         self.navigationItem.titleView = sc
     }
@@ -108,22 +97,22 @@ class LibraryTableViewController: CoreDataTableViewController {
         didSelectRowAt indexPath: IndexPath) {
 
             // Get book
-            let book = fetchedResultsController?.object(at: indexPath) as! Book
+        let book : Book
 
-        /*
+        
             switch orderIndex {
             case 0:
-                book = model.book(atIndex: (indexPath as NSIndexPath).row,
-                    forTag: model.tags[(indexPath as NSIndexPath).section])
+                let bookTag = fetchedResultsController?.object(at: indexPath) as! BookTag
+                book = bookTag.book!
 
             case 1:
-                book = model.books[(indexPath as NSIndexPath).row]
+                book = fetchedResultsController?.object(at: indexPath) as! Book
 
             default:
-                book = model.book(atIndex: (indexPath as NSIndexPath).row,
-                    forTag: model.tags[(indexPath as NSIndexPath).section])
+                let bookTag = fetchedResultsController?.object(at: indexPath) as! BookTag
+                book = bookTag.book!
             }
-*/
+
             // Notify delegate
            // delegate?.libraryTableViewController(self, didSelectBook: book)
 /*
@@ -218,8 +207,59 @@ class LibraryTableViewController: CoreDataTableViewController {
 
     }
 */
+    
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
+        
+        // Create fetchRequest
+        
+        let fr = NSFetchRequest<Book>(entityName: Book.entityName)
+        fr.fetchBatchSize = 50 // de 50 en 50
+        
+        fr.sortDescriptors = [NSSortDescriptor(key: "title",
+                                               ascending: false)]
+        
+        if let  context = fetchedResultsController?.managedObjectContext {
+            
+            // Create fetchedResultsCtrl
+            let frc = NSFetchedResultsController(fetchRequest: fr,
+                                                 managedObjectContext: context,
+                sectionNameKeyPath: nil,
+                cacheName: nil)
+            
+            
+            /////////
+            
+            let fr2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
+            let primarySortDescriptor = NSSortDescriptor(key: "tag", ascending: true)
+            // let secondarySortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+            //fr.sortDescriptors = [primarySortDescriptor, secondarySortDescriptor]
+            fr2.sortDescriptors = [primarySortDescriptor]
+            
+            let frc2 = NSFetchedResultsController(
+                fetchRequest: fr2,
+                managedObjectContext: context,
+                sectionNameKeyPath: nil,
+                cacheName: nil)
+            
+            /////////
+            
+            switch orderIndex {
+            case 0:
+                self.fetchedResultsController = frc2 as? NSFetchedResultsController<NSFetchRequestResult>
+                
+            case 1:
+                self.fetchedResultsController = frc as? NSFetchedResultsController<NSFetchRequestResult>
+                
+            default:
+                self.fetchedResultsController = frc as? NSFetchedResultsController<NSFetchRequestResult>
+            }
+
+        
+        }
+        
+        
+        
 
         self.tableView.reloadData()
     }
