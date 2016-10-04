@@ -131,19 +131,20 @@ class LibraryTableViewController: CoreDataTableViewController {
     }
 
     // MARK: - Table view data source
-/*
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         switch orderIndex {
             case 0:
                 // Tags in library
-                return model.tagsCount
+            print(fetchedResultsController?.sections?.count)
+                return fetchedResultsController?.sections?.count ?? 0
 
             case 1:
                 return 1
 
             default:
                 // Tags in library
-                return model.tagsCount
+                return fetchedResultsController?.sections?.count ?? 0
         }
     }
 
@@ -151,14 +152,14 @@ class LibraryTableViewController: CoreDataTableViewController {
         switch orderIndex {
         case 0:
             // Books number in tag
-            return model.bookCountForTag(model.tags[section])
+            return (fetchedResultsController?.sections?[section].numberOfObjects)!
 
         case 1:
-            return model.booksCount
+            return (fetchedResultsController?.fetchedObjects?.count)!
 
         default:
             // Books number in tag
-            return model.bookCountForTag(model.tags[section])
+            return (fetchedResultsController?.sections?[section].numberOfObjects)!
         }
     }
 
@@ -167,16 +168,19 @@ class LibraryTableViewController: CoreDataTableViewController {
 
             switch orderIndex {
             case 0:
-                return model.tags[section].tag
+                let bookTag = fetchedResultsController?.sections?[section].objects?.first as! BookTag
+                return bookTag.tag?.name?.capitalized
+                
 
             case 1:
                 return "Books by name"
 
             default:
-                return model.tags[section].tag
+                let bookTag = fetchedResultsController?.sections?[section].objects?.first as! BookTag
+                return bookTag.tag?.name?.capitalized
             }
     }
-*/
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -231,15 +235,15 @@ class LibraryTableViewController: CoreDataTableViewController {
             /////////
             
             let fr2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
-            let primarySortDescriptor = NSSortDescriptor(key: "tag", ascending: true)
-            // let secondarySortDescriptor = NSSortDescriptor(key: "title", ascending: true)
-            //fr.sortDescriptors = [primarySortDescriptor, secondarySortDescriptor]
+            let primarySortDescriptor = NSSortDescriptor(key: "tag.name", ascending: true)
+           // let secondarySortDescriptor = NSSortDescriptor(key: "book", ascending: true)
+           // fr2.sortDescriptors = [primarySortDescriptor, secondarySortDescriptor]
             fr2.sortDescriptors = [primarySortDescriptor]
             
             let frc2 = NSFetchedResultsController(
                 fetchRequest: fr2,
                 managedObjectContext: context,
-                sectionNameKeyPath: nil,
+                sectionNameKeyPath: "tag.name",
                 cacheName: nil)
             
             /////////

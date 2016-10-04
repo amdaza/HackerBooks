@@ -73,15 +73,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ////
             
             let fr2 = NSFetchRequest<BookTag>(entityName: BookTag.entityName)
-            let primarySortDescriptor = NSSortDescriptor(key: "tag", ascending: true)
-            // let secondarySortDescriptor = NSSortDescriptor(key: "title", ascending: true)
-            //fr.sortDescriptors = [primarySortDescriptor, secondarySortDescriptor]
+            let primarySortDescriptor = NSSortDescriptor(key: "tag.name", ascending: true)
+           // let secondarySortDescriptor = NSSortDescriptor(key: "book", ascending: true)
+           // fr2.sortDescriptors = [primarySortDescriptor, secondarySortDescriptor]
             fr2.sortDescriptors = [primarySortDescriptor]
             
             let frc2 = NSFetchedResultsController(
                 fetchRequest: fr2,
                 managedObjectContext: model.context,
-                sectionNameKeyPath: nil,
+                sectionNameKeyPath: "tag.name",
                 cacheName: nil)
  
       
