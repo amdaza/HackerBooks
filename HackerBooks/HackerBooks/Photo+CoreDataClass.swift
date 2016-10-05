@@ -170,14 +170,14 @@ public class Photo: NSManagedObject {
                 DispatchQueue.main.async {
                     self.image = img
                     self.loaded = true
-                   /*
+                   
                     // Notify
                     let nc = NotificationCenter.default
                     let notif = Notification(name: Notification.Name(rawValue: ImageDidChangeNotification), object: self,
-                                             userInfo: [ImageKey: self.remoteUrl.path])
+                                             userInfo: [ImageKey: self.remoteUrl])
                     
                     nc.post(notif)
-                    */
+                    
                 }
             } else {
                 //throw HackerBooksError.resourcePointedByUrLNotReachable

@@ -184,13 +184,13 @@ class LibraryTableViewController: CoreDataTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-/*
+
         // Subscribe
         let nc = NotificationCenter.default
 
         // Subscribe to image updates
         nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: ImageDidChangeNotification), object: nil)
-
+/*
         // Subscribe to favourite updates
         nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: FavouriteDidChangeNotification), object: nil)
 */
@@ -204,13 +204,13 @@ class LibraryTableViewController: CoreDataTableViewController {
         nc.removeObserver(self)
     }
 
-/*
+
     @objc func libraryDidChange(_ notification: Notification) {
 
         self.tableView.reloadData()
 
     }
-*/
+
     
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
