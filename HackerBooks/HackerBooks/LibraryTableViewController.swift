@@ -190,10 +190,10 @@ class LibraryTableViewController: CoreDataTableViewController {
 
         // Subscribe to image updates
         nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: ImageDidChangeNotification), object: nil)
-/*
+
         // Subscribe to favourite updates
         nc.addObserver(self, selector: #selector(LibraryTableViewController.libraryDidChange(_:)), name: NSNotification.Name(rawValue: FavouriteDidChangeNotification), object: nil)
-*/
+
     }
 
     override func viewDidDisappear(_ animated: Bool) {

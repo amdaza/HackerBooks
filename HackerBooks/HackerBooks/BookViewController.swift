@@ -76,14 +76,14 @@ class BookViewController: UIViewController {
             model.favourite = false
         }
 
-/*
+
         // Notify
         let nc = NotificationCenter.default
         let notif = Notification(name: Notification.Name(rawValue: FavouriteDidChangeNotification), object: self,
             userInfo: [FavouriteKey: model.index])
 
         nc.post(notif)
-*/
+
     }
 
 
