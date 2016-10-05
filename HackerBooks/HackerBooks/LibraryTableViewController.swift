@@ -17,7 +17,7 @@ class LibraryTableViewController: CoreDataTableViewController {
 
     // MARK: - Properties
 
-   // var delegate: LibraryTableViewControllerDelegate?
+    var delegate: LibraryTableViewControllerDelegate?
 
     var orderIndex: Int = 0
   
@@ -114,8 +114,8 @@ class LibraryTableViewController: CoreDataTableViewController {
             }
 
             // Notify delegate
-           // delegate?.libraryTableViewController(self, didSelectBook: book)
-/*
+            delegate?.libraryTableViewController(self, didSelectBook: book)
+
             // Send same info via notification
             let nc = NotificationCenter.default
             let notif = Notification(name: Notification.Name(rawValue: BookDidChangeNotification),
@@ -123,7 +123,7 @@ class LibraryTableViewController: CoreDataTableViewController {
 
             nc.post(notif)
  
- */
+ 
         let bookVC = BookViewController(model: book)
         
         navigationController?.pushViewController(bookVC, animated: true)
