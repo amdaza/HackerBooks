@@ -22,6 +22,11 @@ class NoteViewController: UIViewController {
     @IBAction func deleteNote(_ sender: AnyObject) {
     }
     
+    @IBAction func addPhoto(_ sender: AnyObject) {
+        
+        let pVC = PhotoViewController(model: model)
+        navigationController?.pushViewController(pVC, animated: true)
+    }
     
     // MARK: - Initialization
     init(model: Note) {

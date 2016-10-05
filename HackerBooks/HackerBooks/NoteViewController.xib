@@ -26,6 +26,12 @@
                                 <action selector="saveNote:" destination="-1" id="TvH-LI-jZi"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="yPQ-oM-P4K"/>
+                        <barButtonItem title="Photo 🏝" id="Akf-Jg-5ST">
+                            <connections>
+                                <action selector="addPhoto:" destination="-1" id="zzE-rx-qBM"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="h3N-vj-0Xr"/>
                         <barButtonItem title="Delete ❌" id="Oh5-Xd-4Ey">
                             <connections>
