@@ -43,7 +43,15 @@ class NotesTableViewController: CoreDataTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "HackerBooks"
+        let indx = IndexPath(row: 0, section: 0)
+        
+        if let aux = fetchedResultsController?.object(at: indx) as? Note,
+            let book = aux.book{
+            
+            self.title = "Notes in " + book.title
+        }
+        
+        self.title = "Notes"
     }
     
     override func didReceiveMemoryWarning() {
