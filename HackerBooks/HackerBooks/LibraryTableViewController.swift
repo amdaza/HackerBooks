@@ -17,7 +17,7 @@ class LibraryTableViewController: CoreDataTableViewController {
 
     // MARK: - Properties
 
-    var delegate: LibraryTableViewControllerDelegate?
+    //var delegate: LibraryTableViewControllerDelegate?
 
     var orderIndex: Int = 0
   
@@ -100,7 +100,7 @@ class LibraryTableViewController: CoreDataTableViewController {
         let book : Book
 
         
-            switch orderIndex {
+        switch orderIndex {
             case 0:
                 let bookTag = fetchedResultsController?.object(at: indexPath) as! BookTag
                 book = bookTag.book!
@@ -111,22 +111,38 @@ class LibraryTableViewController: CoreDataTableViewController {
             default:
                 let bookTag = fetchedResultsController?.object(at: indexPath) as! BookTag
                 book = bookTag.book!
-            }
-
-            // Notify delegate
-            delegate?.libraryTableViewController(self, didSelectBook: book)
-
-            // Send same info via notification
-            let nc = NotificationCenter.default
-            let notif = Notification(name: Notification.Name(rawValue: BookDidChangeNotification),
-                object: self, userInfo: [BookKey: book])
-
-            nc.post(notif)
- 
- 
-        let bookVC = BookViewController(model: book)
+        }
         
-        navigationController?.pushViewController(bookVC, animated: true)
+        switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                // It's an iPhone
+                let bookVC = BookViewController(model: book)
+            
+                navigationController?.pushViewController(bookVC, animated: true)
+            
+            case .pad:
+                // It's an iPad
+                // Notify delegate
+                //delegate?.libraryTableViewController(didSelectBook: book)
+            
+                // Send same info via notification
+                let nc = NotificationCenter.default
+                let notif = Notification(name: Notification.Name(rawValue: BookDidChangeNotification),
+                                     object: self, userInfo: [BookKey: book])
+            
+                nc.post(notif)
+            
+            default:
+                // Uh, oh! What could it be? Let's assume phone
+                let bookVC = BookViewController(model: book)
+                
+                navigationController?.pushViewController(bookVC, animated: true)
+        }
+
+        
+ 
+ 
+        
 
     }
 
@@ -249,29 +265,25 @@ class LibraryTableViewController: CoreDataTableViewController {
             /////////
             
             switch orderIndex {
-            case 0:
-                self.fetchedResultsController = frc2 as? NSFetchedResultsController<NSFetchRequestResult>
+                case 0:
+                    self.fetchedResultsController = frc2 as? NSFetchedResultsController<NSFetchRequestResult>
                 
-            case 1:
-                self.fetchedResultsController = frc as? NSFetchedResultsController<NSFetchRequestResult>
+                case 1:
+                    self.fetchedResultsController = frc as? NSFetchedResultsController<NSFetchRequestResult>
                 
-            default:
-                self.fetchedResultsController = frc as? NSFetchedResultsController<NSFetchRequestResult>
+                default:
+                    self.fetchedResultsController = frc as? NSFetchedResultsController<NSFetchRequestResult>
             }
-
-        
         }
-        
-        
-        
 
         self.tableView.reloadData()
     }
  
 }
 
-protocol LibraryTableViewControllerDelegate {
+/*
+public protocol LibraryTableViewControllerDelegate : class {
 
-    func libraryTableViewController(_ vc: LibraryTableViewController,
-        didSelectBook book: Book)
+    func libraryTableViewController(didSelectBook book: Book)
 }
+*/

@@ -113,6 +113,9 @@ class BookViewController: UIViewController {
         let nc = NotificationCenter.default
 
         nc.addObserver(self, selector: #selector(BookViewController.imageDidChange(_:)), name: NSNotification.Name(rawValue: ImageDidChangeNotification), object: nil)
+        
+        
+        nc.addObserver(self, selector: #selector(BookViewController.bookDidChange(_:)), name: NSNotification.Name(rawValue: BookDidChangeNotification), object: nil)
 
 
         // Sync
@@ -145,12 +148,26 @@ class BookViewController: UIViewController {
         }
     }
     
+    @objc func bookDidChange(_ notification: Notification) {
+        
+        // Get user info
+        let info = (notification as NSNotification).userInfo!
+        
+        // Get book
+        let book = info[BookKey] as? Book
+        
+        // Reload model
+        model = book!
+        
+        // Sync
+        syncModelWithView()
+    }
+    
 }
 
-
+/*
 extension BookViewController: LibraryTableViewControllerDelegate {
-    func libraryTableViewController(_ vc: LibraryTableViewController,
-        didSelectBook book: Book) {
+    func libraryTableViewController(didSelectBook book: Book) {
 
             // Update model
             model = book
@@ -161,3 +178,4 @@ extension BookViewController: LibraryTableViewControllerDelegate {
             syncModelWithView()
     }
 }
+ */
