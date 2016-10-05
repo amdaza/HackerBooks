@@ -20,6 +20,8 @@ class NoteViewController: UIViewController {
     }
     
     @IBAction func deleteNote(_ sender: AnyObject) {
+        model.managedObjectContext?.delete(model)
+        let _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func addPhoto(_ sender: AnyObject) {

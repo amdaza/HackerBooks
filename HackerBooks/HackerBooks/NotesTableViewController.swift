@@ -73,6 +73,8 @@ class NotesTableViewController: CoreDataTableViewController {
             
             self.title = "Notes in " + bookTitle
         }
+        
+        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
