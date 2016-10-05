@@ -215,15 +215,15 @@ class LibraryTableViewController: CoreDataTableViewController {
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl){
         self.orderIndex = sender.selectedSegmentIndex
         
-        // Create fetchRequest
+        if let  context = fetchedResultsController?.managedObjectContext {
+            
+            // Create fetchRequest
+            let fr = NSFetchRequest<Book>(entityName: Book.entityName)
+            fr.fetchBatchSize = 50 // de 50 en 50
         
-        let fr = NSFetchRequest<Book>(entityName: Book.entityName)
-        fr.fetchBatchSize = 50 // de 50 en 50
-        
-        fr.sortDescriptors = [NSSortDescriptor(key: "title",
+            fr.sortDescriptors = [NSSortDescriptor(key: "title",
                                                ascending: false)]
         
-        if let  context = fetchedResultsController?.managedObjectContext {
             
             // Create fetchedResultsCtrl
             let frc = NSFetchedResultsController(fetchRequest: fr,
