@@ -13,10 +13,6 @@ import CoreData
 
 class NotesTableViewController: CoreDataTableViewController {
     
-    // MARK: - Properties
-    
-    
-    
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -48,17 +44,6 @@ class NotesTableViewController: CoreDataTableViewController {
         super.viewDidLoad()
         
         self.title = "HackerBooks"
-        
-        // Trying UISegmentedControl
-        //let frame = UIScreen.mainScreen().bounds
-        let items = ["HackerBooks by Tags", "HackerBooks by Name"]
-        let sc = UISegmentedControl(items: items)
-        
-        sc.selectedSegmentIndex = 0
-        sc.addTarget(self, action: #selector(LibraryTableViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
-        
-        
-        self.navigationItem.titleView = sc
     }
     
     override func didReceiveMemoryWarning() {

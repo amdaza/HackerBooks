@@ -43,11 +43,22 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
             // Push to navigation controller
             navigationController?.pushViewController(notesVC, animated: true)
         } else {
+            /*
             let alertController = UIAlertController(title: "🙃", message:
                 "No notes to display", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(alertController, animated: true, completion: nil)
+ */
+            // Add note
+            let _ = Note(book: model, inContext: model.managedObjectContext!)
+            
+            
+            // Create notes view controller
+            let notesVC = NotesTableViewController(fetchedResultsController: frc as! NSFetchedResultsController<NSFetchRequestResult>, style: .plain)
+            
+            // Push to navigation controller
+            navigationController?.pushViewController(notesVC, animated: true)
         }
         
     }

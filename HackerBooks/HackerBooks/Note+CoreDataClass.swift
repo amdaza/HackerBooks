@@ -27,6 +27,7 @@ public class Note: NSManagedObject {
         self.init(entity: ent, insertInto: context)
         
         // Assign properties
+        self.text = ""
         self.book = book
         creationDate = NSDate()
         modificationDate = NSDate()
@@ -45,6 +46,8 @@ public class Note: NSManagedObject {
         
         self.init(entity: ent, insertInto: context)
         
+        // Assign properties
+        self.text = ""
         self.book = book
         creationDate = NSDate()
         modificationDate = NSDate()
