@@ -43,14 +43,6 @@ class NotesTableViewController: CoreDataTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let indx = IndexPath(row: 0, section: 0)
-        
-        if let aux = fetchedResultsController?.object(at: indx) as? Note,
-            let book = aux.book{
-            
-            self.title = "Notes in " + book.title
-        }
-        
         self.title = "Notes"
     }
     
@@ -58,7 +50,6 @@ class NotesTableViewController: CoreDataTableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: - Table view delegate
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
         
@@ -71,12 +62,17 @@ class NotesTableViewController: CoreDataTableViewController {
         
     }
     
-    // MARK: - Table view data source
-
-  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let indx = IndexPath(row: 0, section: 0)
+        
+        if let aux = fetchedResultsController?.object(at: indx) as? Note,
+            let bookTitle = aux.book?.title{
+            
+            self.title = "Notes in " + bookTitle
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
