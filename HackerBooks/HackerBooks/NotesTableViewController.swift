@@ -57,9 +57,9 @@ class NotesTableViewController: CoreDataTableViewController {
         // Get note
         let note = fetchedResultsController?.object(at: indexPath) as! Note
         
-      //  let noteVC = NoteViewController(model: note)
+        let noteVC = NoteViewController(model: note)
         
-     //   navigationController?.pushViewController(noteVC, animated: true)
+        navigationController?.pushViewController(noteVC, animated: true)
         
     }
     

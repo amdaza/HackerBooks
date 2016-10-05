@@ -26,40 +26,47 @@ class PDFViewController: UIViewController, UIWebViewDelegate {
         req.fetchBatchSize = 50 // de 50 en 50
         
         req.sortDescriptors = [NSSortDescriptor(key: "modificationDate",
-                                               ascending: false)]
+                                               ascending: true)]
         
         let frc = NSFetchedResultsController(fetchRequest: req,
                                              managedObjectContext: model.managedObjectContext!,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         
-        if frc.fetchedObjects != nil,
-            let count = frc.fetchedObjects?.count,
-            count > 0 {
+        do{
+           try frc.performFetch()
             
-            // Create notes view controller
-            let notesVC = NotesTableViewController(fetchedResultsController: frc as! NSFetchedResultsController<NSFetchRequestResult>, style: .plain)
+            if let count = frc.fetchedObjects?.count,
+                count > 0 {
+                
+                // Create notes view controller
+                let notesVC = NotesTableViewController(fetchedResultsController: frc as! NSFetchedResultsController<NSFetchRequestResult>, style: .plain)
+                
+                // Push to navigation controller
+                navigationController?.pushViewController(notesVC, animated: true)
+            } else {
+                
+                // Add note
+                let _ = Note(book: model, inContext: model.managedObjectContext!)
+                
+                
+                // Create notes view controller
+                let notesVC = NotesTableViewController(fetchedResultsController: frc as! NSFetchedResultsController<NSFetchRequestResult>, style: .plain)
+                
+                // Push to navigation controller
+                navigationController?.pushViewController(notesVC, animated: true)
+            }
+
+        } catch {
             
-            // Push to navigation controller
-            navigationController?.pushViewController(notesVC, animated: true)
-        } else {
-            /*
-            let alertController = UIAlertController(title: "🙃", message:
-                "No notes to display", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+             let alertController = UIAlertController(title: "🙃", message:
+             "Error trying to get notes", preferredStyle: UIAlertControllerStyle.alert)
+             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+             
+             self.present(alertController, animated: true, completion: nil)
             
-            self.present(alertController, animated: true, completion: nil)
- */
-            // Add note
-            let _ = Note(book: model, inContext: model.managedObjectContext!)
-            
-            
-            // Create notes view controller
-            let notesVC = NotesTableViewController(fetchedResultsController: frc as! NSFetchedResultsController<NSFetchRequestResult>, style: .plain)
-            
-            // Push to navigation controller
-            navigationController?.pushViewController(notesVC, animated: true)
         }
+        
         
     }
 
